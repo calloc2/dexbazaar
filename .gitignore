@@ -1,0 +1,61 @@
+# Python/Django
+*.log
+*.pot
+*.pyc
+*.pyo
+__pycache__/
+db.sqlite3
+venv/
+*.env
+*.local
+*.pid
+*.sqlite3
+media/
+staticfiles/
+
+# Angular/Ionic
+node_modules/
+dist/
+out-tsc/
+.angular/
+www/
+platforms/
+plugins/
+.sourcemaps
+.versions
+coverage/
+
+# Capacitor
+ios/
+android/
+.idea/
+.vscode/
+*.xcworkspace
+*.xcuserstate
+*.xcodeproj
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE settings (IntelliJ, VSCode, etc.)
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# Dependency directories
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Miscellaneous
+.sass-cache/
+connect.lock
+libpeerconnection.log
+testem.log
+typings/
+.history/
+.nx/
+.nx/cache

@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@angular/common": "^7.2.16",
+    "@angular/http": "^7.2.16",
+    "nvm": "^0.0.4"
+  }
+}
