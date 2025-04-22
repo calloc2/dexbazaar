@@ -1,4 +1,4 @@
 django
 djangorestframework
 psycopg2
-python-decouple
+python-dotenv
