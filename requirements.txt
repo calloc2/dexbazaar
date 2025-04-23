@@ -1,12 +1,9 @@
 asgiref==3.8.1
-decouple==0.0.7
 Django==5.2
-django-cors-headers==4.5.0
+django-cors-headers==4.7.0
 djangorestframework==3.16.0
-legacy-cgi==2.6.3
-psycopg2-binary==2.9.10
-python-decouple==3.8
+psycopg2==2.9.10
 python-dotenv==1.1.0
-pytz==2025.2
 sqlparse==0.5.3
+typing_extensions==4.13.2
 tzdata==2025.2
