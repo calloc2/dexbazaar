@@ -1,0 +1,26 @@
+.custon-content {
+    width: 80%; /* Largura reduzida para 80% da tela */
+    max-width: 600px; /* Define um limite máximo de largura */
+    height: auto; /* Altura ajustada automaticamente ao conteúdo */
+    background-color: rgba(255, 255, 255, 0.8); /* Cor de fundo com transparência */
+    border-radius: 10px; /* Bordas arredondadas */
+    padding: 20px; /* Espaçamento interno */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra da caixa */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto; /* Margem automática para centralizar horizontalmente */
+}
+
+.register-btn {
+    width: 100%; /* Largura total do botão */
+    height: 50px; /* Altura fixa do botão */
+    background-color: #FF3D00; /* Cor de fundo do botão */
+    color: white; /* Cor do texto do botão */
+    border: none; /* Sem borda */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-size: 16px; /* Tamanho da fonte */
+    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+    transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
+}

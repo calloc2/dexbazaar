@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>Register</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="custom-content">
+    <form (ngSubmit)="onRegister()">
+      <ion-item>
+        <ion-label position="floating">Primeiro Nome</ion-label>
+        <ion-input [(ngModel)]="firstName" name="firstName" required></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="floating">Último Nome</ion-label>
+        <ion-input [(ngModel)]="lastName" name="lastName" required></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="floating">Nome de Usuário</ion-label>
+        <ion-input [(ngModel)]="username" name="username" required></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="floating">Confirmar Senha</ion-label>
+        <ion-input [(ngModel)]="confirmPassword" name="confirmPassword" type="password" required></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="floating">Email</ion-label>
+        <ion-input [(ngModel)]="email" name="email" type="email" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-checkbox [(ngModel)]="termsAccepted" name="termsAccepted" required></ion-checkbox>
+        <ion-label>Eu aceito os <a href="/terms">termos de serviço</a></ion-label>
+      </ion-item>
+  
+      <ion-button expand="block" class="register-btn" type="submit">Cadastrar</ion-button>
+    </form>
+  </ion-content>
