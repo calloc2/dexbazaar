@@ -16,8 +16,11 @@
       <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
     </ion-item>
 
-    <ion-button expand="block" type="submit">Login</ion-button>
-    <ion-button [routerLink]="/register" expand="block" type="button">Register</ion-button>
-    <ion-button expand="block" type="button" (click)="onForgotPassword()">Forgot Password</ion-button>
+   
+  <ion-button expand="block" type="submit">Login</ion-button>
   </form>
+  
+
+  <ion-label><a href="/register">Criar uma Conta</a></ion-label>
+
 </ion-content>
