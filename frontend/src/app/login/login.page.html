@@ -1,9 +1,3 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>A.F.I.M</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="ion-padding">
   <div class="login-container animate__animated animate__fadeIn">
     <ion-card>
@@ -24,6 +18,12 @@
             <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
           </ion-item>
 
-    <ion-button expand="block" type="submit">Login</ion-button>
-  </form>
+          <ion-button expand="block" type="submit">Login</ion-button>
+          <a href="/register">
+            <ion-button expand="block" fill="clear">Registrar</ion-button>
+          </a>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
