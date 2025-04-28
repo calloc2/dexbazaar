@@ -58,18 +58,14 @@ Certifique-se de ter os seguintes itens instalados:
       CREATE USER postgres WITH PASSWORD 'postgres';
       GRANT ALL PRIVILEGES ON DATABASE afim TO postgres;
       ```
-    - Atualize as configurações no arquivo `backend/settings.py`:
-      ```python
-      DATABASES = {
-          'default': {
-              'ENGINE': 'django.db.backends.postgresql',
-              'NAME': 'afim',
-              'USER': 'postgres',
-              'PASSWORD': 'postgres',
-              'HOST': 'localhost',
-              'PORT': 5432,
-          }
-      }
+    - Crie um arquivo .env na pasta raíz do projeto com as credenciais do banco de dados, arquivo de exemplo: `env.example`:
+      ```bash
+            DB_ENGINE=django.db.backends.postgresql
+            DB_NAME=afim
+            DB_USER=postgres
+            DB_PASSWORD=postgres
+            DB_HOST=localhost
+            DB_PORT=5432
       ```
 
 4. **Aplique as migrações do banco de dados:**
