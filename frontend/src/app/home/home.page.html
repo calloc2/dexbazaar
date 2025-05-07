@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,12 +9,24 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Home</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <h1>Welcome to the Home Page!</h1>
+    <p>Use the navigation menu to explore the app.</p>
+  </div>
+
+  <div style="border: 1px solid #ccc; padding: 10px; margin-top: 20px;">
+    <a href="/client">
+      <ion-button expand="full">Go to Client Page</ion-button>
+    </a>
+    <a href="/list-houses">
+      <ion-button expand="full">Meus Imóveis</ion-button>
+    </a>
+    <a href="/register-house">
+      <ion-button expand="full">Registrar Novo Imóvel</ion-button>
+    </a>
   </div>
 </ion-content>

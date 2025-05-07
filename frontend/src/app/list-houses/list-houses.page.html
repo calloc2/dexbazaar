@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>List of Houses</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let house of houses">
+      <ion-label>
+        <h2>{{ house.title }}</h2>
+        <p>{{ house.description }}</p>
+        <p><strong>Price:</strong> {{ house.price | currency }}</p>
+        <p><strong>Location:</strong> {{ house.location }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
