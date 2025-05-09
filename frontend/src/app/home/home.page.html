@@ -1,20 +1,44 @@
-<ion-header [translucent]="true">
+<ion-header>
+  <ion-toolbar>
+    <ion-header>
   <ion-toolbar>
     <ion-title>
-      Blank
+      A.F.I.M
     </ion-title>
+    <ion-searchbar placeholder="Pesquisar"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-menu contentId="main-content" side="start" menuId="main-menu">
+  <ion-header>
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-list>
+      <ion-item button routerLink="/home">Home</ion-item>
+      <ion-item button routerLink="/register">Registrar</ion-item>
+      <ion-item button routerLink="/login">Login</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Bem-vindo ao A.F.I.M</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
-</ion-content>
+  <ion-content class="ion-padding">
+    <div id="container">
+      <h1>Bem-vindo ao A.F.I.M</h1>
+      <p>Esta é uma página de exemplo.</p>
+      <p>Você pode adicionar seu conteúdo aqui.</p>
+    </div>
+  </ion-content>
+</div>
