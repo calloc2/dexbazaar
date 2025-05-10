@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput, IonItem, IonLabel } from '@ionic/angular/standalone';
+import { IonicModule } from '@ionic/angular';
+import { IonContent, IonTitle, IonToolbar, IonButton, IonInput, IonItem, IonLabel } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-register',
@@ -15,8 +16,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput, IonIt
   imports: [
     CommonModule, 
     FormsModule,  
-    HttpClientModule, 
-    IonHeader,    
+    HttpClientModule,    
     IonToolbar,
     IonTitle,
     IonContent,
@@ -24,6 +24,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput, IonIt
     IonLabel,
     IonInput,
     IonButton,
+    IonicModule
   ],
 })
 export class RegisterPage {

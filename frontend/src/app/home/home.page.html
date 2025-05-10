@@ -1,44 +1,45 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      A.F.I.M
-    </ion-title>
-    <ion-searchbar placeholder="Pesquisar"></ion-searchbar>
+  <ion-toolbar class="toolbar">
+    <div class="header-content">
+      <ion-title class="header-title">A.F.I.M</ion-title>
+      <ion-searchbar class="custom-searchbar" placeholder="Pesquisar"></ion-searchbar>
+       <ion-button fill="clear" routerLink="/login" class="login-button">
+        <img src="..\assets\icon\imgs\perfil-icon.png" alt="Login" class="login-icon">
+      </ion-button>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-menu contentId="main-content" side="start" menuId="main-menu">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content class="ion-padding">
-    <ion-list>
-      <ion-item button routerLink="/home">Home</ion-item>
-      <ion-item button routerLink="/register">Registrar</ion-item>
-      <ion-item button routerLink="/login">Login</ion-item>
-    </ion-list>
-  </ion-content>
-</ion-menu>
+<ion-content class="ion-padding">
+  <div class="promotion">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Promoção Mensal</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+          <img src="..\assets\icon\imgs\promo.png" alt="Promoção do Dia" class="promotion-image">
+          <div class="promotion-text">
+            <p>Desconto de 20% em todos os produtos!</p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
 
-<div class="ion-page" id="main-content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>Bem-vindo ao A.F.I.M</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-content class="ion-padding">
-    <div id="container">
-      <h1>Bem-vindo ao A.F.I.M</h1>
-      <p>Esta é uma página de exemplo.</p>
-      <p>Você pode adicionar seu conteúdo aqui.</p>
+<ion-content class="ion-padding">
+  <div id="container">
+    <img src="..\assets\icon\imgs\predio.jpg" alt="Logo" class="building-image">
+    <div class="container-content">
+      <!-- Conteúdo do container -->
+      <ion-card *ngFor="let card of cards">
+        <ion-card-header>
+          <ion-card-title>{{ card.title }}</ion-card-title>
+          <ion-card-subtitle>{{ card.price | currency }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          {{ card.description }}
+        </ion-card-content>
+      </ion-card>
     </div>
-  </ion-content>
-</div>
+  </div>
+</ion-content>
