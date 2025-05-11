@@ -3,9 +3,16 @@
     <div class="header-content">
       <ion-title class="header-title">A.F.I.M</ion-title>
       <ion-searchbar class="custom-searchbar" placeholder="Pesquisar"></ion-searchbar>
-       <ion-button fill="clear" routerLink="/login" class="login-button">
-        <img src="..\assets\icon\imgs\perfil-icon.png" alt="Login" class="login-icon">
-      </ion-button>
+      <a href="/kart">
+        <ion-button fill="clear" class="kart">
+          <img src="..\assets\icon\imgs\carrinho-icon.png" alt="kart" class="kart" height="40px">
+        </ion-button>
+      </a>
+      <a href="/login">
+        <ion-button fill="clear" class="home-button">
+          <img src="..\assets\icon\imgs\perfil-icon.png" alt="Home" class="home-icon">
+        </ion-button>
+      </a>
     </div>
   </ion-toolbar>
 </ion-header>
@@ -17,16 +24,15 @@
         <ion-card-title>Promoção Mensal</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-          <img src="..\assets\icon\imgs\promo.png" alt="Promoção do Dia" class="promotion-image">
-          <div class="promotion-text">
-            <p>Desconto de 20% em todos os produtos!</p>
+        <img src="..\assets\icon\imgs\promo.png" alt="Promoção do Dia" class="promotion-image">
+        <div class="promotion-text">
+          <p>Desconto de 20% em todos os produtos!</p>
         </div>
       </ion-card-content>
     </ion-card>
   </div>
-</ion-content>
 
-<ion-content class="ion-padding">
+<h3 class="home-title">Produtos em Destaque</h3>
   <div id="container">
     <img src="..\assets\icon\imgs\predio.jpg" alt="Logo" class="building-image">
     <div class="container-content">

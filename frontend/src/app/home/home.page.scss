@@ -15,19 +15,22 @@
 .promotion-content {
   display: flex; /* Alinha os itens horizontalmente */
   align-items: center; /* Centraliza verticalmente */
-  gap: 15px; /* Espaçamento entre a imagem e o texto */
+ 
 }
 
 .promotion-image {
-  width: 250px; /* Define a largura da imagem */
+  width: 500px; /* Define a largura da imagem */
   height: 500x; /* Mantém a proporção da imagem */
   border-radius: 8px; /* Opcional: bordas arredondadas */
+  object-fit: cover; /* Ajusta a imagem para caber no espaço definido */
+  align-items: right; /* Alinha a imagem à direita */
 }
 
 .promotion-text {
   flex: 1; /* Faz o texto ocupar o espaço restante */
-  text-align: left; /* Alinha o texto à esquerda */
+  text-align: center; /* Alinha o texto no centro */
   color: #07F542;
+  font-size: 400px; /* Tamanho do texto */
 }
 
 .toolbar .header-content {
