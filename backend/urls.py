@@ -17,10 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from rest_framework.authtoken.views import obtain_auth_token
-from .views import RegisterUserView
+from .views import RegisterUserView, BlockchainBalanceView, BlockchainTransactionView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/login/', obtain_auth_token, name='api_login'),
     path('api/users/register/', RegisterUserView.as_view(), name='api_register'),
+    path('api/blockchain/balance/', BlockchainBalanceView.as_view(), name='blockchain_balance'),
+    path('api/blockchain/transaction/', BlockchainTransactionView.as_view(), name='blockchain_transaction'),
 ]
