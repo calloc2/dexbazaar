@@ -70,3 +70,10 @@
   flex: 1; /* Faz o conteúdo ocupar o espaço restante */
   text-align: left; /* Alinha o texto à esquerda */
 }
+
+.eth-logo {
+  width: 16px; /* Define a largura da logo */
+  height: auto; /* Define a altura da logo */
+  vertical-align: middle; /* Alinha verticalmente com o texto */
+  margin-left: 4px; /* Adiciona um pequeno espaçamento à esquerda */
+}
