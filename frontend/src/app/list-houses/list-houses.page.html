@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <div class="header-content">
+      <ion-title class="header-title">A.F.I.M</ion-title>
+      <ion-searchbar class="custom-searchbar" placeholder="Pesquisar"></ion-searchbar>
+      <a routerLink="/home">
+        <ion-button fill="clear" class="kart">
+          <img src="..\assets\icon\imgs\curved-arrow-icon.png" alt="back" class="kart" height="40px">
+        </ion-button>
+      </a>
+      <ion-button expand="block" routerLink="/register-house" class="register-button">
+        Registrar uma Nova Casa
+      </ion-button>
+      <a href="/login">
+        <ion-button fill="clear" class="home-button">
+          <img src="..\assets\icon\imgs\perfil-icon.png" alt="Home" class="home-icon">
+        </ion-button>
+      </a>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let house of houses">
+      <ion-label>
+        <h2>{{ house.title }}</h2>
+        <p>{{ house.description }}</p>
+        <p><strong>Price:</strong> {{ house.price | currency }}</p>
+        <p><strong>Location:</strong> {{ house.location }}</p>
+      </ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="house.isPublic"></ion-checkbox>
+      <ion-label slot="start">Público</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

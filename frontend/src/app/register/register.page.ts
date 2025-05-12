@@ -5,7 +5,10 @@ import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput, IonItem, IonLabel, AlertController } from '@ionic/angular/standalone';
+import { IonicModule } from '@ionic/angular';
+import { IonContent, IonTitle, IonToolbar, IonButton, IonInput, IonItem, IonLabel } from '@ionic/angular/standalone';
+import { IonHeader } from '@ionic/angular/standalone';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +20,9 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput, IonIt
     FormsModule,
     HttpClientModule,
     IonHeader,
+    CommonModule, 
+    FormsModule,  
+    HttpClientModule,    
     IonToolbar,
     IonTitle,
     IonContent,
@@ -24,6 +30,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput, IonIt
     IonLabel,
     IonInput,
     IonButton,
+    IonicModule
   ],
 })
 export class RegisterPage {
