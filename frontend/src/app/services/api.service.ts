@@ -17,4 +17,12 @@ export class ApiService {
   post(endpoint: string, data: any) {
     return this.http.post(`${this.apiUrl}/${endpoint}`, data);
   }
+
+  getHouses() {
+    return this.get('houses');
+  }
+
+  addHouse(houseData: any) {
+    return this.post('houses', houseData);
+  }
 }

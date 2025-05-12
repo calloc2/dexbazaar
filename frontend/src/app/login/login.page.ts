@@ -7,9 +7,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { 
   IonContent, 
-  IonHeader, 
-  IonTitle, 
-  IonToolbar, 
   IonButton, 
   IonInput, 
   IonItem, 
@@ -31,9 +28,6 @@ import {
     CommonModule, 
     FormsModule,  
     HttpClientModule, 
-    IonHeader,    
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonItem,
     IonLabel,

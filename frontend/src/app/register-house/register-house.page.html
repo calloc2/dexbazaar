@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <div class="header-content">
+      <ion-title class="header-title">A.F.I.M</ion-title>
+      <ion-searchbar class="custom-searchbar" placeholder="Pesquisar"></ion-searchbar>
+      <a routerLink="/home">
+        <ion-button fill="clear" class="kart">
+          <img src="..\assets\icon\imgs\curved-arrow-icon.png" alt="back" class="kart" height="40px">
+        </ion-button>
+      </a>
+      <a href="/login">
+        <ion-button fill="clear" class="home-button">
+          <img src="..\assets\icon\imgs\perfil-icon.png" alt="Home" class="home-icon">
+        </ion-button>
+      </a>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="houseForm" (ngSubmit)="submit()">
+    <ion-item>
+      <ion-label position="floating">Título</ion-label>
+      <ion-input formControlName="title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Descrição</ion-label>
+      <ion-textarea formControlName="description"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Preço</ion-label>
+      <ion-input type="number" formControlName="price"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Localização</ion-label>
+      <ion-input formControlName="location"></ion-input>
+    </ion-item>
+    <ion-button expand="block" type="submit" [disabled]="!houseForm.valid">Registrar Casa</ion-button>
+  </form>
+  <ion-button expand="block" routerLink="/list-houses" class="list-button">
+    Ver Listagem de Casas
+  </ion-button>
+</ion-content>
