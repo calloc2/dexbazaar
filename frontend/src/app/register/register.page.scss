@@ -11,6 +11,7 @@
     align-items: center;
     justify-content: center;
     margin: 20px auto; /* Margem automática para centralizar horizontalmente */
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .register-btn {
@@ -23,4 +24,40 @@
     font-size: 16px; /* Tamanho da fonte */
     cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
     transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
+    margin-top: 20px;
+}
+
+ion-progress-bar {
+    margin-top: 10px;
+    height: 8px;
+    border-radius: 5px;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+ion-progress-bar.low {
+    --ion-color-success: #FF3D00;
+}
+
+ion-progress-bar.medium {
+    --ion-color-success: #FFC107; 
+}
+
+ion-progress-bar.high {
+    --ion-color-success: #4CAF50; 
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+ion-select-option img {
+  vertical-align: middle;
+  margin-right: 10px;
 }
