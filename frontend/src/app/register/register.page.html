@@ -1,41 +1,75 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title>Register</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content class="custom-content">
-    <form (ngSubmit)="onRegister()">
-      <ion-item>
-        <ion-label position="floating">Primeiro Nome</ion-label>
-        <ion-input [(ngModel)]="firstName" name="firstName" required></ion-input>
-      </ion-item>
-  
-      <ion-item>
-        <ion-label position="floating">Último Nome</ion-label>
-        <ion-input [(ngModel)]="lastName" name="lastName" required></ion-input>
-      </ion-item>
-  
-      <ion-item>
-        <ion-label position="floating">Nome de Usuário</ion-label>
-        <ion-input [(ngModel)]="username" name="username" required></ion-input>
-      </ion-item>
-  
-      <ion-item>
-        <ion-label position="floating">Senha</ion-label>
-        <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
-      </ion-item>
-  
-      <ion-item>
-        <ion-label position="floating">Confirmar Senha</ion-label>
-        <ion-input [(ngModel)]="confirmPassword" name="confirmPassword" type="password" required></ion-input>
-      </ion-item>
-  
-      <ion-item>
-        <ion-label position="floating">Email</ion-label>
-        <ion-input [(ngModel)]="email" name="email" type="email" required></ion-input>
-      </ion-item>
-  
-      <ion-button expand="block" class="register-btn" type="submit">Cadastrar</ion-button>
-    </form>
-  </ion-content>
+  <ion-toolbar>
+    <ion-title>Register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="custom-content">
+  <div class="register-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Registrar</ion-card-title>
+        <ion-card-subtitle>Crie sua conta</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form (ngSubmit)="onRegister()">
+          <ion-item>
+            <ion-label position="floating">Primeiro Nome</ion-label>
+            <ion-input [(ngModel)]="firstName" name="firstName" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Último Nome</ion-label>
+            <ion-input [(ngModel)]="lastName" name="lastName" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Nome de Usuário</ion-label>
+            <ion-input [(ngModel)]="username" name="username" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Senha</ion-label>
+            <ion-input [(ngModel)]="password" name="password" type="{{passwordType}}" required (ngModelChange)="checkPasswordStrength($event)"></ion-input>
+            <ion-button fill="clear" slot="end" (click)="togglePasswordVisibility()">
+              <ion-icon [name]="passwordIcon"></ion-icon>
+            </ion-button>
+          </ion-item>
+
+          <ion-item>
+            <ion-progress-bar [value]="passwordStrength" color="success"></ion-progress-bar>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Confirmar Senha</ion-label>
+            <ion-input [(ngModel)]="confirmPassword" name="confirmPassword" type="password" required></ion-input>
+          </ion-item>
+
+          <div class="inline-fields">
+            <ion-item>
+              <ion-label position="floating">País</ion-label>
+              <ion-select [(ngModel)]="selectedCountryCode" name="countryCode" interface="popover">
+                <ion-select-option *ngFor="let country of countries" [value]="country.code">
+                  {{ country.flag }} {{ country.name }} ({{ country.code }})
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Número de Telefone</ion-label>
+              <ion-input [(ngModel)]="phoneNumber" name="phoneNumber" type="tel" required></ion-input>
+            </ion-item>
+          </div>
+
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input [(ngModel)]="email" name="email" type="email" required></ion-input>
+          </ion-item>
+
+          <ion-button expand="block" class="register-btn" type="submit">Cadastrar</ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

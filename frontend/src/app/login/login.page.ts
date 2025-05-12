@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
@@ -16,8 +16,10 @@ import {
   IonCardTitle, 
   IonCardSubtitle, 
   IonCardContent,
-  AlertController 
+  AlertController,
+  IonIcon,
 } from '@ionic/angular/standalone';
+
 
 @Component({
   selector: 'app-login',
@@ -38,7 +40,9 @@ import {
     IonCardTitle,
     IonCardSubtitle,
     IonCardContent,
+    IonIcon,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], 
 })
 export class LoginPage {
   username: string = '';
