@@ -15,9 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
+from django.views.generic import TemplateView
+from django.conf import settings
+from django.conf.urls.static import static
 from rest_framework.authtoken.views import obtain_auth_token
 from .views import RegisterUserView, BlockchainBalanceView, BlockchainTransactionView
+from .views import RegisterUserView
+from django.views.generic import TemplateView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +32,9 @@ urlpatterns = [
     path('api/users/register/', RegisterUserView.as_view(), name='api_register'),
     path('api/blockchain/balance/', BlockchainBalanceView.as_view(), name='blockchain_balance'),
     path('api/blockchain/transaction/', BlockchainTransactionView.as_view(), name='blockchain_transaction'),
+    path('', TemplateView.as_view(template_name='index.html'), name='frontend'),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+urlpatterns += [
+    re_path(r'^(?!api/).*$', TemplateView.as_view(template_name='index.html'), name='frontend'),
 ]

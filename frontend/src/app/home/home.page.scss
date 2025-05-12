@@ -1,27 +1,79 @@
+.custom-searchbar {
+  background-color: #f0f0f0; /* Cor de fundo */
+  border-radius: 8px; /* Bordas arredondadas */
+  margin: 10px; /* Espaçamento ao redor */
+  --placeholder-color: #888; /* Cor do texto do placeholder */
+  --color: #ffffff; /* Cor do texto digitado */
+  width: 500px; /* Largura fixa */
+  margin-right: auto; /* Margem automática para centralizar horizontalmente */
+}
+
+.ion-padding {
+  padding: 0 !important; /* Remove o padding padrão */
+}
+
+.promotion-content {
+  display: flex; /* Alinha os itens horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+ 
+}
+
+.promotion-image {
+  width: 500px; /* Define a largura da imagem */
+  height: 500x; /* Mantém a proporção da imagem */
+  border-radius: 8px; /* Opcional: bordas arredondadas */
+  object-fit: cover; /* Ajusta a imagem para caber no espaço definido */
+  align-items: right; /* Alinha a imagem à direita */
+}
+
+.promotion-text {
+  flex: 1; /* Faz o texto ocupar o espaço restante */
+  text-align: center; /* Alinha o texto no centro */
+  color: #07F542;
+  font-size: 400px; /* Tamanho do texto */
+}
+
+.toolbar .header-content {
+  display: flex; /* Alinha os itens horizontalmente */
+  background-color: #07F542; /* Cor de fundo da barra de ferramentas */
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: space-between; /* Garante que os itens fiquem alinhados */
+  gap: 15px; /* Espaçamento entre o título e a barra de pesquisa */
+  width: 100%; /* Garante que o conteúdo ocupe toda a largura */
+}
+
+.header-title {
+  font-size: 20px; /* Tamanho do texto do título */
+  font-weight: bold; /* Deixa o texto em negrito */
+  color: #ffffff; /* Cor do texto */
+  white-space: nowrap; /* Impede que o texto quebre em várias linhas */
+}
+
 #container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  display: flex; /* Alinha os itens horizontalmente */
+  align-items: flex-start; /* Alinha os itens ao topo */
+  gap: 20px; /* Espaçamento entre a imagem e o conteúdo */
+  width: 700px; /* Largura total */
+  padding: 20px; /* Adiciona espaçamento interno */
+  border-radius: 8px; /* Bordas arredondadas */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para destaque */
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.building-image {
+  width: 150px; /* Define a largura da imagem */
+  height: auto; /* Mantém a proporção da imagem */
+  border-radius: 8px; /* Bordas arredondadas (opcional) */
+  object-fit: cover; /* Ajusta a imagem para caber no espaço definido */
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+.container-content {
+  flex: 1; /* Faz o conteúdo ocupar o espaço restante */
+  text-align: left; /* Alinha o texto à esquerda */
 }
 
-#container a {
-  text-decoration: none;
+.eth-logo {
+  width: 16px; /* Define a largura da logo */
+  height: auto; /* Define a altura da logo */
+  vertical-align: middle; /* Alinha verticalmente com o texto */
+  margin-left: 4px; /* Adiciona um pequeno espaçamento à esquerda */
 }
