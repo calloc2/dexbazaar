@@ -5,7 +5,12 @@ import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput, IonItem, IonLabel, AlertController, IonIcon, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput, IonItem, IonLabel, AlertController, IonIcon, IonSelect, IonSelectOption, IonCard, 
+  IonCardHeader, 
+  IonCardTitle, 
+  IonCardSubtitle, 
+  IonCardContent,
+} from '@ionic/angular/standalone';
 import { IonProgressBar } from '@ionic/angular/standalone';
 
 @Component({
@@ -29,6 +34,11 @@ import { IonProgressBar } from '@ionic/angular/standalone';
     IonProgressBar,
     IonSelect,
     IonSelectOption,
+    IonCard,
+    IonCardHeader, 
+    IonCardTitle, 
+    IonCardSubtitle, 
+    IonCardContent,
   ],
 })
 export class RegisterPage {
@@ -70,9 +80,10 @@ export class RegisterPage {
 
   formatPhoneNumber() {
     if (this.selectedCountryCode && this.phoneNumber) {
-      return `${this.selectedCountryCode} ${this.phoneNumber}`;
+      // Remove qualquer caractere que não seja número
+      return `${this.selectedCountryCode}${this.phoneNumber}`.replace(/\D/g, '');
     }
-    return this.phoneNumber;
+    return this.phoneNumber ? this.phoneNumber.replace(/\D/g, '') : '';
   }
 
   togglePasswordVisibility() {
