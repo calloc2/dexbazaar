@@ -30,6 +30,8 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-x$=2t)a5yfox^6u_3%6sq4d)l@
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
+BLOCKCHAIN_PROVIDER_URL = os.getenv('BLOCKCHAIN_PROVIDER_URL')
+
 ALLOWED_HOSTS = []
 
 
