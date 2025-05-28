@@ -25,6 +25,7 @@ from .views import RegisterUserView
 from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
+from .views import ProductListCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,6 +33,7 @@ urlpatterns = [
     path('api/users/register/', RegisterUserView.as_view(), name='api_register'),
     path('api/blockchain/balance/', BlockchainBalanceView.as_view(), name='blockchain_balance'),
     path('api/blockchain/transaction/', BlockchainTransactionView.as_view(), name='blockchain_transaction'),
+    path('api/products/', ProductListCreateView.as_view(), name='product-list-create'),
     path('', TemplateView.as_view(template_name='index.html'), name='frontend'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { HouseService } from '../services/house.service';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-home',
@@ -14,18 +14,20 @@ import { HouseService } from '../services/house.service';
   imports: [CommonModule, FormsModule, IonicModule, HttpClientModule, RouterModule], 
 })
 export class HomePage implements OnInit {
-  houses: any[] = [];
+  products: any[] = [];
   ethRate: number = 0; // Cotação atual do Ethereum
 
-  constructor(private houseService: HouseService, private http: HttpClient) {}
+  constructor(private productService: ProductService, private http: HttpClient) {}
 
   ngOnInit() {
-    this.loadFeaturedHouses();
+    this.loadFeaturedProducts();
     this.fetchEthereumRate();
   }
 
-  loadFeaturedHouses() {
-    this.houses = this.houseService.getHouses();
+  loadFeaturedProducts() {
+    this.productService.getProducts().subscribe((products: any) => {
+      this.products = products;
+    });
   }
 
   fetchEthereumRate() {

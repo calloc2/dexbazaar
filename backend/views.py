@@ -2,9 +2,10 @@ from django.contrib.auth.models import User
 from users.models import UserProfile
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
-from django.contrib.auth.models import User
+from rest_framework import status, generics
 from .blockchain import Blockchain
+from .models import Product
+from .serializers import ProductSerializer
 
 class RegisterUserView(APIView):
     def post(self, request):
@@ -64,3 +65,7 @@ class BlockchainTransactionView(APIView):
             return Response({"message": "Transaction successful.", "transaction_hash": tx_hash}, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class ProductListCreateView(generics.ListCreateAPIView):
+    queryset = Product.objects.all().order_by('-created_at')
+    serializer_class = ProductSerializer

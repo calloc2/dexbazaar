@@ -34,23 +34,22 @@
   </div>
 -->
 <h3 class="home-title">Produtos em Destaque</h3>
-  <div id="container">
-    <div class="container-content">
-      <!-- Exibe a lista de casas -->
-      <ion-card *ngFor="let house of houses">
-        <ion-card-header>
-          <ion-card-title>{{ house.title }}</ion-card-title>
-          <ion-card-subtitle>
-            {{ house.price | currency }} 
-            <br>
-            (~ {{ convertToEthereum(house.price) | number:'1.4-4' }} 
-            <img src="assets/icon/ethereum-logo.png" alt="Ethereum" class="eth-logo"> ETH)  
-          </ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          {{ house.description }}
-        </ion-card-content>
-      </ion-card>
-    </div>
+<div id="container">
+  <div class="container-content">
+    <ion-card *ngFor="let product of products">
+      <ion-card-header>
+        <ion-card-title>{{ product.title }}</ion-card-title>
+        <ion-card-subtitle>
+          {{ product.price | currency }} 
+          <br>
+          (~ {{ convertToEthereum(product.price) | number:'1.4-4' }} 
+          <img src="assets/icon/ethereum-logo.png" alt="Ethereum" class="eth-logo"> ETH)  
+        </ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        {{ product.description }}
+      </ion-card-content>
+    </ion-card>
   </div>
+</div>
 </ion-content>
