@@ -1,15 +1,17 @@
-# Projeto AFIM
+# Projeto dexBazaar
 
-![AFIM](https://github.com/user-attachments/assets/dffb3ff0-efc6-4455-993e-88580e5af9eb)
+![dexbazaar](https://github.com/user-attachments/assets/bc29d4bd-e18f-4949-b29e-b0d631bfd685)
 
-O AFIM é uma plataforma global para compra e venda de imóveis internacionais que:
-- 🌍 Facilita negociações de imóveis para estrangeiros e investidores internacionais
-- 💱 Oferece conversão automática de moedas e simulações de financiamento
-- 🧭 Possui tradução automática de anúncios e suporte multilíngue
-- 🏠 Conecta compradores estrangeiros com imobiliárias e construtoras locais
-- 📊 Disponibiliza ferramentas de análise e suporte para aquisição de imóveis no exterior
 
-Este documento fornece instruções para instalar e configurar o projeto AFIM em sua máquina local.
+O dexBazaar é um marketplace descentralizado para compra e venda de produtos físicos com pagamento em criptomoedas.
+Principais características:
+
+- 🛒 Marketplace para qualquer categoria de produto, aberto para vendedores e compradores
+- 💸 Pagamento seguro via criptomoedas, com sistema de multisig e escrow
+- 🔒 Foco em privacidade e descentralização das transações
+- 🛠️ Ferramentas para gestão de anúncios, carteiras e recebíveis
+
+Este documento traz instruções para instalar e executar o projeto dexBazaar na sua máquina.
 
 ## Pré-requisitos
 
@@ -26,8 +28,8 @@ Certifique-se de ter os seguintes itens instalados:
 
 1. **Clone o repositório**
     ```bash
-    git clone https://github.com/calloc2/afim.git
-    cd afim
+        git clone https://github.com/calloc2/dexbazaar.git
+        cd dexbazaar
     ```
 
 ## Como Executar
@@ -67,6 +69,7 @@ Certifique-se de ter os seguintes itens instalados:
             DB_HOST=localhost
             DB_PORT=5432
       ```
+    - Rode o script em backend/scripts/populate_categories.py no shell do django, para popular sua DB com as categorias.
 
 4. **Aplique as migrações do banco de dados:**
     ```bash
