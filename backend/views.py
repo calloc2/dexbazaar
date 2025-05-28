@@ -2,11 +2,11 @@ from django.contrib.auth.models import User
 from users.models import UserProfile
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status, generics
+from rest_framework import status, generics, viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .blockchain import Blockchain
-from .models import Product
-from .serializers import ProductSerializer
+from .models import Product, ProductImage
+from .serializers import ProductSerializer, ProductImageSerializer
 
 class RegisterUserView(APIView):
     def post(self, request):
@@ -74,3 +74,17 @@ class ProductListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    def create(self, request, *args, **kwargs):
+        data = request.data.copy()
+        images = request.FILES.getlist('images')
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        product = serializer.save()
+        for image in images:
+            ProductImage.objects.create(product=product, image=image)
+        return Response(self.get_serializer(product).data, status=status.HTTP_201_CREATED)

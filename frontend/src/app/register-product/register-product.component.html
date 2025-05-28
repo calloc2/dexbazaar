@@ -37,6 +37,20 @@
         <ion-select-option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</ion-select-option>
       </ion-select>
     </ion-item>
+    <ion-item>
+      <ion-label>Imagens</ion-label>
+      <input type="file" (change)="onImageSelected($event)" accept="image/*" multiple>
+    </ion-item>
+    <div class="image-preview" *ngIf="imagePreviews.length > 0">
+      <img *ngFor="let img of imagePreviews" [src]="img" class="preview-img">
+    </div>
+    <ion-item>
+      <ion-label position="floating">CEP</ion-label>
+      <ion-input type="text" formControlName="cep" maxlength="9" (ionBlur)="onCepBlur()"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="city && state">
+      <ion-text>{{ city }} / {{ state }}</ion-text>
+    </ion-item>
     <ion-button expand="block" type="submit" [disabled]="!productForm.valid">Registrar Produto</ion-button>
   </form>
   <ion-button expand="block" routerLink="/list-products" class="list-button">

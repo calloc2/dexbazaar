@@ -60,7 +60,8 @@ export class LoginPage {
       password: this.password,
     }).subscribe({
       next: async (response: any) => {
-        localStorage.setItem('token', response.token);
+        // Tenta salvar 'token', se não existir, salva 'access'
+        localStorage.setItem('token', response.token || response.access || '');
         await this.showAlert('Sucesso', 'Login realizado com sucesso!');
         this.router.navigate(['/home']);
       },

@@ -33,9 +33,9 @@ export class HomePage implements OnInit {
   fetchEthereumRate() {
     // Use a CoinGecko API para obter a cotação do Ethereum
     this.http
-      .get('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd')
+      .get('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=brl')
       .subscribe((response: any) => {
-        this.ethRate = response.ethereum.usd; // Cotação do Ethereum em USD
+        this.ethRate = response.ethereum.brl; // Cotação do Ethereum em BRL
       });
   }
 
