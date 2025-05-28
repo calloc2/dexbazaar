@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, MenuController } from '@ionic/angular';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 
 @Component({
@@ -16,8 +16,18 @@ import { ProductService } from '../services/product.service';
 export class HomePage implements OnInit {
   products: any[] = [];
   ethRate: number = 0; // Cotação atual do Ethereum
+  isAuthenticated = false;
+  username = '';
 
-  constructor(private productService: ProductService, private http: HttpClient, private menu: MenuController) {}
+  constructor(private productService: ProductService, private http: HttpClient, private menu: MenuController, private router: Router) {
+    // Exemplo: verifique se o token está no localStorage
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.isAuthenticated = true;
+      // Pegue o username do localStorage ou de um serviço de autenticação
+      this.username = localStorage.getItem('username') || '';
+    }
+  }
 
   ngOnInit() {
     this.loadFeaturedProducts();
@@ -42,5 +52,9 @@ export class HomePage implements OnInit {
   convertToEthereum(price: number): number {
     // Converte o preço para Ethereum
     return price / this.ethRate;
+  }
+
+  getProfileLink() {
+    return this.isAuthenticated ? `/profile/${this.username}` : '/login';
   }
 }

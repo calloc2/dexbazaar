@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { ProfileRedirectComponent } from './profile/profile-redirect/profile-redirect.component';
 
 export const routes: Routes = [
   {
@@ -24,6 +25,14 @@ export const routes: Routes = [
   {
     path: 'list-products',
     loadComponent: () => import('./list-products/list-products.component').then((m) => m.ListProductsPage),
+  },
+  {
+    path: 'profile',
+    loadComponent: () => import('./profile/profile-redirect/profile-redirect.component').then(m => m.ProfileRedirectComponent),
+  },
+  {
+    path: 'profile/:username',
+    loadComponent: () => import('./profile/profile.component').then(m => m.ProfileComponent),
   },
   {
     path: '',

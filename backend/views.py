@@ -6,7 +6,8 @@ from rest_framework import status, generics, viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
 from .blockchain import Blockchain
 from .models import Product, ProductImage
-from .serializers import ProductSerializer, ProductImageSerializer
+from .serializers import ProductSerializer, ProductImageSerializer, UserSerializer
+from rest_framework.generics import RetrieveAPIView
 
 class RegisterUserView(APIView):
     permission_classes = [AllowAny]
@@ -74,10 +75,11 @@ class ProductListCreateView(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    def get_serializer_context(self):
-        context = super().get_serializer_context()
-        context['request'] = self.request
-        return context
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+        images = self.request.FILES.getlist('images')
+        for image in images:
+            ProductImage.objects.create(product=serializer.instance, image=image)
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
@@ -92,3 +94,9 @@ class ProductViewSet(viewsets.ModelViewSet):
         for image in images:
             ProductImage.objects.create(product=product, image=image)
         return Response(self.get_serializer(product).data, status=status.HTTP_201_CREATED)
+
+class UserProfileDetailView(RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    lookup_field = 'username'
+    permission_classes = [AllowAny]
