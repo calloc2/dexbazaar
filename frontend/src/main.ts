@@ -3,9 +3,17 @@ import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } 
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
 import { provideHttpClient, withInterceptors } from '@angular/common/http'; 
 import { authInterceptor } from './app/services/auth.interceptor';
+import { addIcons } from 'ionicons';
+import { menuOutline, cartOutline, personOutline } from 'ionicons/icons';
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
+
+addIcons({
+  'menu-outline': menuOutline,
+  'cart-outline': cartOutline,
+  'person-outline': personOutline,
+});
 
 bootstrapApplication(AppComponent, {
   providers: [

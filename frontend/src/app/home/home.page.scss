@@ -1,12 +1,13 @@
 .custom-searchbar {
   border-radius: 8px; /* Bordas arredondadas */
   margin: 0 8px; /* Espaçamento ao redor */
-  --placeholder-color: #888; /* Cor do texto do placeholder */
-  --color: #ffffff; /* Cor do texto digitado */
+  --placeholder-color: var(--ion-color-medium, #888); /* Cor do texto do placeholder */
+  --color: var(--ion-color-dark, #7e4ad7); /* Cor do texto digitado */
   width: 500px; /* Largura fixa */
   margin-right: auto; /* Margem automática para centralizar horizontalmente */
   flex: 1 1 auto;
   min-width: 0;
+  --background: var(--ion-color-secondary, #fff);
 }
 
 .ion-padding {
@@ -16,27 +17,18 @@
 .promotion-content {
   display: flex; /* Alinha os itens horizontalmente */
   align-items: center; /* Centraliza verticalmente */
- 
-}
-
-.promotion-image {
-  width: 500px; /* Define a largura da imagem */
-  height: 500x; /* Mantém a proporção da imagem */
-  border-radius: 8px; /* Opcional: bordas arredondadas */
-  object-fit: cover; /* Ajusta a imagem para caber no espaço definido */
-  align-items: right; /* Alinha a imagem à direita */
 }
 
 .promotion-text {
   flex: 1; /* Faz o texto ocupar o espaço restante */
   text-align: center; /* Alinha o texto no centro */
-  color: #7c3aed;
-  font-size: 400px; /* Tamanho do texto */
+  color: var(--ion-color-primary, #a077e7);
+  font-size: 2rem; /* Tamanho do texto */
 }
 
 .toolbar .header-content {
   display: flex; /* Alinha os itens horizontalmente */
-  background-color: #a077e7; /* Cor de fundo da barra de ferramentas */
+  background-color: var(--ion-color-primary, #a077e7); /* Cor de fundo da barra de ferramentas */
   align-items: center; /* Centraliza verticalmente */
   justify-content: space-between; /* Garante que os itens fiquem alinhados */
   gap: 15px; /* Espaçamento entre o título e a barra de pesquisa */
@@ -60,7 +52,7 @@
 .header-title {
   font-size: 20px; /* Tamanho do texto do título */
   font-weight: bold; /* Deixa o texto em negrito */
-  color: #ffffff; /* Cor do texto */
+  color: var(--ion-color-light, #fff); /* Cor do texto */
   white-space: nowrap; /* Impede que o texto quebre em várias linhas */
 }
 
@@ -72,6 +64,7 @@
   padding: 20px; /* Adiciona espaçamento interno */
   border-radius: 8px; /* Bordas arredondadas */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para destaque */
+  background: var(--ion-background-color, #fff);
 }
 
 .building-image {
@@ -93,24 +86,63 @@
   margin-left: 4px; /* Adiciona um pequeno espaçamento à esquerda */
 }
 
-.kart img,
-.home-icon {
-  height: 32px;
-  width: 32px;
+
+.desktop-only {
+  display: flex;
+}
+
+.mobile-only {
+  display: none;
+  z-index: 1000 !important;
+  color: var(--ion-color-light, #fff) !important;
+}
+
+.desktop-only ion-icon,
+.mobile-only ion-icon,
+.kart ion-icon,
+.home-button ion-icon {
+  color: var(--ion-color-light, #fff) !important; // Branco, baseado na variável
+}
+
+.desktop-only ion-button,
+.mobile-only ion-button {
+  background: transparent;
+  color: var(--ion-color-light, #fff) !important;
 }
 
 @media (max-width: 600px) {
   .header-content {
-    flex-wrap: wrap;
+    flex-wrap: nowrap; // Não quebra linha
+    flex-direction: row; // Garante tudo em linha
+    align-items: center;
+    justify-content: space-between;
     gap: 4px;
+    width: 100%;
   }
   .custom-searchbar {
-    min-width: 120px;
+    min-width: 80px;
     font-size: 14px;
+    flex: 1 1 auto;
+    margin: 0 4px;
+    width: auto;
   }
-  .kart img,
   .home-icon {
     height: 28px;
     width: 28px;
+  }
+  .desktop-only {
+    display: none !important;
+  }
+  .mobile-only {
+    display: flex !important;
+    align-items: center;
+    z-index: 1000 !important;
+    color: var(--ion-color-light, #fff) !important;
+  }
+  .mobile-only ion-icon {
+    color: var(--ion-color-light, #fff) !important;
+  }
+  .header-content img {
+    display: none; // Esconde a logo no mobile
   }
 }
