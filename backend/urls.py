@@ -37,9 +37,10 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name='frontend'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-urlpatterns += [
-    re_path(r'^(?!api/).*$', TemplateView.as_view(template_name='index.html'), name='frontend'),
-]
-
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Only catch-all for frontend routes, not media/static
+urlpatterns += [
+    re_path(r'^(?!api/|media/|static/).*$', TemplateView.as_view(template_name='index.html'), name='frontend'),
+]

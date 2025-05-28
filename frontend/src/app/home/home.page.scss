@@ -60,7 +60,7 @@
   display: flex; /* Alinha os itens horizontalmente */
   align-items: flex-start; /* Alinha os itens ao topo */
   gap: 20px; /* Espaçamento entre a imagem e o conteúdo */
-  width: 700px; /* Largura total */
+  width: 400px; /* Largura total */
   padding: 20px; /* Adiciona espaçamento interno */
   border-radius: 8px; /* Bordas arredondadas */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para destaque */
@@ -108,6 +108,45 @@
 .mobile-only ion-button {
   background: transparent;
   color: var(--ion-color-light, #fff) !important;
+}
+
+.product-image {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  display: block;
+  margin: 0 auto 12px auto; 
+  background: #f8f8f8;      
+}
+
+.location-info {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  color: #666;
+  font-size: 15px;
+}
+
+.location-icon {
+  font-size: 18px;
+  margin-right: 6px;
+  color: #a077e7;
+}
+
+.created-at {
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+  color: #888;
+  font-size: 14px;
+}
+
+.calendar-icon {
+  font-size: 17px;
+  margin-right: 5px;
+  color: #a077e7;
 }
 
 @media (max-width: 600px) {

@@ -45,10 +45,11 @@
 <div id="container">
   <div class="container-content">
     <ion-card *ngFor="let product of products">
+      <img *ngIf="product.images && product.images.length > 0" [src]="product.images[0].image" class="product-image" />
       <ion-card-header>
         <ion-card-title>{{ product.title }}</ion-card-title>
         <ion-card-subtitle>
-          {{ product.price | currency }} 
+          R{{ product.price | currency }} 
           <br>
           (~ {{ convertToEthereum(product.price) | number:'1.4-4' }} 
           <img src="assets/icon/ethereum-logo.png" alt="Ethereum" class="eth-logo"> ETH)  
@@ -56,6 +57,14 @@
       </ion-card-header>
       <ion-card-content>
         {{ product.description }}
+        <div class="location-info">
+          <ion-icon name="location-sharp" class="location-icon"></ion-icon>
+          {{ product.city }} / {{ product.state }}
+        </div>
+        <div class="created-at">
+          <ion-icon name="calendar-outline" class="calendar-icon"></ion-icon>
+          {{ product.created_at | date:'dd/MM/yyyy HH:mm' }}
+        </div>
       </ion-card-content>
     </ion-card>
   </div>
