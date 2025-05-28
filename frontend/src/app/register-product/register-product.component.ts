@@ -63,12 +63,29 @@ export class RegisterProductPage {
     });
   }
 
+  ngOnInit() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.router.navigate(['/login']);
+    }
+  }
+
   submit() {
     if (this.productForm?.valid) {
-      this.productService.addProduct(this.productForm.value).subscribe(() => {
-        alert('Produto cadastrado com sucesso!');
-        this.productForm.reset();
-        this.router.navigate(['/list-products']);
+      this.productService.addProduct(this.productForm.value).subscribe({
+        next: () => {
+          alert('Produto cadastrado com sucesso!');
+          this.productForm.reset();
+          this.router.navigate(['/list-products']);
+        },
+        error: (err) => {
+          if (err.status === 403) {
+            alert('Você precisa estar logado para cadastrar um produto.');
+            this.router.navigate(['/login']);
+          } else {
+            alert('Erro ao cadastrar produto. Tente novamente.');
+          }
+        }
       });
     }
   }

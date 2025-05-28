@@ -3,6 +3,7 @@ from users.models import UserProfile
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, generics
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .blockchain import Blockchain
 from .models import Product
 from .serializers import ProductSerializer
@@ -69,3 +70,7 @@ class BlockchainTransactionView(APIView):
 class ProductListCreateView(generics.ListCreateAPIView):
     queryset = Product.objects.all().order_by('-created_at')
     serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
