@@ -1,10 +1,12 @@
 .custom-searchbar {
   border-radius: 8px; /* Bordas arredondadas */
-  margin: 10px; /* Espaçamento ao redor */
+  margin: 0 8px; /* Espaçamento ao redor */
   --placeholder-color: #888; /* Cor do texto do placeholder */
   --color: #ffffff; /* Cor do texto digitado */
   width: 500px; /* Largura fixa */
   margin-right: auto; /* Margem automática para centralizar horizontalmente */
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .ion-padding {
@@ -28,17 +30,31 @@
 .promotion-text {
   flex: 1; /* Faz o texto ocupar o espaço restante */
   text-align: center; /* Alinha o texto no centro */
-  color: #07F542;
+  color: #7c3aed;
   font-size: 400px; /* Tamanho do texto */
 }
 
 .toolbar .header-content {
   display: flex; /* Alinha os itens horizontalmente */
-  background-color: #07F542; /* Cor de fundo da barra de ferramentas */
+  background-color: #a077e7; /* Cor de fundo da barra de ferramentas */
   align-items: center; /* Centraliza verticalmente */
   justify-content: space-between; /* Garante que os itens fiquem alinhados */
   gap: 15px; /* Espaçamento entre o título e a barra de pesquisa */
   width: 100%; /* Garante que o conteúdo ocupe toda a largura */
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+
+.header-content img,
+.header-content ion-searchbar,
+.header-content a {
+  flex-shrink: 0;
 }
 
 .header-title {
@@ -75,4 +91,26 @@
   height: auto; /* Define a altura da logo */
   vertical-align: middle; /* Alinha verticalmente com o texto */
   margin-left: 4px; /* Adiciona um pequeno espaçamento à esquerda */
+}
+
+.kart img,
+.home-icon {
+  height: 32px;
+  width: 32px;
+}
+
+@media (max-width: 600px) {
+  .header-content {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .custom-searchbar {
+    min-width: 120px;
+    font-size: 14px;
+  }
+  .kart img,
+  .home-icon {
+    height: 28px;
+    width: 28px;
+  }
 }
