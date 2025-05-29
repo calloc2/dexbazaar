@@ -41,9 +41,8 @@
 </ion-menu>
 
 <ion-content id="main-content" class="ion-padding">
-<h3 class="home-title">Produtos em Destaque</h3>
-<div id="container">
-  <div class="container-content">
+  <h3 class="home-title">Produtos em Destaque</h3>
+  <div class="featured-products-horizontal">
     <ion-card *ngFor="let product of products" [routerLink]="['/product', product.id]">
       <img *ngIf="product.images && product.images.length > 0" [src]="product.images[0].image" class="product-image" />
       <ion-card-header>
@@ -56,7 +55,7 @@
         </ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
-        {{ product.description }}
+        {{ product.description | slice:0:80 }}<span *ngIf="product.description.length > 80">...</span>
         <div class="location-info">
           <ion-icon name="location-sharp" class="location-icon"></ion-icon>
           {{ product.city }} / {{ product.state }}
@@ -68,5 +67,4 @@
       </ion-card-content>
     </ion-card>
   </div>
-</div>
 </ion-content>

@@ -55,7 +55,7 @@ export class ProductDetailComponent implements OnInit {
   async deleteProduct() {
     const alert = await this.alertController.create({
       header: 'Confirmar',
-      message: 'Tem certeza que deseja apagar este anúncio?',
+    message: 'Tem certeza que deseja apagar este anúncio?',
       buttons: [
         {
           text: 'Cancelar',

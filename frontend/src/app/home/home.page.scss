@@ -149,6 +149,21 @@
   color: #a077e7;
 }
 
+.featured-products-horizontal {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: #a077e7 #f5f5f5;
+}
+.featured-products-horizontal ion-card {
+  min-width: 280px;
+  max-width: 320px;
+  flex: 0 0 auto;
+}
+
 @media (max-width: 600px) {
   .header-content {
     flex-wrap: nowrap; // Não quebra linha
