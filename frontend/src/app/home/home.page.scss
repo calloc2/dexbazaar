@@ -164,6 +164,81 @@
   flex: 0 0 auto;
 }
 
+.carousel-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 24px auto;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-slide {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.7s;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+.carousel-img {
+  width: 100%;
+  height: 250px;
+  object-fit: fill;      
+  border-radius: 16px;
+  display: block;
+}
+
+.carousel-caption {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  background: rgba(0,0,0,0.5);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.carousel-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 3;
+}
+.carousel-dots span {
+  display: block;
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.carousel-dots span.active {
+  opacity: 1;
+  background: #a077e7;
+}
+
 @media (max-width: 600px) {
   .header-content {
     flex-wrap: nowrap; // Não quebra linha

@@ -41,6 +41,17 @@
 </ion-menu>
 
 <ion-content id="main-content" class="ion-padding">
+  <div class="carousel-container">
+    <div class="carousel-slide" *ngFor="let banner of banners; let i = index" [class.active]="i === currentBanner">
+      <img [src]="banner.image" [alt]="banner.alt" class="carousel-img" />
+      <div class="carousel-caption">{{ banner.caption }}</div>
+    </div>
+    <div class="carousel-dots">
+      <span *ngFor="let banner of banners; let i = index"
+            [class.active]="i === currentBanner"
+            (click)="goToBanner(i)"></span>
+    </div>
+  </div>
   <h3 class="home-title">Produtos em Destaque</h3>
   <div class="featured-products-horizontal">
     <ion-card *ngFor="let product of products" [routerLink]="['/product', product.id]">

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, MenuController } from '@ionic/angular';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -13,11 +13,19 @@ import { ProductService } from '../services/product.service';
   standalone: true,
   imports: [CommonModule, FormsModule, IonicModule, HttpClientModule, RouterModule], 
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
   products: any[] = [];
   ethRate: number = 0; // Cotação atual do Ethereum
   isAuthenticated = false;
   username = '';
+
+  banners = [
+    { image: 'assets/banners/banner1.png', alt: 'Banner 1', caption: 'Promoção imperdível!' },
+    { image: 'assets/banners/banner2.png', alt: 'Banner 2', caption: 'Compre com Ethereum!' },
+    { image: 'assets/banners/banner3.png', alt: 'Banner 3', caption: 'Frete grátis para todo Brasil!' }
+  ];
+  currentBanner = 0;
+  bannerInterval: any;
 
   constructor(private productService: ProductService, private http: HttpClient, private menu: MenuController, private router: Router) {
     // Exemplo: verifique se o token está no localStorage
@@ -32,6 +40,7 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.loadFeaturedProducts();
     this.fetchEthereumRate();
+    this.startCarousel();
   }
 
   loadFeaturedProducts() {
@@ -56,5 +65,21 @@ export class HomePage implements OnInit {
 
   getProfileLink() {
     return this.isAuthenticated ? `/profile/${this.username}` : '/login';
+  }
+
+  startCarousel() {
+    this.bannerInterval = setInterval(() => {
+      this.currentBanner = (this.currentBanner + 1) % this.banners.length;
+    }, 4000); // Troca a cada 4 segundos
+  }
+
+  goToBanner(index: number) {
+    this.currentBanner = index;
+  }
+
+  ngOnDestroy() {
+    if (this.bannerInterval) {
+      clearInterval(this.bannerInterval);
+    }
   }
 }
