@@ -3,11 +3,12 @@ from users.models import UserProfile
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, generics, viewsets
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny, IsAuthenticated
 from .blockchain import Blockchain
 from .models import Product, ProductImage
 from .serializers import ProductSerializer, ProductImageSerializer, UserSerializer
-from rest_framework.generics import RetrieveAPIView
+from rest_framework.generics import RetrieveAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import BasePermission
 
 class RegisterUserView(APIView):
     permission_classes = [AllowAny]
@@ -81,9 +82,16 @@ class ProductListCreateView(generics.ListCreateAPIView):
         for image in images:
             ProductImage.objects.create(product=serializer.instance, image=image)
 
+class IsOwnerOrReadOnly(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in ['GET', 'HEAD', 'OPTIONS']:
+            return True
+        return obj.user == request.user
+
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     def create(self, request, *args, **kwargs):
         data = request.data.copy()
@@ -101,7 +109,14 @@ class UserProfileDetailView(RetrieveAPIView):
     lookup_field = 'username'
     permission_classes = [AllowAny]
 
-class ProductDetailView(RetrieveAPIView):
+class ProductDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+class CurrentUserView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        serializer = UserSerializer(request.user, context={'request': request})
+        return Response(serializer.data)

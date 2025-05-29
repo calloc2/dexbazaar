@@ -60,10 +60,22 @@ export class LoginPage {
       password: this.password,
     }).subscribe({
       next: async (response: any) => {
-        // Tenta salvar 'token', se não existir, salva 'access'
-        localStorage.setItem('token', response.token || response.access || '');
-        await this.showAlert('Sucesso', 'Login realizado com sucesso!');
-        this.router.navigate(['/home']);
+        const token = response.token || response.access || '';
+        localStorage.setItem('token', token);
+
+        // Fetch user info using the token
+        this.http.get<any>(`${environment.apiUrl}/api/users/me/`, {
+          headers: { Authorization: `Token ${token}` }
+        }).subscribe({
+          next: async (user) => {
+            localStorage.setItem('username', user.username);
+            await this.showAlert('Sucesso', 'Login realizado com sucesso!');
+            this.router.navigate(['/home']);
+          },
+          error: async () => {
+            await this.showAlert('Erro', 'Erro ao buscar dados do usuário.');
+          }
+        });
       },
       error: async (err) => {
         console.error('Login failed', err);

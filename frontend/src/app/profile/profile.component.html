@@ -21,6 +21,9 @@
         <h2>{{ product.title }}</h2>
         <p>{{ product.description }}</p>
       </ion-label>
+      <ion-button *ngIf="isOwner(product)" color="danger" fill="clear" (click)="deleteProduct(product)">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
     </ion-item>
   </ion-list>
 </ion-content>

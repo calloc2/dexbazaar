@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile-redirect',
-  templateUrl: './profile-redirect.component.html',
-  styleUrls: ['./profile-redirect.component.scss'],
+  template: '',
   standalone: true,
 })
 export class ProfileRedirectComponent implements OnInit {

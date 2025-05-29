@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
 export class ProfileComponent implements OnInit {
   user: any = {};
   products: any[] = [];
-  username: string = '';
+  username = localStorage.getItem('username') || '';
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {}
 
@@ -40,5 +40,22 @@ export class ProfileComponent implements OnInit {
       .subscribe((data: any) => {
         this.products = data;
       });
+  }
+
+  isOwner(product: any): boolean {
+    return product.user?.username === this.username;
+  }
+
+  deleteProduct(product: any) {
+    if (confirm('Tem certeza que deseja apagar este anúncio?')) {
+      this.http.delete(`${environment.apiUrl}/api/products/${product.id}/`).subscribe({
+        next: () => {
+          this.products = this.products.filter((p: any) => p.id !== product.id);
+        },
+        error: () => {
+          alert('Erro ao apagar anúncio.');
+        }
+      });
+    }
   }
 }
