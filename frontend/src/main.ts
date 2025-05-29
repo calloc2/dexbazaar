@@ -4,7 +4,7 @@ import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalo
 import { provideHttpClient, withInterceptors } from '@angular/common/http'; 
 import { authInterceptor } from './app/services/auth.interceptor';
 import { addIcons } from 'ionicons';
-import { menuOutline, cartOutline, personOutline, locationSharp, calendarOutline, trashOutline } from 'ionicons/icons';
+import { menuOutline, cartOutline, personOutline, locationSharp, calendarOutline, trashOutline, starOutline, star, cameraOutline } from 'ionicons/icons';
 
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
@@ -16,6 +16,9 @@ addIcons({
   'location-sharp': locationSharp,
   'calendar-outline': calendarOutline,
   'trash-outline': trashOutline,
+  'star-outline': starOutline,
+  'star': star,
+  'camera-outline': cameraOutline,
 });
 
 bootstrapApplication(AppComponent, {

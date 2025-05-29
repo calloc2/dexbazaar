@@ -1,5 +1,11 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.conf import settings
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+User = get_user_model()
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -26,3 +32,21 @@ class ProductImage(models.Model):
     product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='product_images/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
+
+class Reputation(models.Model):
+    from_user = models.ForeignKey(User, related_name='given_reputations', on_delete=models.CASCADE)
+    to_user = models.ForeignKey(User, related_name='received_reputations', on_delete=models.CASCADE)
+    score = models.PositiveSmallIntegerField()  # 1 a 5
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('from_user', 'to_user')
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    profile_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
