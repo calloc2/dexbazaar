@@ -4,6 +4,12 @@
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
     <ion-title>Meu Perfil</ion-title>
+    <ion-buttons slot="end" *ngIf="isOwnerProfile()">
+      <ion-button color="medium" (click)="logout()">
+        <ion-icon name="log-out-outline"></ion-icon>
+        Sair
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

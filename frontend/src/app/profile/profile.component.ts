@@ -58,4 +58,14 @@ export class ProfileComponent implements OnInit {
       });
     }
   }
+
+  isOwnerProfile(): boolean {
+    return this.user?.username === this.username;
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    window.location.href = '/login';
+  }
 }
