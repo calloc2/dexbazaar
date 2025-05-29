@@ -35,6 +35,10 @@ export const routes: Routes = [
     loadComponent: () => import('./profile/profile.component').then(m => m.ProfileComponent),
   },
   {
+    path: 'product/:id',
+    loadComponent: () => import('./product/product-detail/product-detail.component').then(m => m.ProductDetailComponent),
+  },
+  {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',

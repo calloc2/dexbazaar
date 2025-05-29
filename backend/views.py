@@ -100,3 +100,8 @@ class UserProfileDetailView(RetrieveAPIView):
     serializer_class = UserSerializer
     lookup_field = 'username'
     permission_classes = [AllowAny]
+
+class ProductDetailView(RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [AllowAny]
