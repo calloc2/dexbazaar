@@ -25,6 +25,8 @@ from .views import RegisterUserView
 from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
+from .views import ProductListCreateView, UserProfileDetailView, ProductDetailView, CurrentUserView
+from .views import ReputationView, UserReputationScoreView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,9 +34,19 @@ urlpatterns = [
     path('api/users/register/', RegisterUserView.as_view(), name='api_register'),
     path('api/blockchain/balance/', BlockchainBalanceView.as_view(), name='blockchain_balance'),
     path('api/blockchain/transaction/', BlockchainTransactionView.as_view(), name='blockchain_transaction'),
+    path('api/products/', ProductListCreateView.as_view(), name='product-list-create'),
+    path('api/products/<int:pk>/', ProductDetailView.as_view(), name='product-detail'),
+    path('api/users/me/', CurrentUserView.as_view(), name='current-user'),
+    path('api/users/<str:username>/', UserProfileDetailView.as_view(), name='user-detail'),
+    path('api/reputation/', ReputationView.as_view(), name='reputation'),
+    path('api/users/<str:username>/reputation/', UserReputationScoreView.as_view(), name='user-reputation'),
     path('', TemplateView.as_view(template_name='index.html'), name='frontend'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Only catch-all for frontend routes, not media/static
 urlpatterns += [
-    re_path(r'^(?!api/).*$', TemplateView.as_view(template_name='index.html'), name='frontend'),
+    re_path(r'^(?!api/|media/|static/).*$', TemplateView.as_view(template_name='index.html'), name='frontend'),
 ]

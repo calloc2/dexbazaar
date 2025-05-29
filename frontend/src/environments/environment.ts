@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8000', // Django backend URL
+  apiUrl: 'http://10.0.1.126:8000', // Django backend URL
 };
 
 /*

@@ -1,0 +1,24 @@
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.profile-img {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+  border: 2px solid #a077e7;
+}
+.profile-img-overlay {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: rgba(160,119,231,0.8);
+  border-radius: 50%;
+  padding: 6px;
+  color: #fff;
+  cursor: pointer;
+}

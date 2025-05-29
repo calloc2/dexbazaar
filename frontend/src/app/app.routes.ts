@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { ProfileRedirectComponent } from './profile/profile-redirect/profile-redirect.component';
 
 export const routes: Routes = [
   {
@@ -14,16 +15,28 @@ export const routes: Routes = [
     loadComponent: () => import('./register/register.page').then((m) => m.RegisterPage),
   },
   {
-    path: 'register-house',
-    loadComponent: () => import('./register-house/register-house.page').then((m) => m.RegisterHousePage),
-  },
-  {
-    path: 'list-houses',
-    loadComponent: () => import('./list-houses/list-houses.page').then((m) => m.ListHousesPage),
-  },
-  {
     path: 'client',
     loadComponent: () => import('./client/client.page').then((m) => m.ClientPage),
+  },
+  {
+    path: 'register-product',
+    loadComponent: () => import('./register-product/register-product.component').then((m) => m.RegisterProductPage),
+  },
+  {
+    path: 'list-products',
+    loadComponent: () => import('./list-products/list-products.component').then((m) => m.ListProductsPage),
+  },
+  {
+    path: 'profile',
+    loadComponent: () => import('./profile/profile-redirect/profile-redirect.component').then(m => m.ProfileRedirectComponent),
+  },
+  {
+    path: 'profile/:username',
+    loadComponent: () => import('./profile/profile.component').then(m => m.ProfileComponent),
+  },
+  {
+    path: 'product/:id',
+    loadComponent: () => import('./product/product-detail/product-detail.component').then(m => m.ProductDetailComponent),
   },
   {
     path: '',

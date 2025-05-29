@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Produtos Cadastrados</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/register-product">Novo Produto</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list *ngIf="products.length > 0; else emptyList">
+    <ion-item *ngFor="let product of products">
+      <ion-label>
+        <h2>{{ product.title }}</h2>
+        <p>{{ product.description }}</p>
+        <p><strong>Preço:</strong> R$ {{ product.price }}</p>
+        <p><strong>Categoria:</strong> {{ product.categoryName || product.category }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ng-template #emptyList>
+    <ion-text color="medium">Nenhum produto cadastrado.</ion-text>
+  </ng-template>
+</ion-content>

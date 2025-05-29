@@ -51,9 +51,6 @@ export class RegisterPage {
   password: string = '';
   confirmPassword: string = '';
   email: string = '';
-  phoneNumber: string = '';
-  selectedCountryCode: string = '';
-  countries: any[] = [];
   passwordType: string = 'password';
   passwordIcon: string = 'eye-off';
   passwordStrength: number = 0;
@@ -65,28 +62,6 @@ export class RegisterPage {
   ) {}
 
   ngOnInit() {
-    this.fetchCountries();
-  }
-
-  fetchCountries() {
-    this.http.get('https://restcountries.com/v3.1/all').subscribe((data: any) => {
-      console.log(data); 
-      this.countries = data.map((country: any) => ({
-        name: country.name.common,
-        flag: country.flag, 
-        code: country.idd.root + (country.idd.suffixes ? country.idd.suffixes[0] : ''),
-      }));
-      this.countries.sort((a, b) => a.name.localeCompare(b.name));
-      console.log(this.countries); 
-    });
-  }
-
-  formatPhoneNumber() {
-    if (this.selectedCountryCode && this.phoneNumber) {
-      // Remove qualquer caractere que não seja número
-      return `${this.selectedCountryCode}${this.phoneNumber}`.replace(/\D/g, '');
-    }
-    return this.phoneNumber ? this.phoneNumber.replace(/\D/g, '') : '';
   }
 
   togglePasswordVisibility() {
@@ -126,8 +101,6 @@ export class RegisterPage {
   }
 
   async onRegister() {
-    const formattedPhoneNumber = this.formatPhoneNumber();
-
     if (this.password !== this.confirmPassword) {
       const alert = await this.alertController.create({
         header: 'Erro',
@@ -144,7 +117,6 @@ export class RegisterPage {
       username: this.username,
       password: this.password,
       email: this.email,
-      phoneNumber: formattedPhoneNumber,
     };
 
     this.http.post(`${environment.apiUrl}/api/users/register/`, userData).subscribe(
