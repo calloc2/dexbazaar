@@ -26,6 +26,7 @@ export class HomePage implements OnInit, OnDestroy {
   ];
   currentBanner = 0;
   bannerInterval: any;
+  currentYear = new Date().getFullYear();
 
   constructor(private productService: ProductService, private http: HttpClient, private menu: MenuController, private router: Router) {
     // Exemplo: verifique se o token está no localStorage
