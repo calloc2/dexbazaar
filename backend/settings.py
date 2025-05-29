@@ -32,7 +32,12 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 BLOCKCHAIN_PROVIDER_URL = os.getenv('BLOCKCHAIN_PROVIDER_URL')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '10.0.1.126',
+    '*',
+]
 
 
 # Application definition
@@ -66,6 +71,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:8100',  # Ionic development server
     'http://127.0.0.1:8000',  # Django development server
 ]
+CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_CREDENTIALS = True
 
