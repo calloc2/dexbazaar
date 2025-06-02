@@ -14,6 +14,37 @@ export const routes: Routes = [
     loadComponent: () => import('./register/register.page').then((m) => m.RegisterPage),
   },
   {
+<<<<<<< Updated upstream
+=======
+    path: 'client',
+    loadComponent: () => import('./client/client.page').then((m) => m.ClientPage),
+  },
+  {
+    path: 'register-product',
+    loadComponent: () => import('./register-product/register-product.component').then((m) => m.RegisterProductPage),
+  },
+  {
+    path: 'list-products',
+    loadComponent: () => import('./list-products/list-products.component').then((m) => m.ListProductsPage),
+  },
+  {
+    path: 'profile',
+    loadComponent: () => import('./profile/profile-redirect/profile-redirect.component').then(m => m.ProfileRedirectComponent),
+  },
+  {
+    path: 'profile/:username',
+    loadComponent: () => import('./profile/profile.component').then(m => m.ProfileComponent),
+  },
+  {
+    path: 'product/:id',
+    loadComponent: () => import('./product/product-detail/product-detail.component').then(m => m.ProductDetailComponent),
+  },
+ {
+  path: 'carrinho',
+  loadComponent: () => import('./carrinho/carrinho.page').then(m => m.CarrinhoPage),
+},
+  {
+>>>>>>> Stashed changes
     path: '',
     redirectTo: 'login',
     pathMatch: 'full',
