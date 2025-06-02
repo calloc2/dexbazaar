@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
@@ -7,9 +7,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { 
   IonContent, 
-  IonHeader, 
-  IonTitle, 
-  IonToolbar, 
   IonButton, 
   IonInput, 
   IonItem, 
@@ -19,8 +16,10 @@ import {
   IonCardTitle, 
   IonCardSubtitle, 
   IonCardContent,
-  AlertController 
+  AlertController,
+  IonIcon,
 } from '@ionic/angular/standalone';
+
 
 @Component({
   selector: 'app-login',
@@ -31,9 +30,6 @@ import {
     CommonModule, 
     FormsModule,  
     HttpClientModule, 
-    IonHeader,    
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonItem,
     IonLabel,
@@ -44,7 +40,9 @@ import {
     IonCardTitle,
     IonCardSubtitle,
     IonCardContent,
+    IonIcon,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], 
 })
 export class LoginPage {
   username: string = '';
@@ -62,9 +60,22 @@ export class LoginPage {
       password: this.password,
     }).subscribe({
       next: async (response: any) => {
-        localStorage.setItem('token', response.token);
-        await this.showAlert('Sucesso', 'Login realizado com sucesso!');
-        this.router.navigate(['/home']);
+        const token = response.token || response.access || '';
+        localStorage.setItem('token', token);
+
+        // Fetch user info using the token
+        this.http.get<any>(`${environment.apiUrl}/api/users/me/`, {
+          headers: { Authorization: `Token ${token}` }
+        }).subscribe({
+          next: async (user) => {
+            localStorage.setItem('username', user.username);
+            await this.showAlert('Sucesso', 'Login realizado com sucesso!');
+            this.router.navigate(['/home']);
+          },
+          error: async () => {
+            await this.showAlert('Erro', 'Erro ao buscar dados do usuário.');
+          }
+        });
       },
       error: async (err) => {
         console.error('Login failed', err);

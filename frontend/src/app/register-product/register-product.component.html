@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar class="toolbar">
+    <div class="header-content">
+      <ion-title class="header-title">dexBazaar</ion-title>
+      <ion-searchbar class="custom-searchbar" placeholder="Pesquisar"></ion-searchbar>
+      <a routerLink="/home">
+        <ion-button fill="clear" class="kart">
+          <img src="..\assets\icon\imgs\curved-arrow-icon.png" alt="back" class="kart" height="40px">
+        </ion-button>
+      </a>
+      <a href="/login">
+        <ion-button fill="clear" class="home-button">
+          <img src="..\assets\icon\imgs\perfil-icon.png" alt="Home" class="home-icon">
+        </ion-button>
+      </a>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="productForm" (ngSubmit)="submit()">
+    <ion-item>
+      <ion-label position="floating">Título</ion-label>
+      <ion-input formControlName="title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Descrição</ion-label>
+      <ion-textarea formControlName="description"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Preço</ion-label>
+      <ion-input type="number" formControlName="price"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Categoria</ion-label>
+      <ion-select formControlName="category">
+        <ion-select-option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Imagens</ion-label>
+      <input type="file" (change)="onImageSelected($event)" accept="image/*" multiple>
+    </ion-item>
+    <div class="image-preview" *ngIf="imagePreviews.length > 0">
+      <img *ngFor="let img of imagePreviews" [src]="img" class="preview-img">
+    </div>
+    <ion-item>
+      <ion-label position="floating">CEP</ion-label>
+      <ion-input type="text" formControlName="cep" maxlength="9" (ionBlur)="onCepBlur()"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="city && state">
+      <ion-text>{{ city }} / {{ state }}</ion-text>
+    </ion-item>
+    <ion-button expand="block" type="submit" [disabled]="!productForm.valid">Registrar Produto</ion-button>
+  </form>
+  <ion-button expand="block" routerLink="/list-products" class="list-button">
+    Ver Listagem de Produtos
+  </ion-button>
+</ion-content>

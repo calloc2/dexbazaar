@@ -14,8 +14,6 @@ export const routes: Routes = [
     loadComponent: () => import('./register/register.page').then((m) => m.RegisterPage),
   },
   {
-<<<<<<< Updated upstream
-=======
     path: 'client',
     loadComponent: () => import('./client/client.page').then((m) => m.ClientPage),
   },
@@ -39,14 +37,13 @@ export const routes: Routes = [
     path: 'product/:id',
     loadComponent: () => import('./product/product-detail/product-detail.component').then(m => m.ProductDetailComponent),
   },
- {
-  path: 'carrinho',
-  loadComponent: () => import('./carrinho/carrinho.page').then(m => m.CarrinhoPage),
-},
   {
->>>>>>> Stashed changes
+    path: 'carrinho',
+    loadComponent: () => import('./carrinho/carrinho.page').then(m => m.CarrinhoPage),
+  },
+  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full',
-  },
+  }
 ];
