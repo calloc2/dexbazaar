@@ -1,59 +1,114 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Register</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content class="custom-content">
+<ion-content class="register-content">
   <div class="register-container">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Registrar</ion-card-title>
-        <ion-card-subtitle>Crie sua conta</ion-card-subtitle>
-      </ion-card-header>
+    <!-- Header -->
+    <div class="register-header">
+      <div class="logo-section">
+        <img src="assets/icon/dexbazaar.png" alt="DexBazaar" class="register-logo">
+        <h1 class="app-title">DexBazaar</h1>
+      </div>
+      <p class="welcome-subtitle">Marketplace descentralizado</p>
+    </div>
 
-      <ion-card-content>
-        <form (ngSubmit)="onRegister()">
-          <ion-item>
-            <ion-label position="floating">Primeiro Nome</ion-label>
-            <ion-input [(ngModel)]="firstName" name="firstName" required></ion-input>
+    <!-- Register Card -->
+    <div class="register-card">
+      <div class="card-header">
+        <h2 class="register-title">Criar sua conta</h2>
+        <p class="register-subtitle">Junte-se ao nosso marketplace descentralizado</p>
+      </div>
+
+      <form (ngSubmit)="onRegister()" class="register-form">
+        <!-- Name Fields -->
+        <div class="inline-fields">
+          <div class="input-group">
+            <label class="input-label">
+              <ion-icon name="person-outline" class="input-icon"></ion-icon>
+              Primeiro Nome
+            </label>
+            <ion-item class="custom-input">
+              <ion-input [(ngModel)]="firstName" name="firstName" placeholder="Digite seu primeiro nome" required></ion-input>
+            </ion-item>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label">
+              <ion-icon name="person-outline" class="input-icon"></ion-icon>
+              Último Nome
+            </label>
+            <ion-item class="custom-input">
+              <ion-input [(ngModel)]="lastName" name="lastName" placeholder="Digite seu último nome" required></ion-input>
+            </ion-item>
+          </div>
+        </div>
+
+        <!-- Username Field -->
+        <div class="input-group">
+          <label class="input-label">
+            <ion-icon name="at-outline" class="input-icon"></ion-icon>
+            Nome de Usuário
+          </label>
+          <ion-item class="custom-input">
+            <ion-input [(ngModel)]="username" name="username" placeholder="Escolha um nome de usuário" required></ion-input>
           </ion-item>
+        </div>
 
-          <ion-item>
-            <ion-label position="floating">Último Nome</ion-label>
-            <ion-input [(ngModel)]="lastName" name="lastName" required></ion-input>
+        <!-- Email Field -->
+        <div class="input-group">
+          <label class="input-label">
+            <ion-icon name="mail-outline" class="input-icon"></ion-icon>
+            Email
+          </label>
+          <ion-item class="custom-input">
+            <ion-input [(ngModel)]="email" name="email" type="email" placeholder="Digite seu email" required></ion-input>
           </ion-item>
+        </div>
 
-          <ion-item>
-            <ion-label position="floating">Nome de Usuário</ion-label>
-            <ion-input [(ngModel)]="username" name="username" required></ion-input>
-          </ion-item>
-
-          <ion-item>
-            <ion-label position="floating">Senha</ion-label>
-            <ion-input [(ngModel)]="password" name="password" type="{{passwordType}}" required (ngModelChange)="checkPasswordStrength($event)"></ion-input>
-            <ion-button fill="clear" slot="end" (click)="togglePasswordVisibility()">
+        <!-- Password Field -->
+        <div class="input-group">
+          <label class="input-label">
+            <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+            Senha
+          </label>
+          <ion-item class="custom-input">
+            <ion-input [(ngModel)]="password" name="password" type="{{passwordType}}" placeholder="Crie uma senha segura" required (ngModelChange)="checkPasswordStrength($event)"></ion-input>
+            <ion-button fill="clear" slot="end" class="password-toggle" (click)="togglePasswordVisibility()">
               <ion-icon [name]="passwordIcon"></ion-icon>
             </ion-button>
           </ion-item>
+          
+          <!-- Password Strength Indicator -->
+          <div class="password-strength" *ngIf="password">
+            <ion-progress-bar [value]="passwordStrength" [class]="'strength-' + passwordStrengthLevel"></ion-progress-bar>
+            <div class="strength-text" [class]="passwordStrengthLevel">
+              {{passwordStrengthText}}
+            </div>
+          </div>
+        </div>
 
-          <ion-item>
-            <ion-progress-bar [value]="passwordStrength" color="success"></ion-progress-bar>
+        <!-- Confirm Password Field -->
+        <div class="input-group">
+          <label class="input-label">
+            <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+            Confirmar Senha
+          </label>
+          <ion-item class="custom-input">
+            <ion-input [(ngModel)]="confirmPassword" name="confirmPassword" type="password" placeholder="Confirme sua senha" required></ion-input>
           </ion-item>
+        </div>
 
-          <ion-item>
-            <ion-label position="floating">Confirmar Senha</ion-label>
-            <ion-input [(ngModel)]="confirmPassword" name="confirmPassword" type="password" required></ion-input>
-          </ion-item>
+        <!-- Register Button -->
+        <ion-button expand="block" class="register-button" type="submit">
+          <ion-icon name="person-add-outline" slot="start"></ion-icon>
+          Criar Conta
+        </ion-button>
+      </form>
 
-          <ion-item>
-            <ion-label position="floating">Email</ion-label>
-            <ion-input [(ngModel)]="email" name="email" type="email" required></ion-input>
-          </ion-item>
-
-          <ion-button expand="block" class="register-btn" type="submit">Cadastrar</ion-button>
-        </form>
-      </ion-card-content>
-    </ion-card>
+      <!-- Login Link -->
+      <div class="auth-links">
+        <p class="auth-text">
+          Já tem uma conta? 
+          <a routerLink="/login" class="auth-link">Entrar</a>
+        </p>
+      </div>
+    </div>
   </div>
 </ion-content>
