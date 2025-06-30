@@ -61,6 +61,7 @@ export class RegisterProductPage {
   readonly maxSizeMB = 2;
   city: string = '';
   state: string = '';
+  isSubmitting: boolean = false;
 
   constructor(private productService: ProductService, private fb: FormBuilder, private router: Router, private http: HttpClient) {
     this.productForm = this.fb.group({
@@ -155,8 +156,14 @@ export class RegisterProductPage {
     }
   }
 
+  removeImage(index: number) {
+    this.images.splice(index, 1);
+    this.imagePreviews.splice(index, 1);
+  }
+
   submit() {
-    if (this.productForm.valid) {
+    if (this.productForm.valid && !this.isSubmitting) {
+      this.isSubmitting = true;
       const formData = new FormData();
       Object.entries(this.productForm.value).forEach(([key, value]) => {
         formData.append(key, value as any);
@@ -167,11 +174,17 @@ export class RegisterProductPage {
       formData.append('state', this.state);
       this.productService.addProduct(formData).subscribe({
         next: () => {
+          this.isSubmitting = false;
           alert('Produto cadastrado com sucesso!');
           this.productForm.reset();
+          this.images = [];
+          this.imagePreviews = [];
+          this.city = '';
+          this.state = '';
           this.router.navigate(['/list-products']);
         },
         error: (err) => {
+          this.isSubmitting = false;
           if (err.status === 403) {
             alert('Você precisa estar logado para cadastrar um produto.');
             this.router.navigate(['/login']);

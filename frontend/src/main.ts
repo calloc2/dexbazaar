@@ -20,7 +20,7 @@ import {
   eyeOffOutline,
   logoGoogle,
   walletOutline,
-    arrowBackOutline,
+  arrowBackOutline,
   addCircleOutline,
   heartOutline,
   personCircleOutline,
@@ -32,7 +32,14 @@ import {
   locationOutline,
   timeOutline,
   addOutline,
-  rocketOutline
+  rocketOutline,
+  informationCircleOutline,
+  imagesOutline,
+  cloudUploadOutline,
+  closeOutline,
+  checkmarkOutline,
+  listOutline,
+  location
 } from 'ionicons/icons';
 
 import { routes } from './app/app.routes';
@@ -67,6 +74,13 @@ addIcons({
   'time-outline': timeOutline,
   'add-outline': addOutline,
   'rocket-outline': rocketOutline,
+  'information-circle-outline': informationCircleOutline,
+  'images-outline': imagesOutline,
+  'cloud-upload-outline': cloudUploadOutline,
+  'close-outline': closeOutline,
+  'checkmark-outline': checkmarkOutline,
+  'list-outline': listOutline,
+  'location': location,
 });
 
 bootstrapApplication(AppComponent, {
