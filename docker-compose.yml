@@ -10,7 +10,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "9000:5432"  # Map external port 9000 to internal port 5432
+      - "9000:5432"
     networks:
       - backend-network
 

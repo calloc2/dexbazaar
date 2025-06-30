@@ -5,6 +5,7 @@ import { IonicModule, MenuController } from '@ionic/angular';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterModule, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-home',
@@ -48,7 +49,8 @@ export class HomePage implements OnInit, OnDestroy {
     private productService: ProductService, 
     private http: HttpClient, 
     private menu: MenuController, 
-    private router: Router
+    private router: Router,
+    private loadingService: LoadingService
   ) {
     // Verifique se o token está no localStorage
     const token = localStorage.getItem('token');
@@ -67,19 +69,24 @@ export class HomePage implements OnInit, OnDestroy {
   async loadFeaturedProducts() {
     try {
       this.isLoading = true;
+      this.loadingService.show('Carregando produtos em destaque...');
+      
       this.productService.getProducts().subscribe({
         next: (products: any) => {
           this.products = products;
           this.isLoading = false;
+          this.loadingService.hide();
         },
         error: (error) => {
           console.error('Erro ao carregar produtos:', error);
           this.isLoading = false;
+          this.loadingService.hide();
         }
       });
     } catch (error) {
       console.error('Erro ao carregar produtos:', error);
       this.isLoading = false;
+      this.loadingService.hide();
     }
   }
 

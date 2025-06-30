@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { LoadingService } from '../services/loading.service';
 import { 
   IonContent, 
   IonButton, 
@@ -66,7 +67,8 @@ export class LoginPage {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private loadingService: LoadingService
   ) {
     // Check if user details are saved
     const savedUsername = localStorage.getItem('savedUsername');
@@ -109,6 +111,7 @@ export class LoginPage {
     }
 
     this.isLoading = true;
+    this.loadingService.show('Fazendo login...');
     
     try {
       const response: any = await this.http.post(`${environment.apiUrl}/api/login/`, {
@@ -130,6 +133,7 @@ export class LoginPage {
 
       // Fetch user info using the token
       try {
+        this.loadingService.setMessage('Carregando dados do usuário...');
         const user = await this.http.get<any>(`${environment.apiUrl}/api/users/me/`, {
           headers: { Authorization: `Token ${token}` }
         }).toPromise();
@@ -137,17 +141,24 @@ export class LoginPage {
         localStorage.setItem('username', user.username);
         localStorage.setItem('userEmail', user.email || '');
         
-        // Show success and navigate
-        await this.showSuccessAlert('Login realizado com sucesso!');
-        this.router.navigate(['/home']);
+        this.loadingService.setMessage('Redirecionando...');
+        
+        // Small delay to show the loading message
+        setTimeout(async () => {
+          this.loadingService.hide();
+          await this.showSuccessAlert('Login realizado com sucesso!');
+          this.router.navigate(['/home']);
+        }, 1000);
         
       } catch (userError) {
         console.error('Error fetching user data', userError);
+        this.loadingService.hide();
         this.showErrorAlert('Erro ao buscar dados do usuário.');
       }
 
     } catch (error: any) {
       console.error('Login failed', error);
+      this.loadingService.hide();
       
       let errorMessage = 'Usuário ou senha inválidos.';
       

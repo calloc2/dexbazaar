@@ -18,6 +18,7 @@ import {
   eyeOffOutline,
   warningOutline 
 } from 'ionicons/icons';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-register',
@@ -53,7 +54,8 @@ export class RegisterPage {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private loadingService: LoadingService
   ) {
     // Register icons
     addIcons({
@@ -126,17 +128,25 @@ export class RegisterPage {
       email: this.email,
     };
 
+    this.loadingService.show('Criando sua conta...');
+
     this.http.post(`${environment.apiUrl}/api/users/register/`, userData).subscribe(
       async (response) => {
-        const alert = await this.alertController.create({
-          header: 'Sucesso',
-          message: 'Usuário registrado com sucesso!',
-          buttons: ['OK'],
-        });
-        await alert.present();
-        this.router.navigate(['/login']);
+        this.loadingService.setMessage('Finalizando registro...');
+        
+        setTimeout(async () => {
+          this.loadingService.hide();
+          const alert = await this.alertController.create({
+            header: 'Sucesso',
+            message: 'Usuário registrado com sucesso!',
+            buttons: ['OK'],
+          });
+          await alert.present();
+          this.router.navigate(['/login']);
+        }, 1000);
       },
       async (error) => {
+        this.loadingService.hide();
         const alert = await this.alertController.create({
           header: 'Erro',
           message: 'Ocorreu um erro ao registrar o usuário.',

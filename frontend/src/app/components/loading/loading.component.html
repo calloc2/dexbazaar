@@ -1,0 +1,18 @@
+<div class="loading-container" *ngIf="isVisible">
+  <div class="loading-logo">
+    <img src="assets/icon/dexbazaar.png" alt="DexBazaar" class="login-logo">
+  </div>
+  
+  <h1 class="loading-title">dexBazaar</h1>
+  <p class="loading-subtitle">Marketplace Descentralizado</p>
+  
+  <div class="loading-spinner">
+    <ion-spinner name="circular"></ion-spinner>
+  </div>
+  
+  <div class="loading-progress">
+    <ion-progress-bar type="indeterminate"></ion-progress-bar>
+  </div>
+  
+  <p class="loading-text">{{ loadingMessage }}</p>
+</div>
