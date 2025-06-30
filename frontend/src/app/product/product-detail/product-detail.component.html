@@ -31,10 +31,25 @@
     </ion-card-content>
   </ion-card>
 
-  <div *ngIf="isOwner()" style="margin-top: 16px;">
-    <ion-button color="danger" (click)="deleteProduct()" expand="block">
-      <ion-icon name="trash-outline" slot="start"></ion-icon>
-      Apagar anúncio
-    </ion-button>
+  <!-- Botões de ação -->
+  <div style="margin-top: 16px;">
+    <div *ngIf="!isOwner()">
+      <ion-button color="primary" (click)="goToPurchase()" expand="block">
+        <ion-icon name="cart-outline" slot="start"></ion-icon>
+        Comprar - R$ {{ product.price }}
+      </ion-button>
+      
+      <ion-button color="secondary" fill="outline" expand="block" style="margin-top: 8px;">
+        <ion-icon name="chatbubble-outline" slot="start"></ion-icon>
+        Falar com vendedor
+      </ion-button>
+    </div>
+    
+    <div *ngIf="isOwner()">
+      <ion-button color="danger" (click)="deleteProduct()" expand="block">
+        <ion-icon name="trash-outline" slot="start"></ion-icon>
+        Apagar anúncio
+      </ion-button>
+    </div>
   </div>
 </ion-content>

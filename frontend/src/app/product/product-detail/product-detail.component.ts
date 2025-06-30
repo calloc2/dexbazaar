@@ -52,6 +52,11 @@ export class ProductDetailComponent implements OnInit {
     return this.product?.user?.username === this.username;
   }
 
+  goToPurchase() {
+    if (!this.product) return;
+    this.router.navigate(['/purchase', this.product.id]);
+  }
+
   async deleteProduct() {
     const alert = await this.alertController.create({
       header: 'Confirmar',

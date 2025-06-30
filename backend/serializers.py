@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Product, ProductImage, Reputation
+from .models import Product, ProductImage, Reputation, Order
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 import os
 from django.conf import settings
@@ -72,6 +72,57 @@ class ReputationSerializer(serializers.ModelSerializer):
         model = Reputation
         fields = ['id', 'from_user', 'to_user', 'score', 'created_at']
         read_only_fields = ['from_user', 'created_at']
+
+class OrderSerializer(serializers.ModelSerializer):
+    product = ProductSerializer(read_only=True)
+    buyer = UserSerializer(read_only=True)
+    seller = UserSerializer(read_only=True)
+    
+    class Meta:
+        model = Order
+        fields = [
+            'id', 'product', 'buyer', 'seller', 'quantity', 'total_price', 
+            'status', 'payment_method', 'crypto_currency',
+            'buyer_name', 'buyer_email', 'buyer_phone',
+            'delivery_address', 'delivery_city', 'delivery_state', 'delivery_cep',
+            'created_at', 'updated_at'
+        ]
+        read_only_fields = ['buyer', 'seller', 'created_at', 'updated_at']
+
+class CreateOrderSerializer(serializers.ModelSerializer):
+    product_id = serializers.IntegerField(write_only=True)
+    buyer_info = serializers.DictField(write_only=True)
+    
+    class Meta:
+        model = Order
+        fields = [
+            'product_id', 'quantity', 'total_price', 'payment_method', 
+            'crypto_currency', 'buyer_info'
+        ]
+    
+    def create(self, validated_data):
+        buyer_info = validated_data.pop('buyer_info')
+        product_id = validated_data.pop('product_id')
+        
+        try:
+            product = Product.objects.get(id=product_id)
+        except Product.DoesNotExist:
+            raise serializers.ValidationError("Produto não encontrado.")
+        
+        order = Order.objects.create(
+            product=product,
+            buyer=self.context['request'].user,
+            seller=product.user,
+            buyer_name=buyer_info.get('name'),
+            buyer_email=buyer_info.get('email'),
+            buyer_phone=buyer_info.get('phone'),
+            delivery_address=buyer_info.get('address'),
+            delivery_city=buyer_info.get('city'),
+            delivery_state=buyer_info.get('state'),
+            delivery_cep=buyer_info.get('cep'),
+            **validated_data
+        )
+        return order
 
 class UserProfileDetailView(RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()

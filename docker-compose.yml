@@ -16,8 +16,9 @@ services:
 
   web:
     build:
-      context: ./backend
-    command: ["/wait-for-it.sh", "db:5432", "--", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+      context: .
+      dockerfile: ./backend/Dockerfile
+    command: ["/wait-for-it.sh", "db:5432", "--", "/startup.sh"]
     volumes:
       - ./backend:/backend
     ports:

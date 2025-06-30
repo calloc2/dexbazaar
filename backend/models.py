@@ -46,6 +46,45 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     profile_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
 
+class Order(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Pendente'),
+        ('paid', 'Pago'),
+        ('shipped', 'Enviado'),
+        ('delivered', 'Entregue'),
+        ('cancelled', 'Cancelado'),
+    ]
+    
+    PAYMENT_METHOD_CHOICES = [
+        ('crypto', 'Criptomoeda'),
+    ]
+    
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='orders')
+    buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='purchases')
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sales')
+    quantity = models.PositiveIntegerField(default=1)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    payment_method = models.CharField(max_length=20, choices=PAYMENT_METHOD_CHOICES, default='crypto')
+    crypto_currency = models.CharField(max_length=10, null=True, blank=True)
+    
+    # Dados do comprador
+    buyer_name = models.CharField(max_length=255)
+    buyer_email = models.EmailField()
+    buyer_phone = models.CharField(max_length=20)
+    
+    # Endereço de entrega
+    delivery_address = models.TextField()
+    delivery_city = models.CharField(max_length=100)
+    delivery_state = models.CharField(max_length=2)
+    delivery_cep = models.CharField(max_length=9)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f"Pedido #{self.id} - {self.product.title}"
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

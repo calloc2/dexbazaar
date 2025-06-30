@@ -4,11 +4,11 @@ from rest_framework.response import Response
 from rest_framework import status, generics, viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny, IsAuthenticated
 from .blockchain import Blockchain
-from .models import Product, ProductImage, Reputation
-from .serializers import ProductSerializer, ProductImageSerializer, UserSerializer, ReputationSerializer
+from .models import Product, ProductImage, Reputation, Order
+from .serializers import ProductSerializer, ProductImageSerializer, UserSerializer, ReputationSerializer, OrderSerializer, CreateOrderSerializer
 from rest_framework.generics import RetrieveAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import BasePermission
-from django.db.models import Avg
+from django.db.models import Avg, Q
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -141,3 +141,32 @@ class UserReputationScoreView(APIView):
         avg_score = Reputation.objects.filter(to_user=user).aggregate(avg=Avg('score'))['avg'] or 0
         count = Reputation.objects.filter(to_user=user).count()
         return Response({'average': avg_score, 'count': count})
+
+class OrderCreateView(generics.CreateAPIView):
+    serializer_class = CreateOrderSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
+
+class OrderListView(generics.ListAPIView):
+    serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        # Retorna pedidos do usuário como comprador ou vendedor
+        return Order.objects.filter(
+            Q(buyer=self.request.user) | Q(seller=self.request.user)
+        ).order_by('-created_at')
+
+class OrderDetailView(generics.RetrieveUpdateAPIView):
+    serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        # Usuário só pode ver seus próprios pedidos
+        return Order.objects.filter(
+            Q(buyer=self.request.user) | Q(seller=self.request.user)
+        )

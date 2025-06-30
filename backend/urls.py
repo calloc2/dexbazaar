@@ -26,7 +26,7 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 from .views import ProductListCreateView, UserProfileDetailView, ProductDetailView, CurrentUserView
-from .views import ReputationView, UserReputationScoreView
+from .views import ReputationView, UserReputationScoreView, OrderCreateView, OrderListView, OrderDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -40,6 +40,9 @@ urlpatterns = [
     path('api/users/<str:username>/', UserProfileDetailView.as_view(), name='user-detail'),
     path('api/reputation/', ReputationView.as_view(), name='reputation'),
     path('api/users/<str:username>/reputation/', UserReputationScoreView.as_view(), name='user-reputation'),
+    path('api/orders/', OrderListView.as_view(), name='order-list'),
+    path('api/orders/create/', OrderCreateView.as_view(), name='order-create'),
+    path('api/orders/<int:pk>/', OrderDetailView.as_view(), name='order-detail'),
     path('', TemplateView.as_view(template_name='index.html'), name='frontend'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

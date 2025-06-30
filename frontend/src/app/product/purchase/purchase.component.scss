@@ -1,0 +1,141 @@
+.product-summary {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.product-thumb {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.product-info {
+  flex: 1;
+}
+
+.product-info h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.price {
+  color: var(--ion-color-primary);
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 8px 0;
+}
+
+.quantity-selector {
+  margin: 12px 0;
+}
+
+.quantity-selector ion-input {
+  max-width: 80px;
+}
+
+.total {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--ion-color-light);
+  font-size: 1.2em;
+  color: var(--ion-color-primary);
+}
+
+.crypto-selection {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--ion-color-light);
+}
+
+.seller-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.seller-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.seller-info h3 {
+  margin: 0;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.seller-info p {
+  margin: 4px 0 0 0;
+  color: var(--ion-color-medium);
+  font-size: 0.9em;
+}
+
+.action-buttons {
+  margin-top: 24px;
+  padding-bottom: 24px;
+}
+
+.action-buttons ion-button {
+  margin-bottom: 12px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+.loading-container p {
+  margin-top: 16px;
+  color: var(--ion-color-medium);
+}
+
+/* Responsividade */
+@media (max-width: 576px) {
+  .product-summary {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .product-thumb {
+    align-self: center;
+  }
+}
+
+/* Estilo para campos obrigatórios */
+ion-item.item-has-focus ion-label,
+ion-item.item-has-placeholder ion-label {
+  color: var(--ion-color-primary);
+}
+
+/* Cards com sombra suave */
+ion-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+/* Estilo para radio buttons */
+ion-radio-group ion-item {
+  --border-color: transparent;
+}
+
+ion-radio {
+  --color: var(--ion-color-primary);
+}
+
+/* Animações */
+.action-buttons ion-button {
+  --transition: all 0.3s ease;
+}
+
+.action-buttons ion-button:hover {
+  transform: translateY(-2px);
+}
