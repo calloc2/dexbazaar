@@ -533,18 +533,26 @@
 
 /* ===== CATEGORIES SECTION ===== */
 .categories-section {
-  background: var(--ion-color-light);
+  background: rgba(0, 0, 0, 0.05);
   padding: 24px 0;
-  border-bottom: 1px solid var(--ion-color-light-shade);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  width: 100%;
+
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
 
   .categories-title {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     margin: 0 0 20px 0;
     font-size: 1.4rem;
     font-weight: 600;
     color: var(--ion-color-dark);
+    padding: 0 20px;
 
     .title-icon {
       font-size: 1.6rem;
@@ -553,29 +561,18 @@
   }
 
   .categories-scroll {
-    overflow-x: auto;
-    padding-bottom: 8px;
-    
-    &::-webkit-scrollbar {
-      height: 4px;
-    }
-    
-    &::-webkit-scrollbar-track {
-      background: var(--ion-color-light-shade);
-      border-radius: 2px;
-    }
-    
-    &::-webkit-scrollbar-thumb {
-      background: var(--ion-color-primary);
-      border-radius: 2px;
-    }
+    width: 100%;
+    padding: 0;
+    overflow: visible;
   }
 
   .categories-container {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 12px;
-    min-width: max-content;
-    padding: 0 4px;
+    padding: 0 20px;
+    width: 100%;
   }
 
   .category-chip {
@@ -588,7 +585,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap;
-    min-width: max-content;
+    flex-shrink: 0;
 
     &:hover {
       transform: translateY(-2px);
@@ -619,8 +616,8 @@
 /* Dark mode adjustments for categories */
 @media (prefers-color-scheme: dark) {
   .categories-section {
-    background: var(--ion-color-dark);
-    border-bottom-color: var(--ion-color-dark-tint);
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
 
     .categories-title {
       color: var(--ion-color-light);
@@ -646,6 +643,12 @@
     .categories-title {
       font-size: 1.2rem;
       margin-bottom: 16px;
+      padding: 0 16px;
+    }
+
+    .categories-container {
+      padding: 0 16px;
+      gap: 8px;
     }
 
     .category-chip {
@@ -657,6 +660,29 @@
 
       ion-label {
         font-size: 0.85rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .categories-section {
+    .categories-title {
+      padding: 0 12px;
+    }
+
+    .categories-container {
+      padding: 0 12px;
+      gap: 6px;
+    }
+
+    .category-chip {
+      padding: 5px 10px;
+      font-size: 0.8rem;
+      
+      .category-icon {
+        font-size: 0.9rem;
+        margin-right: 4px;
       }
     }
   }

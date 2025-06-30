@@ -111,25 +111,23 @@
 
   <!-- Category Filters Section -->
   <div class="categories-section" *ngIf="categories.length > 0">
-    <div class="container">
-      <div class="section-header">
-        <h3 class="categories-title">
-          <ion-icon name="apps-outline" class="title-icon"></ion-icon>
-          Categorias
-        </h3>
-      </div>
-      
-      <div class="categories-scroll">
-        <div class="categories-container">
-          <ion-chip 
-            *ngFor="let category of categories" 
-            [class.selected]="selectedCategory === category.id"
-            (click)="testCategoryClick(category.id)"
-            class="category-chip">
-            <ion-icon [name]="category.icon" class="category-icon"></ion-icon>
-            <ion-label>{{ category.name }}</ion-label>
-          </ion-chip>
-        </div>
+    <div class="section-header">
+      <h3 class="categories-title">
+        <ion-icon name="apps-outline" class="title-icon"></ion-icon>
+        Categorias
+      </h3>
+    </div>
+    
+    <div class="categories-scroll">
+      <div class="categories-container">
+        <ion-chip 
+          *ngFor="let category of categories" 
+          [class.selected]="selectedCategory === category.id"
+          (click)="testCategoryClick(category.id)"
+          class="category-chip">
+          <ion-icon [name]="category.icon" class="category-icon"></ion-icon>
+          <ion-label>{{ category.name }}</ion-label>
+        </ion-chip>
       </div>
     </div>
   </div>
