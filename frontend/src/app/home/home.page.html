@@ -28,9 +28,13 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <ion-item routerLink="/register-product">
+      <ion-item routerLink="/carrinho">
         <ion-icon name="cart-outline" slot="start"></ion-icon>
         Carrinho
+      </ion-item>
+      <ion-item routerLink="/register-product">
+        <ion-icon name="registerproduct-outline" slot="start"></ion-icon>
+        Registar Produtos
       </ion-item>
       <ion-item routerLink="/login">
         <ion-icon name="person-outline" slot="start"></ion-icon>
@@ -39,7 +43,6 @@
     </ion-list>
   </ion-content>
 </ion-menu>
-
 <ion-content id="main-content" class="ion-padding">
   <div class="carousel-container">
     <div class="carousel-slide" *ngFor="let banner of banners; let i = index" [class.active]="i === currentBanner">

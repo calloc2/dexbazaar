@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { ProfileRedirectComponent } from './profile/profile-redirect/profile-redirect.component';
 
 export const routes: Routes = [
   {
@@ -39,12 +38,12 @@ export const routes: Routes = [
     loadComponent: () => import('./product/product-detail/product-detail.component').then(m => m.ProductDetailComponent),
   },
   {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
+    path: 'carrinho',
+    loadComponent: () => import('./carrinho/carrinho.page').then(m => m.CarrinhoPage),
   },
   {
-    path: '**',
-    loadComponent: () => import('./not-found/not-found.page').then((m) => m.NotFoundPage),
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
   }
 ];
