@@ -531,6 +531,137 @@
   }
 }
 
+/* ===== CATEGORIES SECTION ===== */
+.categories-section {
+  background: var(--ion-color-light);
+  padding: 24px 0;
+  border-bottom: 1px solid var(--ion-color-light-shade);
+
+  .categories-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 20px 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--ion-color-dark);
+
+    .title-icon {
+      font-size: 1.6rem;
+      color: var(--ion-color-primary);
+    }
+  }
+
+  .categories-scroll {
+    overflow-x: auto;
+    padding-bottom: 8px;
+    
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: var(--ion-color-light-shade);
+      border-radius: 2px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: var(--ion-color-primary);
+      border-radius: 2px;
+    }
+  }
+
+  .categories-container {
+    display: flex;
+    gap: 12px;
+    min-width: max-content;
+    padding: 0 4px;
+  }
+
+  .category-chip {
+    --background: var(--ion-color-light);
+    --color: var(--ion-color-dark);
+    border: 2px solid var(--ion-color-medium-tint);
+    border-radius: var(--radius-full);
+    padding: 8px 16px;
+    height: auto;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    min-width: max-content;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--ion-color-primary-tint);
+    }
+
+    &.selected {
+      --background: var(--ion-color-primary);
+      --color: var(--ion-color-primary-contrast);
+      border-color: var(--ion-color-primary);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-1px);
+    }
+
+    .category-icon {
+      font-size: 1.2rem;
+      margin-right: 6px;
+    }
+
+    ion-label {
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+/* Dark mode adjustments for categories */
+@media (prefers-color-scheme: dark) {
+  .categories-section {
+    background: var(--ion-color-dark);
+    border-bottom-color: var(--ion-color-dark-tint);
+
+    .categories-title {
+      color: var(--ion-color-light);
+    }
+
+    .category-chip {
+      --background: var(--ion-color-dark-tint);
+      --color: var(--ion-color-light);
+      border-color: var(--ion-color-medium);
+
+      &:hover {
+        border-color: var(--ion-color-primary-tint);
+      }
+    }
+  }
+}
+
+/* Responsive categories */
+@media (max-width: 768px) {
+  .categories-section {
+    padding: 16px 0;
+
+    .categories-title {
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+    }
+
+    .category-chip {
+      padding: 6px 12px;
+      
+      .category-icon {
+        font-size: 1rem;
+      }
+
+      ion-label {
+        font-size: 0.85rem;
+      }
+    }
+  }
+}
+
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
   .header-content {

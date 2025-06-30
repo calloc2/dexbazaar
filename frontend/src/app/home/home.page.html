@@ -11,7 +11,9 @@
           class="modern-searchbar" 
           placeholder="Buscar produtos..." 
           show-clear-button="focus"
-          debounce="300">
+          debounce="300"
+          [(ngModel)]="searchTerm"
+          (ionInput)="onSearchChange($event)">
         </ion-searchbar>
       </div>
       
@@ -90,7 +92,7 @@
         <div class="carousel-content">
           <h2 class="banner-title">{{ banner.caption }}</h2>
           <p class="banner-subtitle">Descubra os melhores produtos</p>
-          <ion-button fill="solid" class="cta-button">
+          <ion-button fill="solid" class="cta-button" (click)="exploreProducts()">
             <ion-icon name="search-outline" slot="start"></ion-icon>
             Explorar
           </ion-button>
@@ -107,6 +109,31 @@
     </div>
   </div>
 
+  <!-- Category Filters Section -->
+  <div class="categories-section" *ngIf="categories.length > 0">
+    <div class="container">
+      <div class="section-header">
+        <h3 class="categories-title">
+          <ion-icon name="apps-outline" class="title-icon"></ion-icon>
+          Categorias
+        </h3>
+      </div>
+      
+      <div class="categories-scroll">
+        <div class="categories-container">
+          <ion-chip 
+            *ngFor="let category of categories" 
+            [class.selected]="selectedCategory === category.id"
+            (click)="testCategoryClick(category.id)"
+            class="category-chip">
+            <ion-icon [name]="category.icon" class="category-icon"></ion-icon>
+            <ion-label>{{ category.name }}</ion-label>
+          </ion-chip>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Products Section -->
   <div class="products-section">
     <div class="container">
@@ -114,15 +141,23 @@
       <div class="section-header">
         <h2 class="section-title">
           <ion-icon name="star-outline" class="title-icon"></ion-icon>
-          Produtos em Destaque
+          <span *ngIf="searchTerm || selectedCategory !== 'all'; else defaultTitle">
+            {{ getProductsSectionTitle() }}
+          </span>
+          <ng-template #defaultTitle>Produtos em Destaque</ng-template>
         </h2>
-        <p class="section-subtitle">Descubra os produtos mais populares da nossa plataforma</p>
+        <p class="section-subtitle" *ngIf="!searchTerm && selectedCategory === 'all'">
+          Descubra os produtos mais populares da nossa plataforma
+        </p>
+        <p class="section-subtitle" *ngIf="searchTerm || selectedCategory !== 'all'">
+          {{ filteredProducts.length }} produto(s) encontrado(s)
+        </p>
       </div>
 
       <!-- Products Grid -->
-      <div class="products-grid" *ngIf="products.length > 0; else noProducts">
+      <div class="products-grid" *ngIf="filteredProducts.length > 0; else noProducts">
         <div class="product-card" 
-             *ngFor="let product of products; trackBy: trackByProductId"
+             *ngFor="let product of filteredProducts; trackBy: trackByProductId"
              [routerLink]="['/product', product.id]"
              class="fade-in">
           
