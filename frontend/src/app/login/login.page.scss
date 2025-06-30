@@ -1,6 +1,6 @@
 /* ===== LOGIN PAGE STYLES ===== */
 .login-content {
-  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --background: var(--gradient-primary);
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -36,14 +36,15 @@
     .app-title {
       font-size: 2.2rem;
       font-weight: 700;
-      color: white;
+      color: var(--ion-color-primary-contrast);
       margin: 0;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
   }
   
   .welcome-subtitle {
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--ion-color-primary-contrast);
+    opacity: 0.9;
     font-size: 1.1rem;
     margin: 0;
   }
@@ -51,12 +52,12 @@
 
 /* Login Card */
 .login-card {
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--ion-card-background);
   backdrop-filter: blur(20px);
   border-radius: var(--radius-xl);
   padding: 32px;
   box-shadow: var(--shadow-xl);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid var(--ion-color-light-shade);
   
   .card-header {
     text-align: center;
@@ -65,7 +66,7 @@
     .login-title {
       font-size: 1.8rem;
       font-weight: 600;
-      color: var(--ion-color-dark);
+      color: var(--ion-text-color);
       margin-bottom: 8px;
     }
     
@@ -87,7 +88,7 @@
       align-items: center;
       gap: 8px;
       font-weight: 500;
-      color: var(--ion-color-dark);
+      color: var(--ion-text-color);
       margin-bottom: 8px;
       font-size: 0.95rem;
       
@@ -98,11 +99,11 @@
     }
     
     .custom-input {
-      --background: #f8f9fa;
+      --background: var(--ion-color-light-tint);
       --border-radius: var(--radius-md);
-      --border-color: #e9ecef;
+      --border-color: var(--ion-color-light-shade);
       --highlight-color-focused: var(--ion-color-primary);
-      border: 2px solid #e9ecef;
+      border: 2px solid var(--ion-color-light-shade);
       border-radius: var(--radius-md);
       transition: all 0.2s ease-in-out;
       
@@ -113,12 +114,13 @@
       
       &:focus-within {
         border-color: var(--ion-color-primary);
-        box-shadow: 0 0 0 3px rgba(160, 119, 231, 0.1);
+        box-shadow: 0 0 0 3px rgba(var(--ion-color-primary-rgb), 0.1);
       }
       
       ion-input {
         --padding-start: 16px;
         --padding-end: 16px;
+        --color: #333333;
         font-size: 1rem;
       }
     }
@@ -154,12 +156,12 @@
     
     .remember-checkbox {
       --checkbox-background-checked: var(--ion-color-primary);
-      --checkmark-color: white;
+      --checkmark-color: var(--ion-color-primary-contrast);
       margin-right: 8px;
     }
     
     .remember-label {
-      color: var(--ion-color-dark);
+      color: var(--ion-text-color);
       font-size: 0.9rem;
       flex: 1;
     }
@@ -181,7 +183,7 @@
   /* Login Button */
   .login-button {
     --background: var(--gradient-primary);
-    --color: white;
+    --color: var(--ion-color-primary-contrast);
     --border-radius: var(--radius-md);
     font-weight: 600;
     height: 50px;
@@ -215,11 +217,11 @@
       left: 0;
       right: 0;
       height: 1px;
-      background: #e9ecef;
+      background: var(--ion-color-light-shade);
     }
     
     span {
-      background: rgba(255, 255, 255, 0.95);
+      background: var(--ion-card-background);
       padding: 0 16px;
       color: var(--ion-color-medium);
       font-size: 0.9rem;
@@ -236,14 +238,14 @@
     margin-bottom: 24px;
     
     .social-button {
-      --border-color: #e9ecef;
-      --color: var(--ion-color-dark);
+      --border-color: var(--ion-color-light-shade);
+      --color: var(--ion-text-color);
       --border-radius: var(--radius-md);
       height: 44px;
       font-weight: 500;
       
       &:hover {
-        --background: #f8f9fa;
+        --background: var(--ion-color-light-tint);
         transform: translateY(-1px);
       }
       
