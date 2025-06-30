@@ -1,59 +1,148 @@
-<ion-header>
+<ion-header class="modern-header">
   <ion-toolbar class="toolbar">
     <div class="header-content">
-      <ion-title class="header-title">dexBazaar</ion-title>
-      <ion-searchbar class="custom-searchbar" placeholder="Pesquisar"></ion-searchbar>
-      <a routerLink="/home">
-        <ion-button fill="clear" class="kart">
-          <img src="..\assets\icon\imgs\curved-arrow-icon.png" alt="back" class="kart" height="40px">
+      <div class="logo-section">
+        <img src="assets/icon/dexbazaar.png" alt="DexBazaar" class="logo">
+        <span class="logo-text">DexBazaar</span>
+      </div>
+      
+      <div class="header-actions">
+        <ion-button fill="clear" class="action-btn" routerLink="/home">
+          <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
         </ion-button>
-      </a>
-      <a href="/login">
-        <ion-button fill="clear" class="home-button">
-          <img src="..\assets\icon\imgs\perfil-icon.png" alt="Home" class="home-icon">
+        <ion-button fill="clear" class="action-btn" routerLink="/profile">
+          <ion-icon name="person-circle-outline" slot="icon-only"></ion-icon>
         </ion-button>
-      </a>
+      </div>
     </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <form [formGroup]="productForm" (ngSubmit)="submit()">
-    <ion-item>
-      <ion-label position="floating">Título</ion-label>
-      <ion-input formControlName="title"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Descrição</ion-label>
-      <ion-textarea formControlName="description"></ion-textarea>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Preço</ion-label>
-      <ion-input type="number" formControlName="price"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Categoria</ion-label>
-      <ion-select formControlName="category">
-        <ion-select-option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label>Imagens</ion-label>
-      <input type="file" (change)="onImageSelected($event)" accept="image/*" multiple>
-    </ion-item>
-    <div class="image-preview" *ngIf="imagePreviews.length > 0">
-      <img *ngFor="let img of imagePreviews" [src]="img" class="preview-img">
+<ion-content class="register-content">
+  <div class="container">
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="header-icon">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </div>
+      <h1 class="page-title">Vender Produto</h1>
+      <p class="page-subtitle">Adicione seu produto ao marketplace descentralizado</p>
     </div>
-    <ion-item>
-      <ion-label position="floating">CEP</ion-label>
-      <ion-input type="text" formControlName="cep" maxlength="9" (ionBlur)="onCepBlur()"></ion-input>
-    </ion-item>
-    <ion-item *ngIf="city && state">
-      <ion-text>{{ city }} / {{ state }}</ion-text>
-    </ion-item>
-    <ion-button expand="block" type="submit" [disabled]="!productForm.valid">Registrar Produto</ion-button>
-  </form>
-  <ion-button expand="block" routerLink="/list-products" class="list-button">
-    Ver Listagem de Produtos
-  </ion-button>
+
+    <!-- Registration Form -->
+    <div class="form-card">
+      <form [formGroup]="productForm" (ngSubmit)="submit()" class="product-form">
+        
+        <!-- Basic Information Section -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <ion-icon name="information-circle-outline" class="section-icon"></ion-icon>
+            Informações Básicas
+          </h3>
+          
+          <div class="input-group">
+            <ion-item class="custom-item">
+              <ion-label position="floating" class="custom-label">Título do Produto</ion-label>
+              <ion-input formControlName="title" class="custom-input" placeholder="Ex: iPhone 13 Pro Max"></ion-input>
+            </ion-item>
+          </div>
+
+          <div class="input-group">
+            <ion-item class="custom-item">
+              <ion-label position="floating" class="custom-label">Descrição</ion-label>
+              <ion-textarea formControlName="description" class="custom-textarea" 
+                           placeholder="Descreva seu produto detalhadamente..."
+                           rows="4"></ion-textarea>
+            </ion-item>
+          </div>
+
+          <div class="input-row">
+            <div class="input-group half-width">
+              <ion-item class="custom-item">
+                <ion-label position="floating" class="custom-label">Preço (R$)</ion-label>
+                <ion-input type="number" formControlName="price" class="custom-input" placeholder="0,00"></ion-input>
+              </ion-item>
+            </div>
+
+            <div class="input-group half-width">
+              <ion-item class="custom-item">
+                <ion-label position="floating" class="custom-label">Categoria</ion-label>
+                <ion-select formControlName="category" class="custom-select" placeholder="Selecione">
+                  <ion-select-option *ngFor="let cat of categories" [value]="cat.id">{{ cat.name }}</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </div>
+          </div>
+        </div>
+
+        <!-- Images Section -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <ion-icon name="images-outline" class="section-icon"></ion-icon>
+            Imagens do Produto
+          </h3>
+          
+          <div class="image-upload-container">
+            <div class="upload-area" (click)="fileInput.click()">
+              <ion-icon name="cloud-upload-outline" class="upload-icon"></ion-icon>
+              <h4 class="upload-title">Adicionar Imagens</h4>
+              <p class="upload-subtitle">Clique aqui ou arraste as imagens</p>
+              <p class="upload-hint">Máximo 5 imagens • JPG, PNG até 5MB cada</p>
+            </div>
+            <input #fileInput type="file" (change)="onImageSelected($event)" 
+                   accept="image/*" multiple style="display: none;">
+          </div>
+
+          <div class="image-preview-grid" *ngIf="imagePreviews.length > 0">
+            <div class="image-preview-item" *ngFor="let img of imagePreviews; let i = index">
+              <img [src]="img" class="preview-img" [alt]="'Preview ' + (i + 1)">
+              <button type="button" class="remove-image-btn" (click)="removeImage(i)">
+                <ion-icon name="close-outline"></ion-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Location Section -->
+        <div class="form-section">
+          <h3 class="section-title">
+            <ion-icon name="location-outline" class="section-icon"></ion-icon>
+            Localização
+          </h3>
+          
+          <div class="input-group">
+            <ion-item class="custom-item">
+              <ion-label position="floating" class="custom-label">CEP</ion-label>
+              <ion-input type="text" formControlName="cep" class="custom-input" 
+                        maxlength="9" (ionBlur)="onCepBlur()" 
+                        placeholder="00000-000"></ion-input>
+            </ion-item>
+          </div>
+
+          <div class="location-info" *ngIf="city && state">
+            <div class="location-display">
+              <ion-icon name="location" class="location-icon"></ion-icon>
+              <span class="location-text">{{ city }} - {{ state }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="form-actions">
+          <ion-button expand="block" type="submit" class="primary-button" 
+                     [disabled]="!productForm.valid || isSubmitting">
+            <ion-spinner name="crescent" *ngIf="isSubmitting"></ion-spinner>
+            <ion-icon name="checkmark-outline" slot="start" *ngIf="!isSubmitting"></ion-icon>
+            <span *ngIf="!isSubmitting">Registrar Produto</span>
+            <span *ngIf="isSubmitting">Salvando...</span>
+          </ion-button>
+
+          <ion-button expand="block" fill="outline" routerLink="/list-products" class="secondary-button">
+            <ion-icon name="list-outline" slot="start"></ion-icon>
+            Ver Meus Produtos
+          </ion-button>
+        </div>
+      </form>
+    </div>
+  </div>
 </ion-content>

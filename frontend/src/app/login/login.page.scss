@@ -1,27 +1,380 @@
-@import 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css';
+/* ===== LOGIN PAGE STYLES ===== */
+.login-content {
+  --background: var(--gradient-primary);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .login-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-ion-card {
   width: 100%;
-  max-width: 400px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 1s ease-in-out;
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 20px;
+  animation: slideUp 0.6s ease-out;
 }
 
-ion-card-title {
+/* Header */
+.login-header {
   text-align: center;
-  font-size: 1.5rem;
-  font-weight: bold;
+  margin-bottom: 32px;
+  
+  .logo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    
+    .login-logo {
+      width: 80px;
+      height: 80px;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    }
+    
+    .app-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--ion-color-primary-contrast);
+      margin: 0;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+  }
+  
+  .welcome-subtitle {
+    color: var(--ion-color-primary-contrast);
+    opacity: 0.9;
+    font-size: 1.1rem;
+    margin: 0;
+  }
 }
 
-ion-card-subtitle {
-  text-align: center;
-  font-size: 1rem;
-  color: var(--ion-color-medium);
+/* Login Card */
+.login-card {
+  background: var(--ion-card-background);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--ion-color-light-shade);
+  
+  .card-header {
+    text-align: center;
+    margin-bottom: 32px;
+    
+    .login-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--ion-text-color);
+      margin-bottom: 8px;
+    }
+    
+    .login-subtitle {
+      color: var(--ion-color-medium);
+      font-size: 1rem;
+      margin: 0;
+    }
+  }
+}
+
+/* Form Styles */
+.login-form {
+  .input-group {
+    margin-bottom: 24px;
+    
+    .input-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      color: var(--ion-text-color);
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+      
+      .input-icon {
+        font-size: 18px;
+        color: var(--ion-color-primary);
+      }
+    }
+    
+    .custom-input {
+      --background: var(--ion-color-light-tint);
+      --border-radius: var(--radius-md);
+      --border-color: var(--ion-color-light-shade);
+      --highlight-color-focused: var(--ion-color-primary);
+      border: 2px solid var(--ion-color-light-shade);
+      border-radius: var(--radius-md);
+      transition: all 0.2s ease-in-out;
+      
+      &.error {
+        --border-color: var(--ion-color-danger);
+        border-color: var(--ion-color-danger);
+      }
+      
+      &:focus-within {
+        border-color: var(--ion-color-primary);
+        box-shadow: 0 0 0 3px rgba(var(--ion-color-primary-rgb), 0.1);
+      }
+      
+      ion-input {
+        --padding-start: 16px;
+        --padding-end: 16px;
+        --color: #333333;
+        font-size: 1rem;
+      }
+    }
+    
+    .password-toggle {
+      --color: var(--ion-color-medium);
+      
+      &:hover {
+        --color: var(--ion-color-primary);
+      }
+    }
+    
+    .error-message {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--ion-color-danger);
+      font-size: 0.85rem;
+      margin-top: 6px;
+      
+      ion-icon {
+        font-size: 16px;
+      }
+    }
+  }
+  
+  /* Form Options */
+  .form-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    
+    .remember-checkbox {
+      --checkbox-background-checked: var(--ion-color-primary);
+      --checkmark-color: var(--ion-color-primary-contrast);
+      margin-right: 8px;
+    }
+    
+    .remember-label {
+      color: var(--ion-text-color);
+      font-size: 0.9rem;
+      flex: 1;
+    }
+    
+    .forgot-password {
+      background: none;
+      border: none;
+      color: var(--ion-color-primary);
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-decoration: underline;
+      
+      &:hover {
+        color: var(--ion-color-primary-shade);
+      }
+    }
+  }
+  
+  /* Login Button */
+  .login-button {
+    --background: var(--gradient-primary);
+    --color: var(--ion-color-primary-contrast);
+    --border-radius: var(--radius-md);
+    font-weight: 600;
+    height: 50px;
+    margin-bottom: 24px;
+    
+    &:not([disabled]):hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    &[disabled] {
+      --background: var(--ion-color-medium);
+      opacity: 0.6;
+    }
+    
+    ion-spinner {
+      margin-right: 8px;
+    }
+  }
+  
+  /* Divider */
+  .divider {
+    text-align: center;
+    margin: 24px 0;
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--ion-color-light-shade);
+    }
+    
+    span {
+      background: var(--ion-card-background);
+      padding: 0 16px;
+      color: var(--ion-color-medium);
+      font-size: 0.9rem;
+      position: relative;
+      z-index: 1;
+    }
+  }
+  
+  /* Social Buttons */
+  .social-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+    
+    .social-button {
+      --border-color: var(--ion-color-light-shade);
+      --color: var(--ion-text-color);
+      --border-radius: var(--radius-md);
+      height: 44px;
+      font-weight: 500;
+      
+      &:hover {
+        --background: var(--ion-color-light-tint);
+        transform: translateY(-1px);
+      }
+      
+      &.google-button:hover {
+        --border-color: #db4437;
+        --color: #db4437;
+      }
+      
+      &.metamask-button:hover {
+        --border-color: #f6851b;
+        --color: #f6851b;
+      }
+    }
+  }
+  
+  /* Register Section */
+  .register-section {
+    text-align: center;
+    margin-bottom: 24px;
+    
+    .register-text {
+      color: var(--ion-color-medium);
+      font-size: 0.95rem;
+      margin: 0;
+      
+      .register-link {
+        color: var(--ion-color-primary);
+        text-decoration: none;
+        font-weight: 500;
+        
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  
+  /* Back Button */
+  .back-button {
+    --color: var(--ion-color-medium);
+    width: 100%;
+    
+    &:hover {
+      --color: var(--ion-color-primary);
+    }
+  }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .login-container {
+    padding: 16px;
+    max-width: 100%;
+  }
+  
+  .login-card {
+    padding: 24px;
+    margin: 0 8px;
+  }
+  
+  .login-header {
+    margin-bottom: 24px;
+    
+    .logo-section .login-logo {
+      width: 64px;
+      height: 64px;
+    }
+    
+    .app-title {
+      font-size: 1.8rem;
+    }
+  }
+  
+  .social-buttons {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  
+  .form-options {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    
+    .forgot-password {
+      align-self: flex-end;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 20px;
+    border-radius: var(--radius-lg);
+  }
+  
+  .login-header .app-title {
+    font-size: 1.6rem;
+  }
+  
+  .card-header .login-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Loading state */
+.loading {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Success state animation */
+.success-animation {
+  animation: successPulse 0.6s ease-out;
+}
+
+@keyframes successPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }

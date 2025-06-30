@@ -1,31 +1,135 @@
-<ion-content class="ion-padding">
-  <div class="login-container animate__animated animate__fadeIn">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Bem-vindo!</ion-card-title>
-        <ion-card-subtitle>Faça login para continuar</ion-card-subtitle>
-      </ion-card-header>
+<ion-content class="login-content">
+  <div class="login-container">
+    <!-- Header -->
+    <div class="login-header">
+      <div class="logo-section">
+        <img src="assets/icon/dexbazaar.png" alt="DexBazaar" class="login-logo">
+        <h1 class="app-title">DexBazaar</h1>
+      </div>
+      <p class="welcome-subtitle">Marketplace descentralizado</p>
+    </div>
 
-      <ion-card-content>
-        <form (ngSubmit)="onLogin()">
-          <ion-item>
-            <ion-label position="floating">Usuário</ion-label>
-            <ion-input [(ngModel)]="username" name="username" required></ion-input>
+    <!-- Login Card -->
+    <div class="login-card">
+      <div class="card-header">
+        <h2 class="login-title">Bem-vindo de volta!</h2>
+        <p class="login-subtitle">Entre na sua conta para continuar</p>
+      </div>
+
+      <form (ngSubmit)="onLogin()" #loginForm="ngForm" class="login-form">
+        <!-- Username Field -->
+        <div class="input-group">
+          <label class="input-label">
+            <ion-icon name="person-outline" class="input-icon"></ion-icon>
+            Usuário
+          </label>
+          <ion-item class="custom-input" [class.error]="usernameError">
+            <ion-input 
+              [(ngModel)]="username" 
+              name="username" 
+              required
+              placeholder="Digite seu usuário"
+              type="text"
+              clearInput="true"
+              [class.error]="usernameError">
+            </ion-input>
           </ion-item>
+          <div class="error-message" *ngIf="usernameError">
+            <ion-icon name="warning-outline"></ion-icon>
+            {{ usernameError }}
+          </div>
+        </div>
 
-          <ion-item>
-            <ion-label position="floating">Senha</ion-label>
-            <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
+        <!-- Password Field -->
+        <div class="input-group">
+          <label class="input-label">
+            <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+            Senha
+          </label>
+          <ion-item class="custom-input" [class.error]="passwordError">
+            <ion-input 
+              [(ngModel)]="password" 
+              name="password" 
+              required
+              [type]="showPassword ? 'text' : 'password'"
+              placeholder="Digite sua senha"
+              [class.error]="passwordError">
+            </ion-input>
+            <ion-button 
+              fill="clear" 
+              slot="end" 
+              class="password-toggle"
+              (click)="togglePasswordVisibility()">
+              <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+            </ion-button>
           </ion-item>
+          <div class="error-message" *ngIf="passwordError">
+            <ion-icon name="warning-outline"></ion-icon>
+            {{ passwordError }}
+          </div>
+        </div>
 
-          <ion-button expand="block" type="submit">Login</ion-button>
-          <a href="/register">
-            <ion-button expand="block" fill="clear">Registrar</ion-button>
-          </a>
-          <a href="/home">
-            <ion-button expand="block" fill="clear">voltar</ion-button></a>
-        </form>
-      </ion-card-content>
-    </ion-card>
+        <!-- Remember Me & Forgot Password -->
+        <div class="form-options">
+          <ion-checkbox [(ngModel)]="rememberMe" name="rememberMe" class="remember-checkbox">
+          </ion-checkbox>
+          <label class="remember-label">Lembrar de mim</label>
+          
+          <button type="button" class="forgot-password" (click)="forgotPassword()">
+            Esqueci minha senha
+          </button>
+        </div>
+
+        <!-- Login Button -->
+        <ion-button 
+          expand="block" 
+          type="submit" 
+          class="login-button"
+          [disabled]="isLoading || !loginForm.valid">
+          <ion-spinner name="crescent" *ngIf="isLoading"></ion-spinner>
+          <span *ngIf="!isLoading">Entrar</span>
+        </ion-button>
+
+        <!-- Social Login -->
+        <div class="divider">
+          <span>ou continue com</span>
+        </div>
+
+        <div class="social-buttons">
+          <ion-button fill="outline" class="social-button google-button" (click)="loginWithGoogle()">
+            <ion-icon name="logo-google" slot="start"></ion-icon>
+            Google
+          </ion-button>
+          
+          <ion-button fill="outline" class="social-button metamask-button" (click)="loginWithMetaMask()">
+            <ion-icon name="wallet-outline" slot="start"></ion-icon>
+            MetaMask
+          </ion-button>
+        </div>
+
+        <!-- Register Link -->
+        <div class="register-section">
+          <p class="register-text">
+            Não tem uma conta? 
+            <a routerLink="/register" class="register-link">Cadastre-se aqui</a>
+          </p>
+        </div>
+
+        <!-- Back to Home -->
+        <ion-button fill="clear" routerLink="/home" class="back-button">
+          <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+          Voltar ao início
+        </ion-button>
+      </form>
+    </div>
+
+    <!-- Error Alert -->
+    <ion-alert
+      [isOpen]="showAlert"
+      header="Erro no Login"
+      [message]="alertMessage"
+      [buttons]="['OK']"
+      (didDismiss)="showAlert = false">
+    </ion-alert>
   </div>
 </ion-content>

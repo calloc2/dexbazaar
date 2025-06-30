@@ -5,13 +5,20 @@ import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput, IonItem, IonLabel, AlertController, IonIcon, IonSelect, IonSelectOption, IonCard, 
-  IonCardHeader, 
-  IonCardTitle, 
-  IonCardSubtitle, 
-  IonCardContent,
-} from '@ionic/angular/standalone';
+import { IonContent, IonButton, IonInput, IonItem, IonLabel, AlertController, IonIcon } from '@ionic/angular/standalone';
 import { IonProgressBar } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { 
+  personOutline, 
+  personAddOutline, 
+  atOutline, 
+  mailOutline, 
+  lockClosedOutline, 
+  eyeOutline, 
+  eyeOffOutline,
+  warningOutline 
+} from 'ionicons/icons';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-register',
@@ -22,12 +29,6 @@ import { IonProgressBar } from '@ionic/angular/standalone';
     CommonModule,
     FormsModule,
     HttpClientModule,
-    IonHeader,
-    CommonModule, 
-    FormsModule,  
-    HttpClientModule,    
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonItem,
     IonLabel,
@@ -35,13 +36,6 @@ import { IonProgressBar } from '@ionic/angular/standalone';
     IonButton,
     IonIcon,
     IonProgressBar,
-    IonSelect,
-    IonSelectOption,
-    IonCard,
-    IonCardHeader, 
-    IonCardTitle, 
-    IonCardSubtitle, 
-    IonCardContent,
   ],
 })
 export class RegisterPage {
@@ -52,14 +46,29 @@ export class RegisterPage {
   confirmPassword: string = '';
   email: string = '';
   passwordType: string = 'password';
-  passwordIcon: string = 'eye-off';
+  passwordIcon: string = 'eye-off-outline';
   passwordStrength: number = 0;
+  passwordStrengthLevel: string = 'low';
+  passwordStrengthText: string = '';
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    private alertController: AlertController
-  ) {}
+    private alertController: AlertController,
+    private loadingService: LoadingService
+  ) {
+    // Register icons
+    addIcons({
+      'person-outline': personOutline,
+      'person-add-outline': personAddOutline,
+      'at-outline': atOutline,
+      'mail-outline': mailOutline,
+      'lock-closed-outline': lockClosedOutline,
+      'eye-outline': eyeOutline,
+      'eye-off-outline': eyeOffOutline,
+      'warning-outline': warningOutline,
+    });
+  }
 
   ngOnInit() {
   }
@@ -67,10 +76,10 @@ export class RegisterPage {
   togglePasswordVisibility() {
     if (this.passwordType === 'password') {
       this.passwordType = 'text';
-      this.passwordIcon = 'eye';
+      this.passwordIcon = 'eye-outline';
     } else {
       this.passwordType = 'password';
-      this.passwordIcon = 'eye-off';
+      this.passwordIcon = 'eye-off-outline';
     }
   }
 
@@ -78,16 +87,16 @@ export class RegisterPage {
     const strength = this.calculatePasswordStrength(password);
     this.passwordStrength = strength / 100;
 
-    const progressBar = document.querySelector('ion-progress-bar');
-    if (progressBar) {
-      progressBar.classList.remove('low', 'medium', 'high');
-      if (strength <= 50) {
-        progressBar.classList.add('low');
-      } else if (strength <= 75) {
-        progressBar.classList.add('medium');
-      } else {
-        progressBar.classList.add('high');
-      }
+    // Set strength level and text
+    if (strength <= 40) {
+      this.passwordStrengthLevel = 'low';
+      this.passwordStrengthText = 'Senha fraca';
+    } else if (strength <= 75) {
+      this.passwordStrengthLevel = 'medium';
+      this.passwordStrengthText = 'Senha média';
+    } else {
+      this.passwordStrengthLevel = 'high';
+      this.passwordStrengthText = 'Senha forte';
     }
   }
 
@@ -119,17 +128,25 @@ export class RegisterPage {
       email: this.email,
     };
 
+    this.loadingService.show('Criando sua conta...');
+
     this.http.post(`${environment.apiUrl}/api/users/register/`, userData).subscribe(
       async (response) => {
-        const alert = await this.alertController.create({
-          header: 'Sucesso',
-          message: 'Usuário registrado com sucesso!',
-          buttons: ['OK'],
-        });
-        await alert.present();
-        this.router.navigate(['/login']);
+        this.loadingService.setMessage('Finalizando registro...');
+        
+        setTimeout(async () => {
+          this.loadingService.hide();
+          const alert = await this.alertController.create({
+            header: 'Sucesso',
+            message: 'Usuário registrado com sucesso!',
+            buttons: ['OK'],
+          });
+          await alert.present();
+          this.router.navigate(['/login']);
+        }, 1000);
       },
       async (error) => {
+        this.loadingService.hide();
         const alert = await this.alertController.create({
           header: 'Erro',
           message: 'Ocorreu um erro ao registrar o usuário.',

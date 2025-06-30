@@ -1,24 +1,208 @@
-<ion-header>
+<ion-header class="modern-header">
   <ion-toolbar>
-    <ion-title>Produtos Cadastrados</ion-title>
-    <ion-buttons slot="end">
-      <ion-button routerLink="/register-product">Novo Produto</ion-button>
-    </ion-buttons>
+    <div class="header-content">
+      <ion-title class="page-title">
+        <ion-icon name="storefront-outline" class="title-icon"></ion-icon>
+        Meus Produtos
+      </ion-title>
+      <ion-buttons slot="end">
+        <ion-button fill="solid" routerLink="/register-product" class="add-product-btn">
+          <ion-icon name="add-outline" slot="start"></ion-icon>
+          Novo Produto
+        </ion-button>
+      </ion-buttons>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <ion-list *ngIf="products.length > 0; else emptyList">
-    <ion-item *ngFor="let product of products">
-      <ion-label>
-        <h2>{{ product.title }}</h2>
-        <p>{{ product.description }}</p>
-        <p><strong>Preço:</strong> R$ {{ product.price }}</p>
-        <p><strong>Categoria:</strong> {{ product.categoryName || product.category }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
-  <ng-template #emptyList>
-    <ion-text color="medium">Nenhum produto cadastrado.</ion-text>
-  </ng-template>
+<ion-content class="products-content">
+  <div class="container">
+    <!-- Stats Section -->
+    <div class="stats-section" *ngIf="products.length > 0">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <ion-icon name="cube-outline"></ion-icon>
+          </div>
+          <div class="stat-info">
+            <div class="stat-number">{{ products.length }}</div>
+            <div class="stat-label">Produtos</div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon success">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </div>
+          <div class="stat-info">
+            <div class="stat-number">{{ getActiveProducts() }}</div>
+            <div class="stat-label">Ativos</div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon warning">
+            <ion-icon name="time-outline"></ion-icon>
+          </div>
+          <div class="stat-info">
+            <div class="stat-number">{{ getPendingProducts() }}</div>
+            <div class="stat-label">Pendentes</div>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon primary">
+            <ion-icon name="cash-outline"></ion-icon>
+          </div>
+          <div class="stat-info">
+            <div class="stat-number">R$ {{ getTotalValue() | number:'1.0-0' }}</div>
+            <div class="stat-label">Valor Total</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters and Search -->
+    <div class="filters-section" *ngIf="products.length > 0">
+      <div class="search-container">
+        <ion-searchbar 
+          [(ngModel)]="searchTerm"
+          (ionInput)="filterProducts()"
+          placeholder="Buscar produtos..."
+          show-clear-button="focus"
+          class="modern-searchbar">
+        </ion-searchbar>
+      </div>
+      
+      <div class="filter-buttons">
+        <ion-segment [(ngModel)]="selectedFilter" (ionChange)="filterProducts()" class="filter-segment">
+          <ion-segment-button value="all">
+            <ion-label>Todos</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="active">
+            <ion-label>Ativos</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="pending">
+            <ion-label>Pendentes</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="sold">
+            <ion-label>Vendidos</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="products-section" *ngIf="filteredProducts.length > 0; else emptyState">
+      <div class="products-grid">
+        <div class="product-card" 
+             *ngFor="let product of filteredProducts; trackBy: trackByProductId"
+             (click)="viewProduct(product.id)">
+          
+          <!-- Product Image -->
+          <div class="product-image-container">
+            <img *ngIf="product.images && product.images.length > 0" 
+                 [src]="product.images[0].image" 
+                 [alt]="product.title"
+                 class="product-image" 
+                 loading="lazy" />
+            <div *ngIf="!product.images || product.images.length === 0" 
+                 class="product-image-placeholder">
+              <ion-icon name="image-outline"></ion-icon>
+            </div>
+            
+            <!-- Status Badge -->
+            <div class="status-badge" [ngClass]="getStatusClass(product.status)">
+              {{ getStatusLabel(product.status) }}
+            </div>
+            
+            <!-- Actions Menu -->
+            <div class="product-actions">
+              <ion-button fill="clear" size="small" (click)="editProduct(product.id, $event)">
+                <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+              </ion-button>
+              <ion-button fill="clear" size="small" (click)="deleteProduct(product.id, $event)">
+                <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+
+          <!-- Product Info -->
+          <div class="product-info">
+            <h3 class="product-title">{{ product.title }}</h3>
+            
+            <!-- Price Section -->
+            <div class="price-section">
+              <div class="price-primary">R$ {{ product.price | currency:'BRL':'symbol':'1.2-2' }}</div>
+              <div class="price-crypto">
+                <span class="crypto-value">{{ convertToEthereum(product.price) | number:'1.4-4' }}</span>
+                <img src="assets/icon/ethereum-logo.png" alt="ETH" class="eth-icon">
+                <span class="crypto-label">ETH</span>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <p class="product-description">
+              {{ product.description | slice:0:100 }}<span *ngIf="product.description.length > 100">...</span>
+            </p>
+
+            <!-- Category -->
+            <div class="product-category">
+              <ion-chip color="primary" outline="true">
+                <ion-icon name="pricetag-outline"></ion-icon>
+                <ion-label>{{ product.categoryName || product.category }}</ion-label>
+              </ion-chip>
+            </div>
+
+            <!-- Metadata -->
+            <div class="product-metadata">
+              <div class="metadata-item">
+                <ion-icon name="location-outline" class="metadata-icon"></ion-icon>
+                <span>{{ product.city }}, {{ product.state }}</span>
+              </div>
+              <div class="metadata-item">
+                <ion-icon name="calendar-outline" class="metadata-icon"></ion-icon>
+                <span>{{ product.created_at | date:'dd/MM/yyyy' }}</span>
+              </div>
+              <div class="metadata-item" *ngIf="product.views">
+                <ion-icon name="eye-outline" class="metadata-icon"></ion-icon>
+                <span>{{ product.views }} visualizações</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <ng-template #emptyState>
+      <div class="empty-state">
+        <div class="empty-icon">
+          <ion-icon name="storefront-outline"></ion-icon>
+        </div>
+        <h2 class="empty-title" *ngIf="products.length === 0">Nenhum produto cadastrado</h2>
+        <h2 class="empty-title" *ngIf="products.length > 0 && filteredProducts.length === 0">Nenhum produto encontrado</h2>
+        <p class="empty-subtitle" *ngIf="products.length === 0">
+          Comece a vender seus produtos no DexBazaar! Cadastre seu primeiro produto agora.
+        </p>
+        <p class="empty-subtitle" *ngIf="products.length > 0 && filteredProducts.length === 0">
+          Tente ajustar os filtros ou termo de busca para encontrar seus produtos.
+        </p>
+        <ion-button routerLink="/register-product" class="empty-action" *ngIf="products.length === 0">
+          <ion-icon name="add-outline" slot="start"></ion-icon>
+          Cadastrar Primeiro Produto
+        </ion-button>
+        <ion-button fill="clear" (click)="clearFilters()" class="empty-action" *ngIf="products.length > 0 && filteredProducts.length === 0">
+          <ion-icon name="refresh-outline" slot="start"></ion-icon>
+          Limpar Filtros
+        </ion-button>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-state" *ngIf="isLoading">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+    <p>Carregando produtos...</p>
+  </div>
 </ion-content>

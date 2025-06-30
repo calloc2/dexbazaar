@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { ProfileRedirectComponent } from './profile/profile-redirect/profile-redirect.component';
+import { LoadingGuard } from './guards/loading.guard';
 
 export const routes: Routes = [
   {
@@ -9,6 +10,7 @@ export const routes: Routes = [
   {
     path: 'home',
     loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+    canActivate: [LoadingGuard]
   },
   {
     path: 'register',
@@ -17,14 +19,17 @@ export const routes: Routes = [
   {
     path: 'client',
     loadComponent: () => import('./client/client.page').then((m) => m.ClientPage),
+    canActivate: [LoadingGuard]
   },
   {
     path: 'register-product',
     loadComponent: () => import('./register-product/register-product.component').then((m) => m.RegisterProductPage),
+    canActivate: [LoadingGuard]
   },
   {
     path: 'list-products',
     loadComponent: () => import('./list-products/list-products.component').then((m) => m.ListProductsPage),
+    canActivate: [LoadingGuard]
   },
   {
     path: 'profile',
