@@ -1,20 +1,243 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header class="modern-header">
+  <ion-toolbar class="toolbar">
+    <div class="header-content">
+      <div class="logo-section">
+        <img src="..\assets\icon\dexbazaar.png" alt="DexBazaar" class="logo">
+        <span class="logo-text desktop-only">DexBazaar</span>
+      </div>
+      
+      <div class="search-section">
+        <ion-searchbar 
+          class="modern-searchbar" 
+          placeholder="Buscar produtos..." 
+          show-clear-button="focus"
+          debounce="300"
+          [(ngModel)]="searchTerm"
+          (ionInput)="onSearchChange($event)">
+        </ion-searchbar>
+      </div>
+      
+      <div class="actions-section">
+        <!-- Desktop Actions -->
+        <div class="desktop-actions desktop-only">
+          <ion-button fill="clear" class="action-btn" routerLink="/register-product">
+            <ion-icon name="add-circle-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" class="action-btn">
+            <ion-icon name="heart-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" class="action-btn" [routerLink]="getProfileLink()">
+            <ion-icon name="person-circle-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </div>
+        
+        <!-- Mobile Menu Button -->
+        <ion-menu-button menu="main-menu" class="mobile-only menu-btn">
+          <ion-icon name="menu-outline"></ion-icon>
+        </ion-menu-button>
+      </div>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+<!-- Modern Side Menu -->
+<ion-menu side="end" menuId="main-menu" contentId="main-content" class="modern-menu">
+  <ion-header>
+    <ion-toolbar color="primary" class="menu-header">
+      <ion-title class="menu-title">
+        <ion-icon name="storefront-outline" class="menu-icon"></ion-icon>
+        DexBazaar
+      </ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-content class="menu-content">
+    <div class="menu-items">
+      <ion-item button class="menu-item" routerLink="/register-product">
+        <ion-icon name="add-circle-outline" slot="start" class="menu-item-icon"></ion-icon>
+        <ion-label>Vender Produto</ion-label>
+      </ion-item>
+      
+      <ion-item button class="menu-item">
+        <ion-icon name="heart-outline" slot="start" class="menu-item-icon"></ion-icon>
+        <ion-label>Favoritos</ion-label>
+      </ion-item>
+      
+      <ion-item button class="menu-item" [routerLink]="getProfileLink()">
+        <ion-icon name="person-circle-outline" slot="start" class="menu-item-icon"></ion-icon>
+        <ion-label>Minha Conta</ion-label>
+      </ion-item>
+      
+      <ion-item button class="menu-item">
+        <ion-icon name="notifications-outline" slot="start" class="menu-item-icon"></ion-icon>
+        <ion-label>Notificações</ion-label>
+      </ion-item>
+      
+      <ion-item button class="menu-item">
+        <ion-icon name="settings-outline" slot="start" class="menu-item-icon"></ion-icon>
+        <ion-label>Configurações</ion-label>
+      </ion-item>
+    </div>
+  </ion-content>
+</ion-menu>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content id="main-content" class="modern-content">
+  <!-- Hero Banner Section -->
+  <div class="hero-section">
+    <div class="carousel-container">
+      <div class="carousel-slide" 
+           *ngFor="let banner of banners; let i = index" 
+           [class.active]="i === currentBanner">
+        <div class="banner-overlay"></div>
+        <img [src]="banner.image" [alt]="banner.alt" class="carousel-img" />
+        <div class="carousel-content">
+          <h2 class="banner-title">{{ banner.caption }}</h2>
+          <p class="banner-subtitle">Descubra os melhores produtos</p>
+          <ion-button fill="solid" class="cta-button" (click)="exploreProducts()">
+            <ion-icon name="search-outline" slot="start"></ion-icon>
+            Explorar
+          </ion-button>
+        </div>
+      </div>
+      <div class="carousel-navigation">
+        <div class="carousel-dots">
+          <button *ngFor="let banner of banners; let i = index"
+                  [class.active]="i === currentBanner"
+                  (click)="goToBanner(i)"
+                  class="dot"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Category Filters Section -->
+  <div class="categories-section" *ngIf="categories.length > 0">
+    <div class="section-header">
+      <h3 class="categories-title">
+        <ion-icon name="apps-outline" class="title-icon"></ion-icon>
+        Categorias
+      </h3>
+    </div>
+    
+    <div class="categories-scroll">
+      <div class="categories-container">
+        <ion-chip 
+          *ngFor="let category of categories" 
+          [class.selected]="selectedCategory === category.id"
+          (click)="testCategoryClick(category.id)"
+          class="category-chip">
+          <ion-icon [name]="category.icon" class="category-icon"></ion-icon>
+          <ion-label>{{ category.name }}</ion-label>
+        </ion-chip>
+      </div>
+    </div>
+  </div>
+
+  <!-- Products Section -->
+  <div class="products-section">
+    <div class="container">
+      <!-- Section Header -->
+      <div class="section-header">
+        <h2 class="section-title">
+          <ion-icon name="star-outline" class="title-icon"></ion-icon>
+          <span *ngIf="searchTerm || selectedCategory !== 'all'; else defaultTitle">
+            {{ getProductsSectionTitle() }}
+          </span>
+          <ng-template #defaultTitle>Produtos em Destaque</ng-template>
+        </h2>
+        <p class="section-subtitle" *ngIf="!searchTerm && selectedCategory === 'all'">
+          Descubra os produtos mais populares da nossa plataforma
+        </p>
+        <p class="section-subtitle" *ngIf="searchTerm || selectedCategory !== 'all'">
+          {{ filteredProducts.length }} produto(s) encontrado(s)
+        </p>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-grid" *ngIf="filteredProducts.length > 0; else noProducts">
+        <div class="product-card" 
+             *ngFor="let product of filteredProducts; trackBy: trackByProductId"
+             [routerLink]="['/product', product.id]"
+             class="fade-in">
+          
+          <!-- Product Image -->
+          <div class="product-image-container">
+            <img *ngIf="product.images && product.images.length > 0" 
+                 [src]="product.images[0].image" 
+                 [alt]="product.title"
+                 class="product-image" 
+                 loading="lazy" />
+            <div *ngIf="!product.images || product.images.length === 0" 
+                 class="product-image-placeholder">
+              <ion-icon name="image-outline"></ion-icon>
+            </div>
+            
+            <!-- Favorite Button -->
+            <button class="favorite-btn">
+              <ion-icon name="heart-outline"></ion-icon>
+            </button>
+          </div>
+
+          <!-- Product Info -->
+          <div class="product-info">
+            <h3 class="product-title">{{ product.title }}</h3>
+            
+            <!-- Price Section -->
+            <div class="price-section">
+              <div class="price-primary">{{ product.price | currency:'BRL':'symbol':'1.2-2' }}</div>
+              <div class="price-crypto">
+                <span class="crypto-value">{{ convertToEthereum(product.price) | number:'1.4-4' }}</span>
+                <img src="assets/icon/ethereum-logo.png" alt="ETH" class="eth-icon">
+                <span class="crypto-label">ETH</span>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <p class="product-description">
+              {{ product.description | slice:0:100 }}<span *ngIf="product.description.length > 100">...</span>
+            </p>
+
+            <!-- Metadata -->
+            <div class="product-metadata">
+              <div class="metadata-item">
+                <ion-icon name="location-outline" class="metadata-icon"></ion-icon>
+                <span>{{ product.city }}, {{ product.state }}</span>
+              </div>
+              <div class="metadata-item">
+                <ion-icon name="time-outline" class="metadata-icon"></ion-icon>
+                <span>{{ product.created_at | date:'dd/MM/yyyy' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Products State -->
+      <ng-template #noProducts>
+        <div class="empty-state">
+          <ion-icon name="storefront-outline" class="empty-icon"></ion-icon>
+          <h3 class="empty-title">Nenhum produto encontrado</h3>
+          <p class="empty-subtitle">Seja o primeiro a adicionar um produto!</p>
+          <ion-button routerLink="/register-product" class="empty-action">
+            <ion-icon name="add-outline" slot="start"></ion-icon>
+            Adicionar Produto
+          </ion-button>
+        </div>
+      </ng-template>
+    </div>
   </div>
 </ion-content>
+
+<!-- Modern Footer -->
+<ion-footer class="modern-footer">
+  <ion-toolbar class="footer-toolbar">
+    <div class="footer-content">
+      <div class="footer-text">
+        <ion-icon name="rocket-outline" class="footer-icon"></ion-icon>
+        <span class="footer-quote">"The best road to progress is freedom's road." —JFK</span>
+      </div>
+      <div class="footer-copyright">
+        &copy; {{ currentYear }} DexBazaar. Todos os direitos reservados.
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-footer>

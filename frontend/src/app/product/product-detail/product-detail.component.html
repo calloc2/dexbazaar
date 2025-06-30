@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ product?.title || 'Detalhes do Produto' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="!loading && product" class="ion-padding">
+  <ion-card>
+    <img *ngIf="product.images?.length" [src]="product.images[0].image" class="product-image" />
+    <ion-card-header>
+      <ion-card-title>{{ product.title }}</ion-card-title>
+      <ion-card-subtitle>
+        R$ {{ product.price }} <br>
+        Categoria: {{ product.categoryName || product.category }}
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ product.description }}</p>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <img [src]="product.user?.profile_image || 'assets/icon/default-profile.png'" alt="Foto de perfil"
+             style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
+        <a [routerLink]="['/profile', product.user?.username]" style="font-weight: bold; color: #a077e7; text-decoration: underline;">
+          {{ product.user?.username || 'Desconhecido' }}
+        </a>
+      </div>
+      <p><strong>Localização:</strong> {{ product.city }} / {{ product.state }}</p>
+      <p><strong>Publicado em:</strong> {{ product.created_at | date:'dd/MM/yyyy HH:mm' }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Botões de ação -->
+  <div style="margin-top: 16px;">
+    <div *ngIf="!isOwner()">
+      <ion-button color="primary" (click)="goToPurchase()" expand="block">
+        <ion-icon name="cart-outline" slot="start"></ion-icon>
+        Comprar - R$ {{ product.price }}
+      </ion-button>
+      
+      <ion-button color="secondary" fill="outline" expand="block" style="margin-top: 8px;">
+        <ion-icon name="chatbubble-outline" slot="start"></ion-icon>
+        Falar com vendedor
+      </ion-button>
+    </div>
+    
+    <div *ngIf="isOwner()">
+      <ion-button color="danger" (click)="deleteProduct()" expand="block">
+        <ion-icon name="trash-outline" slot="start"></ion-icon>
+        Apagar anúncio
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

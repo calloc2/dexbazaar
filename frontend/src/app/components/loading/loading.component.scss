@@ -1,0 +1,258 @@
+.loading-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #2e1a3e 0%, #3e1650 50%, #4a1a5e 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.loading-logo {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 2rem;
+  animation: pulse 2s infinite ease-in-out;
+  filter: drop-shadow(0 8px 25px rgba(160, 119, 231, 0.4));
+  color: #a077e7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.loading-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.loading-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  text-align: center;
+  letter-spacing: 2px;
+  animation: slideUp 0.8s ease-out 0.2s both;
+  text-shadow: 0 0 20px rgba(160, 119, 231, 0.5);
+}
+
+.loading-subtitle {
+  font-size: 1rem;
+  color: #c4b8e8;
+  margin-bottom: 3rem;
+  text-align: center;
+  animation: slideUp 0.8s ease-out 0.4s both;
+}
+
+.loading-spinner {
+  margin-bottom: 2rem;
+  animation: slideUp 0.8s ease-out 0.6s both;
+}
+
+.loading-spinner ion-spinner {
+  width: 50px;
+  height: 50px;
+  --color: #a077e7;
+}
+
+.loading-progress {
+  width: 250px;
+  margin-bottom: 1rem;
+  animation: slideUp 0.8s ease-out 0.8s both;
+}
+
+.loading-progress ion-progress-bar {
+  --background: rgba(255, 255, 255, 0.1);
+  --buffer-background: rgba(255, 255, 255, 0.05);
+  --progress-background: linear-gradient(90deg, #a077e7, #aa85ea);
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.loading-text {
+  font-size: 0.9rem;
+  color: #b8a9d9;
+  text-align: center;
+  animation: slideUp 0.8s ease-out 1s both;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Custom spinner animation */
+.loading-spinner ion-spinner {
+  animation: rotate 1s linear infinite;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .loading-logo {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .loading-title {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .loading-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
+
+  .loading-progress {
+    width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-logo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .loading-title {
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+  }
+
+  .loading-subtitle {
+    font-size: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .loading-progress {
+    width: 180px;
+  }
+
+  .loading-text {
+    font-size: 0.8rem;
+  }
+}
+
+/* Loading exit animation */
+.loading-container.fade-out {
+  animation: fadeOut 0.3s ease-out forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* Dark theme specific adjustments */
+.loading-container {
+  --ion-background-color: transparent;
+}
+
+/* Glowing effect for logo */
+.loading-logo {
+  position: relative;
+}
+
+.loading-logo::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: radial-gradient(circle, rgba(160, 119, 231, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    opacity: 0.5;
+    transform: scale(0.9);
+    box-shadow: 0 0 20px rgba(160, 119, 231, 0.3);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.1);
+    box-shadow: 0 0 30px rgba(160, 119, 231, 0.6);
+  }
+}
+
+/* Progress bar animation */
+.loading-progress ion-progress-bar {
+  --progress-background: linear-gradient(
+    90deg,
+    #a077e7 0%,
+    #aa85ea 25%,
+    #8d68cb 50%,
+    #aa85ea 75%,
+    #a077e7 100%
+  );
+  background-size: 200% 100%;
+  animation: progressGradient 2s ease-in-out infinite;
+}
+
+@keyframes progressGradient {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

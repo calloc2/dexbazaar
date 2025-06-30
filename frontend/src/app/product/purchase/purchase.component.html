@@ -1,0 +1,156 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="goBack()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Finalizar Compra</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" *ngIf="!loading && product">
+  <!-- Resumo do Produto -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Resumo do Pedido</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="product-summary">
+        <img *ngIf="product.images?.length" [src]="product.images[0].image" class="product-thumb" />
+        <div class="product-info">
+          <h3>{{ product.title }}</h3>
+          <p class="price">R$ {{ product.price }}</p>
+          <div class="quantity-selector">
+            <ion-item>
+              <ion-label>Quantidade:</ion-label>
+              <ion-input type="number" [(ngModel)]="quantity" min="1" max="10"></ion-input>
+            </ion-item>
+          </div>
+          <div class="total">
+            <strong>Total: R$ {{ getTotalPrice() }}</strong>
+          </div>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Dados do Comprador -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Dados do Comprador</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Nome Completo *</ion-label>
+        <ion-input [(ngModel)]="buyerInfo.name" placeholder="Seu nome completo"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="stacked">Email *</ion-label>
+        <ion-input type="email" [(ngModel)]="buyerInfo.email" placeholder="seu@email.com"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="stacked">Telefone *</ion-label>
+        <ion-input type="tel" [(ngModel)]="buyerInfo.phone" placeholder="(11) 99999-9999"></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Endereço de Entrega -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Endereço de Entrega</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">CEP *</ion-label>
+        <ion-input [(ngModel)]="buyerInfo.cep" placeholder="00000-000"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="stacked">Endereço *</ion-label>
+        <ion-input [(ngModel)]="buyerInfo.address" placeholder="Rua, número, complemento"></ion-input>
+      </ion-item>
+      
+      <ion-row>
+        <ion-col size="8">
+          <ion-item>
+            <ion-label position="stacked">Cidade *</ion-label>
+            <ion-input [(ngModel)]="buyerInfo.city" placeholder="Sua cidade"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col size="4">
+          <ion-item>
+            <ion-label position="stacked">Estado *</ion-label>
+            <ion-input [(ngModel)]="buyerInfo.state" placeholder="SP"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Método de Pagamento -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Método de Pagamento</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-radio-group [(ngModel)]="paymentMethod">
+        <ion-item>
+          <ion-radio slot="start" value="crypto"></ion-radio>
+          <ion-label>
+            <h2>Criptomoedas</h2>
+            <p>Pagamento seguro com criptomoedas</p>
+          </ion-label>
+        </ion-item>
+      </ion-radio-group>
+
+      <div *ngIf="paymentMethod === 'crypto'" class="crypto-selection">
+        <ion-item>
+          <ion-label>Escolha a criptomoeda:</ion-label>
+          <ion-select [(ngModel)]="selectedCrypto" placeholder="Selecione">
+            <ion-select-option *ngFor="let crypto of cryptoOptions" [value]="crypto.value">
+              {{ crypto.label }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Vendedor -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Vendedor</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="seller-info">
+        <img [src]="product.user?.profile_image || 'assets/icon/default-profile.png'" 
+             alt="Foto do vendedor" class="seller-avatar" />
+        <div>
+          <h3>{{ product.user?.username }}</h3>
+          <p>{{ product.city }}, {{ product.state }}</p>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Botões de Ação -->
+  <div class="action-buttons">
+    <ion-button expand="block" color="primary" (click)="processPurchase()">
+      <ion-icon name="card-outline" slot="start"></ion-icon>
+      Finalizar Compra - R$ {{ getTotalPrice() }}
+    </ion-button>
+    
+    <ion-button expand="block" fill="clear" color="medium" (click)="goBack()">
+      Cancelar
+    </ion-button>
+  </div>
+</ion-content>
+
+<ion-content *ngIf="loading" class="ion-padding">
+  <div class="loading-container">
+    <ion-spinner></ion-spinner>
+    <p>Carregando...</p>
+  </div>
+</ion-content>

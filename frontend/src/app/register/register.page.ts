@@ -5,7 +5,20 @@ import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput, IonItem, IonLabel, AlertController } from '@ionic/angular/standalone';
+import { IonContent, IonButton, IonInput, IonItem, IonLabel, AlertController, IonIcon } from '@ionic/angular/standalone';
+import { IonProgressBar } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { 
+  personOutline, 
+  personAddOutline, 
+  atOutline, 
+  mailOutline, 
+  lockClosedOutline, 
+  eyeOutline, 
+  eyeOffOutline,
+  warningOutline 
+} from 'ionicons/icons';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-register',
@@ -16,14 +29,13 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton, IonInput, IonIt
     CommonModule,
     FormsModule,
     HttpClientModule,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent,
     IonItem,
     IonLabel,
     IonInput,
     IonButton,
+    IonIcon,
+    IonProgressBar,
   ],
 })
 export class RegisterPage {
@@ -33,12 +45,69 @@ export class RegisterPage {
   password: string = '';
   confirmPassword: string = '';
   email: string = '';
+  passwordType: string = 'password';
+  passwordIcon: string = 'eye-off-outline';
+  passwordStrength: number = 0;
+  passwordStrengthLevel: string = 'low';
+  passwordStrengthText: string = '';
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    private alertController: AlertController
-  ) {}
+    private alertController: AlertController,
+    private loadingService: LoadingService
+  ) {
+    // Register icons
+    addIcons({
+      'person-outline': personOutline,
+      'person-add-outline': personAddOutline,
+      'at-outline': atOutline,
+      'mail-outline': mailOutline,
+      'lock-closed-outline': lockClosedOutline,
+      'eye-outline': eyeOutline,
+      'eye-off-outline': eyeOffOutline,
+      'warning-outline': warningOutline,
+    });
+  }
+
+  ngOnInit() {
+  }
+
+  togglePasswordVisibility() {
+    if (this.passwordType === 'password') {
+      this.passwordType = 'text';
+      this.passwordIcon = 'eye-outline';
+    } else {
+      this.passwordType = 'password';
+      this.passwordIcon = 'eye-off-outline';
+    }
+  }
+
+  checkPasswordStrength(password: string) {
+    const strength = this.calculatePasswordStrength(password);
+    this.passwordStrength = strength / 100;
+
+    // Set strength level and text
+    if (strength <= 40) {
+      this.passwordStrengthLevel = 'low';
+      this.passwordStrengthText = 'Senha fraca';
+    } else if (strength <= 75) {
+      this.passwordStrengthLevel = 'medium';
+      this.passwordStrengthText = 'Senha média';
+    } else {
+      this.passwordStrengthLevel = 'high';
+      this.passwordStrengthText = 'Senha forte';
+    }
+  }
+
+  private calculatePasswordStrength(password: string): number {
+    let strength = 0;
+    if (password.length >= 8) strength += 25;
+    if (/[A-Z]/.test(password)) strength += 25;
+    if (/[0-9]/.test(password)) strength += 25;
+    if (/[@$!%*?&#]/.test(password)) strength += 25;
+    return strength;
+  }
 
   async onRegister() {
     if (this.password !== this.confirmPassword) {
@@ -59,17 +128,25 @@ export class RegisterPage {
       email: this.email,
     };
 
+    this.loadingService.show('Criando sua conta...');
+
     this.http.post(`${environment.apiUrl}/api/users/register/`, userData).subscribe(
       async (response) => {
-        const alert = await this.alertController.create({
-          header: 'Sucesso',
-          message: 'Usuário registrado com sucesso!',
-          buttons: ['OK'],
-        });
-        await alert.present();
-        this.router.navigate(['/login']);
+        this.loadingService.setMessage('Finalizando registro...');
+        
+        setTimeout(async () => {
+          this.loadingService.hide();
+          const alert = await this.alertController.create({
+            header: 'Sucesso',
+            message: 'Usuário registrado com sucesso!',
+            buttons: ['OK'],
+          });
+          await alert.present();
+          this.router.navigate(['/login']);
+        }, 1000);
       },
       async (error) => {
+        this.loadingService.hide();
         const alert = await this.alertController.create({
           header: 'Erro',
           message: 'Ocorreu um erro ao registrar o usuário.',

@@ -10,14 +10,15 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "9000:5432"  # Map external port 9000 to internal port 5432
+      - "9000:5432"
     networks:
       - backend-network
 
   web:
     build:
-      context: ./backend
-    command: ["/wait-for-it.sh", "db:5432", "--", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+      context: .
+      dockerfile: ./backend/Dockerfile
+    command: ["/wait-for-it.sh", "db:5432", "--", "/startup.sh"]
     volumes:
       - ./backend:/backend
     ports:
