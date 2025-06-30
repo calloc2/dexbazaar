@@ -401,10 +401,6 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 - **Projeto**: [dexBazaar Repository](https://github.com/calloc2/dexbazaar)
 
 ---
-
-### 📚 Documentação Técnica
----
-
 ### 📚 Documentação Técnica e Links Úteis
 
 - 🎨 **[Figma Design](https://www.figma.com/design/SjKudZhomZkMQfJH6S9mYG/ProjetoDeSistemas?node-id=0-1&p=f)** - Protótipos e design system
