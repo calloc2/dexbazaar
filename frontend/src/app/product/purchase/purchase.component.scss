@@ -1,47 +1,45 @@
-/* ===== PURCHASE PAGE DARK THEME STYLES ===== */
-
-/* Content Wrapper */
 ion-content {
   --background: var(--ion-background-color);
-  --color: var(--ion-text-color);
+  --color: var(--ion-color-dark);
 }
 
-/* Header */
 ion-header {
   ion-toolbar {
-    --background: var(--ion-color-dark);
-    --color: var(--ion-color-light);
+    --background: var(--ion-color-primary);
+    --color: var(--ion-color-primary-contrast);
     
     ion-title {
-      color: var(--ion-color-light);
+      color: var(--ion-color-primary-contrast);
       font-weight: 600;
     }
     
     ion-back-button {
-      --color: var(--ion-color-light);
+      --color: var(--ion-color-primary-contrast);
     }
   }
 }
 
-/* Cards */
 ion-card {
-  --background: var(--ion-color-step-50);
-  --color: var(--ion-text-color);
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  --background: var(--ion-card-background);
+  --color: var(--ion-color-dark);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
   margin-bottom: 20px;
-  border: 1px solid var(--ion-color-step-100);
+  border: 1px solid var(--ion-color-light-shade);
   
   ion-card-header {
+    background: var(--ion-card-background);
+    
     ion-card-title {
-      color: var(--ion-text-color);
+      color: var(--ion-color-dark);
       font-weight: 600;
       font-size: 1.2rem;
     }
   }
   
   ion-card-content {
-    color: var(--ion-text-color);
+    background: var(--ion-card-background);
+    color: var(--ion-color-dark);
   }
 }
 
@@ -118,10 +116,10 @@ ion-card {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 16px;
-  background: var(--ion-color-step-100);
-  border-radius: 12px;
-  margin: 16px 0;
+  padding: 12px;
+  background: var(--ion-color-light);
+  border-radius: 8px;
+  border: 1px solid var(--ion-color-light-shade);
 }
 
 .seller-avatar {
@@ -129,40 +127,55 @@ ion-card {
   height: 50px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--ion-color-primary);
+  border: 2px solid var(--ion-color-primary-tint);
 }
 
 .seller-info h3 {
-  margin: 0;
-  font-size: 1.1em;
+  color: var(--ion-color-dark);
   font-weight: 600;
-  color: var(--ion-text-color);
+  margin: 0 0 4px 0;
 }
 
 .seller-info p {
-  margin: 4px 0 0 0;
   color: var(--ion-color-medium);
-  font-size: 0.9em;
+  margin: 0;
+  font-size: 0.9rem;
 }
 
-/* Form Items */
+/* Form Items - Dark Theme */
 ion-item {
-  --background: var(--ion-color-step-100);
-  --color: var(--ion-text-color);
+  --background: var(--ion-card-background);
+  --color: var(--ion-color-dark);
   --border-radius: 12px;
   border-radius: 12px;
   margin-bottom: 12px;
-  border: 1px solid var(--ion-color-step-200);
+  border: 1px solid var(--ion-color-light-shade);
   
   ion-label {
-    color: var(--ion-text-color);
+    color: var(--ion-color-dark);
     font-weight: 500;
   }
   
   ion-input, ion-textarea, ion-select {
-    --color: var(--ion-text-color);
+    --color: var(--ion-color-dark);
     --placeholder-color: var(--ion-color-medium);
   }
+}
+
+/* Radio buttons */
+ion-radio-group {
+  ion-item {
+    ion-radio {
+      --color: var(--ion-color-primary);
+      --color-checked: var(--ion-color-primary);
+    }
+  }
+}
+
+/* Select options */
+ion-select {
+  --color: var(--ion-color-dark);
+  --placeholder-color: var(--ion-color-medium);
 }
 
 .action-buttons {
@@ -176,22 +189,21 @@ ion-item {
   height: 48px;
   font-weight: 600;
   
-  &.button-solid {
-    --background: linear-gradient(135deg, var(--ion-color-primary), var(--ion-color-primary-shade));
+  &[color="primary"] {
+    --background: var(--gradient-primary);
     --color: var(--ion-color-primary-contrast);
     
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(var(--ion-color-primary-rgb), 0.3);
+      box-shadow: var(--shadow-lg);
     }
   }
   
-  &.button-outline {
-    --border-color: var(--ion-color-primary);
-    --color: var(--ion-color-primary);
+  &[fill="clear"] {
+    --color: var(--ion-color-medium);
     
     &:hover {
-      --background: rgba(var(--ion-color-primary-rgb), 0.1);
+      --background: var(--ion-color-light);
     }
   }
 }
@@ -201,13 +213,18 @@ ion-item {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 200px;
-  color: var(--ion-text-color);
-}
-
-.loading-container p {
-  margin-top: 16px;
-  color: var(--ion-color-medium);
+  padding: 40px 20px;
+  text-align: center;
+  
+  ion-spinner {
+    margin-bottom: 16px;
+    --color: var(--ion-color-primary);
+  }
+  
+  p {
+    color: var(--ion-color-medium);
+    margin: 0;
+  }
 }
 
 /* Radio Groups for Crypto Selection */
@@ -230,6 +247,86 @@ ion-radio-group {
 ion-radio {
   --color: var(--ion-color-primary);
   --color-checked: var(--ion-color-primary);
+}
+
+/* Price section with ETH conversion */
+.price-section {
+  margin: 8px 0 16px 0;
+}
+
+.price-primary {
+  color: var(--ion-color-primary);
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin: 0 0 4px 0;
+}
+
+.price-crypto {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--ion-color-medium);
+  font-size: 1rem;
+  margin: 0;
+
+  .crypto-value {
+    font-weight: 600;
+    color: #627eea; // Ethereum blue
+  }
+
+  .eth-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+  }
+
+  .crypto-label {
+    font-weight: 500;
+    color: #627eea;
+  }
+}
+
+// Total section with ETH conversion
+.total-section {
+  margin-top: 16px;
+  padding: 12px;
+  background: var(--ion-color-light);
+  border-radius: 8px;
+  border: 1px solid var(--ion-color-light-shade);
+}
+
+.total-primary {
+  color: var(--ion-color-primary);
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+}
+
+.total-crypto {
+  color: #627eea;
+  font-size: 1rem;
+  
+  strong {
+    font-weight: 600;
+  }
+}
+
+// Button content with ETH price
+.button-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.main-price {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.eth-price {
+  font-size: 0.85rem;
+  opacity: 0.9;
+  font-weight: 500;
 }
 
 /* Responsividade */

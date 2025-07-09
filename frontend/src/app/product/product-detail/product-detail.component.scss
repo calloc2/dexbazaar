@@ -1,0 +1,276 @@
+.product-images {
+  .main-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+  }
+
+  ion-card {
+    background: var(--ion-card-background);
+
+    .product-image {
+      background: var(--ion-card-background);
+    }
+  }
+}
+
+.price-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+
+  .price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--ion-color-primary);
+  }
+
+  .views {
+    font-size: 0.9rem;
+    color: var(--ion-color-medium);
+  }
+}
+
+.category {
+  color: var(--ion-color-medium);
+  margin: 4px 0 12px 0;
+  text-transform: capitalize;
+}
+
+.description {
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.seller-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--ion-card-background);
+  border-radius: 8px;
+  margin: 16px 0;
+  border: 1px solid var(--ion-color-light-shade);
+
+  .seller-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--ion-color-primary-tint);
+  }
+
+  .seller-details {
+    flex: 1;
+
+    .seller-name {
+      font-weight: bold;
+      color: var(--ion-color-primary);
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+
+    .seller-stats {
+      display: flex;
+      gap: 16px;
+      margin-top: 4px;
+
+      .reputation {
+        color: #ff9500;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+
+      .sales {
+        color: var(--ion-color-medium);
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+.product-meta {
+  p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ion-color-medium);
+    font-size: 0.9rem;
+    margin: 8px 0;
+
+    ion-icon {
+      font-size: 1rem;
+    }
+  }
+}
+
+.shipping-info {
+  .shipping-cost {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+
+    ion-icon {
+      color: var(--ion-color-primary);
+      font-size: 1.2rem;
+    }
+
+    strong {
+      color: var(--ion-color-success);
+    }
+  }
+
+  .shipping-methods {
+    margin: 16px 0;
+
+    p {
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--ion-color-dark);
+    }
+
+    ion-chip {
+      margin: 2px 4px 2px 0;
+      --background: var(--ion-color-primary-tint);
+      --color: var(--ion-color-primary-contrast);
+    }
+  }
+
+  .shipping-time {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ion-color-medium);
+    margin-top: 12px;
+
+    ion-icon {
+      font-size: 1rem;
+    }
+  }
+}
+
+.action-buttons {
+  margin-top: 24px;
+  padding-bottom: 20px;
+
+  .contact-btn,
+  .favorite-btn,
+  .edit-btn {
+    margin-top: 8px;
+  }
+
+  .favorite-btn {
+    font-size: 0.9rem;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .seller-info {
+    .seller-avatar {
+      width: 40px;
+      height: 40px;
+    }
+
+    .seller-details {
+      .seller-name {
+        font-size: 1rem;
+      }
+
+      .seller-stats {
+        gap: 12px;
+
+        .reputation,
+        .sales {
+          font-size: 0.8rem;
+        }
+      }
+    }
+  }
+
+  .price-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+
+    .price {
+      font-size: 1.3rem;
+    }
+
+    .views {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+// Loading state improvements
+ion-content {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --background: var(--ion-background-color);
+}
+
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 20px;
+  min-height: 300px;
+
+  ion-spinner {
+    margin-bottom: 16px;
+    --color: var(--ion-color-primary);
+  }
+
+  ion-icon {
+    color: var(--ion-color-medium);
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    color: var(--ion-color-dark);
+    margin: 16px 0 8px 0;
+  }
+
+  p {
+    color: var(--ion-color-medium);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+}
+
+// Override Ionic list styles for dark theme - Remove borders
+ion-list {
+  background: var(--ion-card-background);
+  
+  ion-item {
+    --background: var(--ion-card-background);
+    --color: var(--ion-color-dark);
+    --border-color: transparent;
+    --inner-border-width: 0;
+    --border-width: 0;
+    --min-height: 48px;
+    
+    ion-label {
+      h3 {
+        color: var(--ion-color-dark);
+        font-weight: 600;
+      }
+      
+      p {
+        color: var(--ion-color-medium);
+      }
+    }
+    
+    &:last-child {
+      --border-width: 0;
+    }
+  }
+}

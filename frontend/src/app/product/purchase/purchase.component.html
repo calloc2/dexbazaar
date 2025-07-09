@@ -18,15 +18,27 @@
         <img *ngIf="product.images?.length" [src]="product.images[0].image" class="product-thumb" />
         <div class="product-info">
           <h3>{{ product.title }}</h3>
-          <p class="price">R$ {{ product.price }}</p>
+          <div class="price-section">
+            <p class="price-primary">R$ {{ product.price | number:'1.2-2' }}</p>
+            <p class="price-crypto" *ngIf="ethRate > 0">
+              <span class="crypto-value">{{ convertToEthereum(product.price) | number:'1.4-4' }}</span>
+              <img src="assets/icon/ethereum-logo.png" alt="ETH" class="eth-icon" />
+              <span class="crypto-label">ETH</span>
+            </p>
+          </div>
           <div class="quantity-selector">
             <ion-item>
               <ion-label>Quantidade:</ion-label>
               <ion-input type="number" [(ngModel)]="quantity" min="1" max="10"></ion-input>
             </ion-item>
           </div>
-          <div class="total">
-            <strong>Total: R$ {{ getTotalPrice() }}</strong>
+          <div class="total-section">
+            <div class="total-primary">
+              <strong>Total: R$ {{ getTotalPrice() | number:'1.2-2' }}</strong>
+            </div>
+            <div class="total-crypto" *ngIf="ethRate > 0">
+              <strong>{{ convertToEthereum(getTotalPrice()) | number:'1.4-4' }} ETH</strong>
+            </div>
           </div>
         </div>
       </div>
@@ -139,7 +151,10 @@
   <div class="action-buttons">
     <ion-button expand="block" color="primary" (click)="processPurchase()">
       <ion-icon name="card-outline" slot="start"></ion-icon>
-      Finalizar Compra - R$ {{ getTotalPrice() }}
+      <div class="button-content">
+        <span class="main-price">Finalizar Compra - R$ {{ getTotalPrice() | number:'1.2-2' }}</span>
+        <span class="eth-price" *ngIf="ethRate > 0">{{ convertToEthereum(getTotalPrice()) | number:'1.4-4' }} ETH</span>
+      </div>
     </ion-button>
     
     <ion-button expand="block" fill="clear" color="medium" (click)="goBack()">

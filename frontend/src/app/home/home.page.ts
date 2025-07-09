@@ -448,86 +448,218 @@ export class HomePage implements OnInit, OnDestroy {
         {
           id: '1',
           title: 'iPhone 13 Pro Max',
-          description: 'Smartphone Apple 256GB, estado de novo, sem riscos. Acompanha carregador original.',
+          description: 'Smartphone Apple 256GB, estado de novo, sem riscos. Acompanha carregador original, caixa e todos os acessórios. Bateria com 95% de capacidade. Sempre usado com película e capinha.',
           category: 'eletronicos',
+          categoryName: 'Eletrônicos',
           price: 3000,
           city: 'São Paulo',
           state: 'SP',
           created_at: '2024-12-15T10:30:00Z',
-          user: { username: 'techseller', profile_image: 'https://randomuser.me/api/portraits/men/32.jpg' },
+          status: 'active',
+          views: 245,
+          user: { 
+            username: 'techseller',
+            email: 'techseller@example.com',
+            profile_image: 'https://randomuser.me/api/portraits/men/32.jpg',
+            reputation: 4.8,
+            total_sales: 47
+          },
           images: [
-            { image: 'https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg' }
-          ]
+            { image: 'https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg' },
+            { image: 'https://images.unsplash.com/photo-1592286000411-a8f8c0b0eadd?w=800&h=600&fit=crop' }
+          ],
+          specifications: {
+            'Armazenamento': '256GB',
+            'Cor': 'Azul Sierra',
+            'Estado': 'Seminovo',
+            'Garantia': '6 meses',
+            'Bateria': '95%'
+          },
+          shipping: {
+            free: true,
+            methods: ['Sedex', 'PAC', 'Retirada local'],
+            estimated_days: '2-5 dias úteis'
+          }
         },
         {
           id: '2',
           title: 'Camiseta Nike Dri-FIT',
-          description: 'Camiseta esportiva Nike original, tamanho M, cor azul. Perfeita para corrida e academia.',
+          description: 'Camiseta esportiva Nike original, tamanho M, cor azul royal. Tecnologia Dri-FIT para absorção do suor. Perfeita para corrida, academia e atividades esportivas. Tecido respirável e confortável.',
           category: 'roupas',
+          categoryName: 'Roupas & Acessórios',
           price: 150,
           city: 'Rio de Janeiro',
           state: 'RJ',
           created_at: '2024-12-14T15:20:00Z',
-          user: { username: 'sportsfan', profile_image: 'https://randomuser.me/api/portraits/women/45.jpg' },
+          status: 'active',
+          views: 89,
+          user: { 
+            username: 'sportsfan',
+            email: 'sportsfan@example.com',
+            profile_image: 'https://randomuser.me/api/portraits/women/45.jpg',
+            reputation: 4.6,
+            total_sales: 23
+          },
           images: [
             { image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop' }
-          ]
+          ],
+          specifications: {
+            'Tamanho': 'M',
+            'Cor': 'Azul Royal',
+            'Material': '100% Poliéster',
+            'Estado': 'Novo',
+            'Tecnologia': 'Dri-FIT'
+          },
+          shipping: {
+            free: false,
+            cost: 15,
+            methods: ['Correios', 'Retirada local'],
+            estimated_days: '3-7 dias úteis'
+          }
         },
         {
           id: '3',
           title: 'JavaScript: O Guia Definitivo',
-          description: 'Livro completo sobre JavaScript, 7ª edição. Ótimo estado de conservação, ideal para programadores.',
+          description: 'Livro completo sobre JavaScript, 7ª edição por David Flanagan. Ótimo estado de conservação, sem rasuras ou anotações. Ideal para programadores iniciantes e avançados. Capa dura, 1096 páginas.',
           category: 'livros',
+          categoryName: 'Livros & Educação',
           price: 80,
           city: 'Belo Horizonte',
           state: 'MG',
           created_at: '2024-12-13T09:45:00Z',
-          user: { username: 'devbooks', profile_image: 'https://randomuser.me/api/portraits/men/28.jpg' },
+          status: 'active',
+          views: 156,
+          user: { 
+            username: 'devbooks',
+            email: 'devbooks@example.com',
+            profile_image: 'https://randomuser.me/api/portraits/men/28.jpg',
+            reputation: 4.9,
+            total_sales: 78
+          },
           images: [
             { image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=400&fit=crop' }
-          ]
+          ],
+          specifications: {
+            'Autor': 'David Flanagan',
+            'Editora': 'O\'Reilly Media',
+            'Edição': '7ª',
+            'Páginas': '1096',
+            'Estado': 'Usado - Muito Bom',
+            'Idioma': 'Português'
+          },
+          shipping: {
+            free: true,
+            methods: ['Sedex', 'PAC'],
+            estimated_days: '5-10 dias úteis'
+          }
         },
         {
           id: '4',
           title: 'PlayStation 5 Console',
-          description: 'Console PS5 novo na caixa, lacrado. Inclui controle DualSense e cabo HDMI. Garantia de 1 ano.',
+          description: 'Console PlayStation 5 novo na caixa, completamente lacrado. Inclui controle DualSense wireless, cabo HDMI 2.1, cabo USB e cabo de energia. Garantia Sony de 1 ano. Modelo padrão com leitor de discos.',
           category: 'jogos',
+          categoryName: 'Games & Consoles',
           price: 4500,
           city: 'Porto Alegre',
           state: 'RS',
           created_at: '2024-12-12T14:10:00Z',
-          user: { username: 'gamercollector', profile_image: 'https://randomuser.me/api/portraits/men/15.jpg' },
+          status: 'active',
+          views: 892,
+          user: { 
+            username: 'gamercollector',
+            email: 'gamercollector@example.com',
+            profile_image: 'https://randomuser.me/api/portraits/men/15.jpg',
+            reputation: 4.7,
+            total_sales: 12
+          },
           images: [
             { image: 'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=400&h=400&fit=crop' }
-          ]
+          ],
+          specifications: {
+            'Modelo': 'CFI-1015A',
+            'Armazenamento': '825GB SSD',
+            'Tipo': 'Com leitor de discos',
+            'Estado': 'Novo lacrado',
+            'Garantia': '1 ano Sony',
+            'Voltagem': 'Bivolt'
+          },
+          shipping: {
+            free: true,
+            methods: ['Sedex 10', 'Transportadora'],
+            estimated_days: '1-3 dias úteis'
+          }
         },
         {
           id: '5',
           title: 'MacBook Air M2',
-          description: 'MacBook Air 2022 com chip M2, 8GB RAM, 256GB SSD. Usado por apenas 3 meses, como novo.',
+          description: 'MacBook Air 2022 com chip Apple M2, 8GB de RAM unificada, SSD de 256GB. Cor Meia-noite. Usado por apenas 3 meses para estudos, como novo. Acompanha carregador MagSafe 3 original e caixa.',
           category: 'eletronicos',
+          categoryName: 'Eletrônicos',
           price: 7500,
           city: 'Curitiba',
           state: 'PR',
           created_at: '2024-12-11T11:30:00Z',
-          user: { username: 'applelover', profile_image: 'https://randomuser.me/api/portraits/women/22.jpg' },
+          status: 'active',
+          views: 437,
+          user: { 
+            username: 'applelover',
+            email: 'applelover@example.com',
+            profile_image: 'https://randomuser.me/api/portraits/women/22.jpg',
+            reputation: 4.9,
+            total_sales: 8
+          },
           images: [
             { image: 'https://cdn.awsli.com.br/2510/2510599/produto/216199033/macbook-air-136-chip-m2-8gb-512gb-ssd-meia-noite-70a0b805.jpeg' }
-          ]
+          ],
+          specifications: {
+            'Processador': 'Apple M2',
+            'RAM': '8GB unificada',
+            'Armazenamento': '256GB SSD',
+            'Tela': '13.6" Liquid Retina',
+            'Cor': 'Meia-noite',
+            'Estado': 'Seminovo'
+          },
+          shipping: {
+            free: true,
+            methods: ['Sedex 10', 'Retirada local'],
+            estimated_days: '1-2 dias úteis'
+          }
         },
         {
           id: '6',
           title: 'Tênis Adidas Ultraboost',
-          description: 'Tênis de corrida Adidas Ultraboost 22, número 42, cor preta. Usado poucas vezes, excelente estado.',
+          description: 'Tênis de corrida Adidas Ultraboost 22, número 42, cor preta com detalhes brancos. Tecnologia Boost para máximo retorno de energia. Usado poucas vezes, excelente estado de conservação. Ideal para corrida e caminhada.',
           category: 'roupas',
+          categoryName: 'Roupas & Acessórios',
           price: 320,
           city: 'Salvador',
           state: 'BA',
           created_at: '2024-12-10T16:45:00Z',
-          user: { username: 'runnerstore', profile_image: 'https://randomuser.me/api/portraits/men/38.jpg' },
+          status: 'active',
+          views: 203,
+          user: { 
+            username: 'runnerstore',
+            email: 'runnerstore@example.com',
+            profile_image: 'https://randomuser.me/api/portraits/men/38.jpg',
+            reputation: 4.8,
+            total_sales: 156
+          },
           images: [
             { image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop' }
-          ]
+          ],
+          specifications: {
+            'Tamanho': '42 BR',
+            'Cor': 'Preto/Branco',
+            'Tecnologia': 'Boost + Primeknit',
+            'Tipo': 'Corrida/Caminhada',
+            'Estado': 'Usado - Excelente',
+            'Marca': 'Adidas'
+          },
+          shipping: {
+            free: true,
+            methods: ['Correios', 'Retirada local'],
+            estimated_days: '4-8 dias úteis'
+          }
         }
       ];
       this.filteredProducts = [...this.products];

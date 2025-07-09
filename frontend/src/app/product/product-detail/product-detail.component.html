@@ -7,45 +7,139 @@
   </ion-toolbar>
 </ion-header>
 
+<ion-content *ngIf="loading" class="ion-padding">
+  <div class="loading-container">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Carregando detalhes do produto...</p>
+  </div>
+</ion-content>
+
+<ion-content *ngIf="!loading && !product" class="ion-padding">
+  <div class="error-container">
+    <ion-icon name="alert-circle-outline" size="large"></ion-icon>
+    <h2>Produto não encontrado</h2>
+    <p>O produto que você está procurando pode ter sido removido ou não existe.</p>
+    <ion-button routerLink="/home" fill="outline">
+      <ion-icon name="home-outline" slot="start"></ion-icon>
+      Voltar ao início
+    </ion-button>
+  </div>
+</ion-content>
+
 <ion-content *ngIf="!loading && product" class="ion-padding">
+  <ion-card *ngIf="product.images?.length">
+    <img [src]="product.images[0].image" class="product-image main-image" />
+  </ion-card>
   <ion-card>
-    <img *ngIf="product.images?.length" [src]="product.images[0].image" class="product-image" />
     <ion-card-header>
       <ion-card-title>{{ product.title }}</ion-card-title>
       <ion-card-subtitle>
-        R$ {{ product.price }} <br>
-        Categoria: {{ product.categoryName || product.category }}
+        <div class="price-info">
+          <span class="price">R$ {{ product.price | number:'1.2-2' }}</span>
+          <span class="views" *ngIf="product.views">{{ product.views }} visualizações</span>
+        </div>
+        <p class="category">{{ product.categoryName || product.category }}</p>
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <p>{{ product.description }}</p>
-      <div style="display: flex; align-items: center; gap: 10px;">
+      <p class="description">{{ product.description }}</p>
+      
+      <div class="seller-info">
         <img [src]="product.user?.profile_image || 'assets/icon/default-profile.png'" alt="Foto de perfil"
-             style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
-        <a [routerLink]="['/profile', product.user?.username]" style="font-weight: bold; color: #a077e7; text-decoration: underline;">
-          {{ product.user?.username || 'Desconhecido' }}
-        </a>
+             class="seller-avatar">
+        <div class="seller-details">
+          <a [routerLink]="['/profile', product.user?.username]" class="seller-name">
+            {{ product.user?.username || 'Desconhecido' }}
+          </a>
+          <div class="seller-stats" *ngIf="product.user?.reputation || product.user?.total_sales">
+            <span class="reputation" *ngIf="product.user?.reputation">
+              ⭐ {{ product.user.reputation | number:'1.1-1' }}
+            </span>
+            <span class="sales" *ngIf="product.user?.total_sales">
+              {{ product.user.total_sales }} vendas
+            </span>
+          </div>
+        </div>
       </div>
-      <p><strong>Localização:</strong> {{ product.city }} / {{ product.state }}</p>
-      <p><strong>Publicado em:</strong> {{ product.created_at | date:'dd/MM/yyyy HH:mm' }}</p>
+      
+      <div class="product-meta">
+        <p><ion-icon name="location-outline"></ion-icon> {{ product.city }}, {{ product.state }}</p>
+        <p><ion-icon name="calendar-outline"></ion-icon> {{ product.created_at | date:'dd/MM/yyyy HH:mm' }}</p>
+      </div>
     </ion-card-content>
   </ion-card>
 
-  <!-- Botões de ação -->
-  <div style="margin-top: 16px;">
+  <ion-card *ngIf="product.specifications">
+    <ion-card-header>
+      <ion-card-title>Especificações</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list lines="inset">
+        <ion-item *ngFor="let spec of objectKeys(product.specifications)">
+          <ion-label>
+            <h3>{{ spec }}</h3>
+            <p>{{ product.specifications[spec] }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="product.shipping">
+    <ion-card-header>
+      <ion-card-title>Entrega</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="shipping-info">
+        <div class="shipping-cost">
+          <ion-icon name="car-outline"></ion-icon>
+          <span *ngIf="product.shipping.free; else paidShipping">
+            <strong>Frete GRÁTIS</strong>
+          </span>
+          <ng-template #paidShipping>
+            <strong>Frete: R$ {{ product.shipping.cost | number:'1.2-2' }}</strong>
+          </ng-template>
+        </div>
+        
+        <div class="shipping-methods" *ngIf="product.shipping.methods?.length">
+          <p><strong>Métodos disponíveis:</strong></p>
+          <ion-chip *ngFor="let method of product.shipping.methods" color="primary" outline="true">
+            {{ method }}
+          </ion-chip>
+        </div>
+        
+        <p class="shipping-time" *ngIf="product.shipping.estimated_days">
+          <ion-icon name="time-outline"></ion-icon>
+          <strong>Prazo:</strong> {{ product.shipping.estimated_days }}
+        </p>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <div class="action-buttons">
     <div *ngIf="!isOwner()">
-      <ion-button color="primary" (click)="goToPurchase()" expand="block">
+      <ion-button color="primary" (click)="goToPurchase()" expand="block" size="large">
         <ion-icon name="cart-outline" slot="start"></ion-icon>
-        Comprar - R$ {{ product.price }}
+        Comprar - R$ {{ product.price | number:'1.2-2' }}
       </ion-button>
       
-      <ion-button color="secondary" fill="outline" expand="block" style="margin-top: 8px;">
+      <ion-button color="secondary" fill="outline" expand="block" class="contact-btn">
         <ion-icon name="chatbubble-outline" slot="start"></ion-icon>
         Falar com vendedor
+      </ion-button>
+      
+      <ion-button color="medium" fill="clear" expand="block" class="favorite-btn">
+        <ion-icon name="heart-outline" slot="start"></ion-icon>
+        Adicionar aos favoritos
       </ion-button>
     </div>
     
     <div *ngIf="isOwner()">
+      <ion-button color="medium" fill="outline" expand="block" class="edit-btn">
+        <ion-icon name="create-outline" slot="start"></ion-icon>
+        Editar anúncio
+      </ion-button>
+      
       <ion-button color="danger" (click)="deleteProduct()" expand="block">
         <ion-icon name="trash-outline" slot="start"></ion-icon>
         Apagar anúncio

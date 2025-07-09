@@ -86,6 +86,38 @@ ion-card:hover {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
 }
 
+ion-card {
+  --background: var(--ion-card-background) !important;
+  --color: var(--ion-color-dark) !important;
+  background: var(--ion-card-background) !important;
+  color: var(--ion-color-dark) !important;
+  
+  ion-card-header {
+    --background: var(--ion-card-background) !important;
+    background: var(--ion-card-background) !important;
+    
+    ion-card-title {
+      color: var(--ion-color-dark) !important;
+    }
+    
+    ion-card-subtitle {
+      color: var(--ion-color-medium) !important;
+    }
+  }
+  
+  ion-card-content {
+    --background: var(--ion-card-background) !important;
+    background: var(--ion-card-background) !important;
+    color: var(--ion-color-dark) !important;
+  }
+}
+
+.product-card {
+  background: var(--ion-card-background) !important;
+  color: var(--ion-color-dark) !important;
+  border: 1px solid var(--ion-color-light-shade) !important;
+}
+
 /* Button enhancements */
 ion-button {
   border-radius: 12px !important;
@@ -225,4 +257,42 @@ ion-textarea:focus-within {
   color: var(--ion-color-danger);
   font-size: 14px;
   margin-top: 4px;
+}
+
+/* Header alignment utilities */
+ion-header {
+  ion-toolbar {
+    .toolbar-container {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+  }
+}
+
+/* Searchbar alignment fixes */
+ion-searchbar {
+  display: flex !important;
+  align-items: center !important;
+  
+  .searchbar-input-container {
+    display: flex !important;
+    align-items: center !important;
+    height: 100% !important;
+  }
+}
+
+/* Menu button alignment fixes */
+ion-menu-button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Force flex alignment for common UI elements */
+.header-content,
+.toolbar-content,
+.nav-content {
+  display: flex !important;
+  align-items: center !important;
 }
