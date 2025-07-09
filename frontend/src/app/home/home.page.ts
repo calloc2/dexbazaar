@@ -1,7 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, MenuController } from '@ionic/angular';
+import { 
+  IonHeader, 
+  IonToolbar, 
+  IonTitle, 
+  IonContent, 
+  IonButton, 
+  IonIcon, 
+  IonSearchbar, 
+  IonChip, 
+  IonLabel, 
+  IonItem, 
+  IonFooter, 
+  IonMenu, 
+  IonMenuButton,
+  MenuController 
+} from '@ionic/angular/standalone';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterModule, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
@@ -29,7 +44,25 @@ import {
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule, HttpClientModule, RouterModule], 
+  imports: [
+    CommonModule, 
+    FormsModule, 
+    HttpClientModule, 
+    RouterModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButton,
+    IonIcon,
+    IonSearchbar,
+    IonChip,
+    IonLabel,
+    IonItem,
+    IonFooter,
+    IonMenu,
+    IonMenuButton
+  ], 
 })
 export class HomePage implements OnInit, OnDestroy {
   products: any[] = [];
@@ -99,6 +132,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.initializeMenu();
     this.loadFeaturedProducts();
     this.loadCategories();
     this.fetchEthereumRate();
@@ -207,6 +241,66 @@ export class HomePage implements OnInit, OnDestroy {
     
     // Chamar o método de filtro real
     this.onCategoryChange(categoryId);
+  }
+
+  // Initialize menu for deployment compatibility
+  async initializeMenu() {
+    try {
+      await this.menu.enable(true, 'main-menu');
+      console.log('Menu initialized and enabled');
+    } catch (error) {
+      console.error('Error initializing menu:', error);
+    }
+  }
+
+  // Manual menu control methods
+  async openMenu() {
+    try {
+      await this.menu.open('main-menu');
+      console.log('Menu opened manually');
+    } catch (error) {
+      console.error('Error opening menu:', error);
+    }
+  }
+
+  async closeMenu() {
+    try {
+      await this.menu.close('main-menu');
+      console.log('Menu closed manually');
+    } catch (error) {
+      console.error('Error closing menu:', error);
+    }
+  }
+
+  async toggleMenu() {
+    try {
+      const isOpen = await this.menu.isOpen('main-menu');
+      if (isOpen) {
+        await this.closeMenu();
+      } else {
+        await this.openMenu();
+      }
+    } catch (error) {
+      console.error('Error toggling menu:', error);
+    }
+  }
+
+  // Test menu functionality
+  async testMenu() {
+    console.log('Testing menu functionality...');
+    try {
+      const isOpen = await this.menu.isOpen();
+      console.log('Menu is open:', isOpen);
+      if (isOpen) {
+        await this.menu.close();
+        console.log('Menu closed');
+      } else {
+        await this.menu.open();
+        console.log('Menu opened');
+      }
+    } catch (error) {
+      console.error('Menu error:', error);
+    }
   }
 
   private applyFilters() {
