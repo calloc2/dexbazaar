@@ -31,7 +31,6 @@ import { LoadingService } from '../services/loading.service';
     HttpClientModule,
     IonContent,
     IonItem,
-    IonLabel,
     IonInput,
     IonButton,
     IonIcon,
