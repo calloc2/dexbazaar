@@ -61,6 +61,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: fit-content;
   
   .desktop-actions {
     display: flex;
@@ -72,6 +73,8 @@
     --background: rgba(255, 255, 255, 0.1);
     --border-radius: var(--radius-md);
     backdrop-filter: blur(10px);
+    width: 40px;
+    height: 40px;
     
     &:hover {
       --background: rgba(255, 255, 255, 0.2);
@@ -79,13 +82,26 @@
     }
     
     ion-icon {
-      font-size: 24px;
+      font-size: 22px;
     }
   }
   
   .menu-btn {
     --color: var(--ion-color-primary-contrast);
-    font-size: 24px;
+    --border-radius: var(--radius-md);
+    backdrop-filter: blur(10px);
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    
+    &:hover {
+      --background: rgba(255, 255, 255, 0.2);
+    }
+    
+    ion-icon {
+      font-size: 20px;
+      color: var(--ion-color-primary-contrast);
+    }
   }
 }
 
@@ -692,12 +708,47 @@
 @media (max-width: 768px) {
   .header-content {
     padding: 8px 12px;
-    gap: 8px;
+    gap: 12px;
   }
   
-  .logo-section .logo {
-    height: 32px;
+  .logo-section {
+    min-width: 0;
+    flex-shrink: 0;
+    
+    .logo {
+      height: 32px;
+    }
+    
+    .logo-text {
+      display: none !important;
+    }
   }
+  
+  .search-section {
+    flex: 1;
+    min-width: 0;
+    
+    .modern-searchbar {
+      width: 100%;
+    }
+  }
+  
+  .actions-section {
+    flex-shrink: 0;
+    gap: 4px;
+    
+    .menu-btn {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      
+      ion-icon {
+        font-size: 18px;
+        color: var(--ion-color-primary-contrast);
+      }
+    }
+  }
+}
   
   .logo-text {
     display: none;
@@ -755,11 +806,36 @@
       }
     }
   }
-}
+
 
 @media (max-width: 480px) {
-  .search-section .modern-searchbar {
-    font-size: 14px;
+  .header-content {
+    padding: 6px 8px;
+    gap: 8px;
+  }
+  
+  .logo-section {
+    display: none !important; // Hide logo completely on very small screens
+  }
+  
+  .search-section {
+    flex: 1;
+    
+    .modern-searchbar {
+      font-size: 14px;
+      --border-radius: 20px;
+    }
+  }
+  
+  .actions-section .menu-btn {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    
+    ion-icon {
+      font-size: 16px;
+      color: var(--ion-color-primary-contrast);
+    }
   }
   
   .carousel-container {
@@ -833,4 +909,23 @@
 
 .product-card:nth-child(3n) {
   animation-delay: 0.2s;
+}
+
+/* ===== UTILITY CLASSES ===== */
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+  
+  .mobile-only {
+    display: block !important;
+  }
 }
