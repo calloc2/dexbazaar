@@ -447,35 +447,87 @@ export class HomePage implements OnInit, OnDestroy {
       this.products = [
         {
           id: '1',
-          title: 'iPhone 13',
-          description: 'Smartphone Apple',
+          title: 'iPhone 13 Pro Max',
+          description: 'Smartphone Apple 256GB, estado de novo, sem riscos. Acompanha carregador original.',
           category: 'eletronicos',
           price: 3000,
-          images: []
+          city: 'São Paulo',
+          state: 'SP',
+          created_at: '2024-12-15T10:30:00Z',
+          user: { username: 'techseller', profile_image: 'https://randomuser.me/api/portraits/men/32.jpg' },
+          images: [
+            { image: 'https://www.apple.com/newsroom/images/product/iphone/geo/Apple_iPhone-13-Pro_iPhone-13-Pro-Max_GEO_09142021_inline.jpg.large.jpg' }
+          ]
         },
         {
           id: '2',
-          title: 'Camiseta Nike',
-          description: 'Camiseta esportiva',
+          title: 'Camiseta Nike Dri-FIT',
+          description: 'Camiseta esportiva Nike original, tamanho M, cor azul. Perfeita para corrida e academia.',
           category: 'roupas',
           price: 150,
-          images: []
+          city: 'Rio de Janeiro',
+          state: 'RJ',
+          created_at: '2024-12-14T15:20:00Z',
+          user: { username: 'sportsfan', profile_image: 'https://randomuser.me/api/portraits/women/45.jpg' },
+          images: [
+            { image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop' }
+          ]
         },
         {
           id: '3',
-          title: 'Livro de JavaScript',
-          description: 'Livro de programação',
+          title: 'JavaScript: O Guia Definitivo',
+          description: 'Livro completo sobre JavaScript, 7ª edição. Ótimo estado de conservação, ideal para programadores.',
           category: 'livros',
           price: 80,
-          images: []
+          city: 'Belo Horizonte',
+          state: 'MG',
+          created_at: '2024-12-13T09:45:00Z',
+          user: { username: 'devbooks', profile_image: 'https://randomuser.me/api/portraits/men/28.jpg' },
+          images: [
+            { image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=400&fit=crop' }
+          ]
         },
         {
           id: '4',
-          title: 'PlayStation 5',
-          description: 'Console de jogos',
+          title: 'PlayStation 5 Console',
+          description: 'Console PS5 novo na caixa, lacrado. Inclui controle DualSense e cabo HDMI. Garantia de 1 ano.',
           category: 'jogos',
           price: 4500,
-          images: []
+          city: 'Porto Alegre',
+          state: 'RS',
+          created_at: '2024-12-12T14:10:00Z',
+          user: { username: 'gamercollector', profile_image: 'https://randomuser.me/api/portraits/men/15.jpg' },
+          images: [
+            { image: 'https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=400&h=400&fit=crop' }
+          ]
+        },
+        {
+          id: '5',
+          title: 'MacBook Air M2',
+          description: 'MacBook Air 2022 com chip M2, 8GB RAM, 256GB SSD. Usado por apenas 3 meses, como novo.',
+          category: 'eletronicos',
+          price: 7500,
+          city: 'Curitiba',
+          state: 'PR',
+          created_at: '2024-12-11T11:30:00Z',
+          user: { username: 'applelover', profile_image: 'https://randomuser.me/api/portraits/women/22.jpg' },
+          images: [
+            { image: 'https://cdn.awsli.com.br/2510/2510599/produto/216199033/macbook-air-136-chip-m2-8gb-512gb-ssd-meia-noite-70a0b805.jpeg' }
+          ]
+        },
+        {
+          id: '6',
+          title: 'Tênis Adidas Ultraboost',
+          description: 'Tênis de corrida Adidas Ultraboost 22, número 42, cor preta. Usado poucas vezes, excelente estado.',
+          category: 'roupas',
+          price: 320,
+          city: 'Salvador',
+          state: 'BA',
+          created_at: '2024-12-10T16:45:00Z',
+          user: { username: 'runnerstore', profile_image: 'https://randomuser.me/api/portraits/men/38.jpg' },
+          images: [
+            { image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=400&fit=crop' }
+          ]
         }
       ];
       this.filteredProducts = [...this.products];
