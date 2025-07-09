@@ -5,7 +5,6 @@ import { addIcons } from 'ionicons';
 import { storefront } from 'ionicons/icons';
 import { LoadingService } from '../../services/loading.service';
 import { Subscription } from 'rxjs';
-import { IonIcon } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-loading',
@@ -16,7 +15,6 @@ import { IonIcon } from '@ionic/angular/standalone';
     CommonModule,
     IonSpinner,
     IonProgressBar,
-    IonIcon,
   ]
 })
 export class LoadingComponent implements OnInit, OnDestroy {
